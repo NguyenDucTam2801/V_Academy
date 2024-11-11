@@ -13,13 +13,15 @@ app.use(express.json());
 // Middleware to parse incoming requests with JSON payloads
 app.use(bodyParser.json());
 
-
 //config .env
 dotenv.config();
 
-
 //test app
 app.get("/", (req, res) => {
+  return res.status(200).send("<h1>Hello World</h1>");
+});
+
+app.post("/", (req, res) => {
   return res.status(200).send("<h1>Hello World</h1>");
 });
 

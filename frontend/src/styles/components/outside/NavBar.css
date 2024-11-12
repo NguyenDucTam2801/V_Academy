@@ -1,0 +1,84 @@
+.navbar {
+  border-bottom: 1px solid #e9ecef;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-style: unset;
+  background-color: #00a9ff;
+  height: 8vh;
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e9ecef;
+}
+
+/* Navigation Links */
+.navbar-list-link ul {
+  font-size: 1.25rem;
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual List Items */
+.navbar-list-link ul li {
+  cursor: pointer;
+  padding: 1rem;
+  transition: all 0.3s;
+}
+
+.navbar-list-link ul li:hover {
+  background-color: #89cff3;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 10px 50px #89cff3;
+}
+
+.navbar-list-link ul li a {
+  color: #e9ecef;
+  text-decoration: none;
+}
+
+/* Login Button */
+.navbar-login {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-left: auto; /* Pushes this section to the right */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+  background-color: #00c3ff;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s;
+}
+
+.navbar-login a {
+  color: #e9ecef;
+  text-decoration: none;
+  margin: auto;
+  padding: 15px;
+
+}
+
+.navbar-login:hover {
+  background-color: #bce7fd;
+  font-size: 1.5rem;
+  box-shadow: 0 10px 50px #bce7fd;
+  border:none;
+}
+
+.navbar-login a:hover {
+  color: #3a3a3a;
+}

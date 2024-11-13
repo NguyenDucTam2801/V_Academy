@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 60vh;
+  height: 75vh;
+  width: 100%;
+  gap: 20px;
 }
 
 .role-box h1 {
@@ -36,15 +38,20 @@
   background-color: #f0f0f0;
   font-size: 2rem;
   width: 150px;
-  border: 1px solid #5cd9ff;
-  background-color: #00c3ff;
+  border: 1px solid #fffc5c;
+  background-color:#ff8800;
+  
   color: #f0f0f0;
-  box-shadow: 0 0px 50px #00c3ff;
+  box-shadow: 0 0px 20px #ffe600;
+  font-weight: bolder;
 }
 
 .active {
   font-weight: bolder;
-  background-color: #9cdcf0;
+  background-color: #0056d6;
+  color: #f0f0f0;
+  border: none;
+  box-shadow: 0 0px 20px #0099ff;
 }
 
 .login-box {
@@ -53,19 +60,151 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  border: 1px solid black;
+  border: 2px solid rgb(255, 255, 255);
   width: 40%;
+  padding: 0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0px 50px #cccccc;
 }
 
 .login-box h1 {
-  font-size: 2.5rem;
-  text-align: center;
+  font-size: 2.3rem;
+  padding: 0;
 }
 
-.login-box form {
+.login-box .form-input {
+  padding: 0 50px;
+}
+
+.form-input {
+  width: 30vw;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-input form {
   display: flex;
   flex-direction: column;
+}
+
+.form-input label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.form-input input[type="email"],
+.form-input .password {
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-input input[type="email"]:hover,
+.form-input .password:hover {
+  border: 2px solid #000000;
+  font-size: 1.5rem;  
+}
+
+.form-input input[type="email"]:focus,
+.form-input .password:focus {
+  border: 2px solid #000000;
+  font-size: 1.3rem;
+  box-shadow: 0 0px 20px #00c3ff;
+  background-color: rgba(0, 204, 255, 0.1);
+}
+
+.form-input input[type="submit"] {
+  padding: 10px;
+  background-color: #0c4dff;
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form-input input[type="submit"]:hover {
+  font-size: 2rem;
+  border-radius: 15px;
+  font-weight: bolder;
+  background-color: #ff8800;
+  border: 2px solid #ffbe5c;
+}
+
+.form-input input[type="submit"]:active {
+  background-color: #00ccff;
+  box-shadow:0px 0px 20px #00ccff;
+  color: #1d1d1d;
+  font-size: 2rem;
+  border: 3px solid #000000;
+  box-shadow: none;
+}
+
+.password-visibility{
+  display: flex;
   justify-content: start;
-  align-items: start;
-  gap: 1rem;
+  align-items: center;
+  gap: 10px;
+  font-size: large;
+  text-align: left;
+}
+
+.password-visibility p{
+  font-size: 1.2rem;
+  margin: 0;
+  transition: all 0.3s;
+}
+
+
+.password-visibility input[type="checkbox"]{
+  cursor: pointer;
+  transform: scale(1.5);
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  transition:all 0.3s;
+}
+
+.password-visibility:hover input[type="checkbox"],
+.password-visibility:hover input[type="checkbox"]:checked
+{
+  transform: scale(2);
+
+}
+
+.password-visibility:hover p{
+  font-size: 1.5rem;
+}
+
+.form-input br {
+  display: none;
+}
+
+.forgot-password{
+  margin-bottom: 20px;
+}
+
+.forgot-password a{
+  text-decoration: none;
+  color: #0084ff;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.forgot-password a:hover{
+  font-size: 1.5rem;
+  text-decoration: underline;
+  color: #ff8800;
+}
+
+.forgot-password a:active{
+  color: #1900ff;
+  font-size: 1.5rem;
 }

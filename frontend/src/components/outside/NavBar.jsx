@@ -1,11 +1,13 @@
 import React from "react";
 import "../../styles/components/outside/NavBar.css";
+import logo from "../../assets/logo.png"
 
 export const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <h1>V-Academy</h1>
+      <img src={logo} alt="logo" className="logo" />
+        <a href="/homepage"> Academy</a>
       </div>
       <div className="navbar-list-link">
         <ul className="navbar-links">

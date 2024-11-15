@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
+import Footer from "../components/outside/Footer";
 
 export const LoginPage = () => {
   const roles = ["Student", "Turtor", "Admission"];
@@ -85,6 +86,7 @@ export const LoginPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

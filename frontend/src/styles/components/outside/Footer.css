@@ -1,0 +1,147 @@
+.footer {
+    background-color: #ffffff;
+    display: flex;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    margin-top: 10px;
+    border-top: #000000;
+    border-top-width: 1px;
+    border-top-style: solid;
+    
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer-description, .footer-contactInfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+}
+
+.footer-description {
+    text-align: left;
+    max-width: 50%;
+    margin-bottom: 0px;
+    padding-top: 30px;
+}
+
+.footer-description p {
+    margin-left: -160px;
+    font-size: small;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.footer-contactInfo {
+    margin-top: -100px;
+    text-align: right;
+    max-width: 50%;
+    margin-right: -500px;
+    margin-bottom: 0px;
+    padding-top: 120px;
+}
+
+.footer-contactInfo p {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.footer-contactInfo img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    padding-left: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.footer-copyright {
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+  padding-top: 150px;
+  padding-left: 1000px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 30px;
+  font-size: 1.5rem;
+  color: #1d1d1d;
+  padding-top: 150px;
+  margin-left: -980px;
+}
+
+.social-icon {
+  width: 15px;
+  cursor: pointer;
+}
+
+.social-icon:hover {
+  color: #555;
+}
+
+/* Logo */
+.footer-logo {
+    font-weight: 500;
+    color: #e9ecef;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width:fit-content;
+    margin-left: 120px;
+    transition: all 0.3s;
+    margin-top: -90px;
+    margin-bottom: 0px;
+    position: relative;
+    padding-left: 50px;
+  }
+  
+  .footer-logo a{
+    text-decoration: none;
+    color: #000000;
+    margin-right: 10px;
+    transition: all 0.3s;
+    font-size: 1.5rem;
+    position: relative;
+  }
+  
+  .footer-logo:hover{
+    background-color: #ffffff;
+    transform: scale(1.15);
+  }
+  
+  .footer-logo:hover a{
+    color: #000000;
+    transform: scale(1.15);
+  }
+  
+  .footer-logo:hover .logo{
+    width: 60px;
+    height: 60px;
+    margin:0;
+  }
+  
+  .logo{
+    width: 50px;
+    height: 50px;
+    margin: 0 5px 0 0 ;
+    border-radius: 50%; 
+    transition: all 0.2s;
+  }
+
+ 

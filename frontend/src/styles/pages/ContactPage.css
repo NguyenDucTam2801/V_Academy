@@ -1,0 +1,80 @@
+.register-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 50px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 1px solid #666;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.register-container h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.register-container p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increase gap between form sections */
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Round edges */
+    background-color: #f9f9f9; /* Light background */
+}
+
+.form-group textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #00a9ff;
+    color: #070707;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #666;
+    color: #fff;
+}

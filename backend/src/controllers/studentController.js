@@ -325,7 +325,7 @@ module.exports = {
   studentUpdate,
   studentGetInfo,
   studentGetClass,
-  studentGetLessonClass,
+  studentGetLessonClass,    
   studentGetClassDetail,
   studentGetLessonDetail,
 };

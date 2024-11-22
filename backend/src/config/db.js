@@ -11,12 +11,12 @@ var db = mysql.createConnection({
 
 db.connect(function (err) {
   if (err) {
-    console.log(err.code);
-    console.log(err.fatal);
+    console.log("DB "+err.code);
+    console.log("DB "+err.fatal);
     return;
-  }
+  } 
 
-  console.log("Connected!");
+  console.log("DB Connected!");
 });
 
 // $query = "SELECT * FROM student";

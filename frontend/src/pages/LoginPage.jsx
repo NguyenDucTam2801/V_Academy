@@ -3,12 +3,19 @@ import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
 import Footer from "../components/outside/Footer";
-
+import { logInAPI } from "../api/auth/LogIn";
 export const LoginPage = () => {
   const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
-  const [role, setRole] = useState(roles[2]);
+  const [role, setRole] = useState(roles[0]);
+  const [formData, setFormData] = useState({
+    role: role,
+    email: "",
+    password: "",
+  });
+
+  const [message, setMessage] = useState("");
   const [passwordFieldType, setPasswordFieldType] = useState(
     passwordFieldTypeList[0]
   );
@@ -25,25 +32,44 @@ export const LoginPage = () => {
     setPasswordFieldType(passwordFieldTypeList[passordVisibility ? 0 : 1]);
   };
 
+  const handleChangeForm = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleChangeRole = (e) => {
+    setRole(e.target.value);
+    setFormData({ ...formData, role: e.target.value });
+  };
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const response = logInAPI(formData);
+    if (response.success) {
+      setMessage(response.message);
+    } else {
+      setMessage("An unexpected error occurred");
+    }
+  };
   return (
     <div>
       <NavBar />
-      <div className="container" style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}>
+      <div
+        className="login-container"
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "repeat",
+        }}
+      >
         <div className="role-box">
           <h1>You are</h1>
           <ul className="role-list">
             {roles.map((r, i) => {
-              console.log(role, r);
               return (
                 <li
                   key={i}
                   className={role === r ? `${r} active` : r}
-                  onClick={() => setRole(r)}
+                  onClick={() => handleChangeRole({ target: { value: r } })}
                 >
                   {r}
                 </li>
@@ -54,16 +80,25 @@ export const LoginPage = () => {
         <div className="login-box">
           <h1>Login {role}</h1>
           <div className="input-box">
-            <div class="form-input">
-              <form action="/login" method="post">
+            <div className="form-input">
+              <form onSubmit={handleSignIn} method="post">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" required />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  className="email"
+                  onChange={handleChangeForm}
+                  required
+                />
                 <br />
                 <label htmlFor="password">Password</label>
                 <input
                   type={passwordFieldType}
                   name="password"
                   className="password"
+                  value={formData.password}
+                  onChange={handleChangeForm}
                   required
                 />
                 <div className="password-visibility">
@@ -76,17 +111,13 @@ export const LoginPage = () => {
                 </div>
                 <br />
                 <input type="submit" value="Login" />
+                {message && <p>{message}</p>}
               </form>
             </div>
           </div>
-          <div className="forgot-password">
-            <a href="/forgot-password">
-              Forgot password? <b>Click Here</b>
-            </a>
-          </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

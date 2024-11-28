@@ -1,11 +1,12 @@
-.container {
+.login-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: start;
   align-items: center;
   height: 75vh;
-  width: 100%;
   gap: 20px;
+  background-color: #00fde8;
+  margin:0;
 }
 
 .role-box h1 {
@@ -39,8 +40,8 @@
   font-size: 2rem;
   width: 150px;
   border: 1px solid #fffc5c;
-  background-color:#ff8800;
-  
+  background-color: #ff8800;
+
   color: #f0f0f0;
   box-shadow: 0 0px 20px #ffe600;
   font-weight: bolder;
@@ -107,7 +108,7 @@
 .form-input input[type="email"]:hover,
 .form-input .password:hover {
   border: 2px solid #000000;
-  font-size: 1.5rem;  
+  font-size: 1.5rem;
 }
 
 .form-input input[type="email"]:focus,
@@ -128,6 +129,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
+  margin-bottom: 40px;
 }
 
 .form-input input[type="submit"]:hover {
@@ -140,14 +142,14 @@
 
 .form-input input[type="submit"]:active {
   background-color: #00ccff;
-  box-shadow:0px 0px 20px #00ccff;
+  box-shadow: 0px 0px 20px #00ccff;
   color: #1d1d1d;
   font-size: 2rem;
   border: 3px solid #000000;
   box-shadow: none;
 }
 
-.password-visibility{
+.password-visibility {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -156,30 +158,27 @@
   text-align: left;
 }
 
-.password-visibility p{
+.password-visibility p {
   font-size: 1.2rem;
   margin: 0;
   transition: all 0.3s;
 }
 
-
-.password-visibility input[type="checkbox"]{
+.password-visibility input[type="checkbox"] {
   cursor: pointer;
   transform: scale(1.5);
   position: relative;
   display: inline-block;
   top: 2px;
-  transition:all 0.3s;
+  transition: all 0.3s;
 }
 
 .password-visibility:hover input[type="checkbox"],
-.password-visibility:hover input[type="checkbox"]:checked
-{
+.password-visibility:hover input[type="checkbox"]:checked {
   transform: scale(2);
-
 }
 
-.password-visibility:hover p{
+.password-visibility:hover p {
   font-size: 1.5rem;
 }
 
@@ -187,24 +186,24 @@
   display: none;
 }
 
-.forgot-password{
+.forgot-password {
   margin-bottom: 20px;
 }
 
-.forgot-password a{
+.forgot-password a {
   text-decoration: none;
   color: #0084ff;
   font-size: 1.2rem;
   transition: all 0.3s;
 }
 
-.forgot-password a:hover{
+.forgot-password a:hover {
   font-size: 1.5rem;
   text-decoration: underline;
   color: #ff8800;
 }
 
-.forgot-password a:active{
+.forgot-password a:active {
   color: #1900ff;
   font-size: 1.5rem;
 }

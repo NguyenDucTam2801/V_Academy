@@ -2,9 +2,10 @@ import React from 'react'
 import { NavBar } from '../components/outside/NavBar'
 import "../styles/pages/HomePage.css";
 import introImage from "../assets/img-7.jpg"
-import mathIcon from "../assets/math_icon.png"
+// import mathIcon from "../assets/math_icon.png"
 import engIcon from "../assets/english_icon.png"
 import Footer from '../components/outside/Footer';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   return (
@@ -25,7 +26,7 @@ function HomePage() {
               <div className="text-section">
                   <h1>Welcome to V-Academy!</h1>
                   <p>Welcome to V_Academy – where learning meets excellence! At V_Academy, we believe in unlocking every student's potential by making education accessible, engaging, and empowering. We offer focused courses in Math and English, designed to meet you at your current skill level and guide you to mastery. Whether you’re building foundational skills or advancing your knowledge, our dedicated team is here to support you at every step. Join a community that values growth, curiosity, and the power of knowledge. Start your learning journey with us and watch yourself succeed!</p>
-                  <a href='/Contact'><button className="register-button">Register</button></a>
+                  <a href='/Contact_page'><button className="register-button">Register</button></a>
               </div>
             </div>
         </div>
@@ -34,14 +35,18 @@ function HomePage() {
         <div className="courseFrame-container">
           <h1>Our Courses</h1>
           <div className="course-cards">
-            <div className="course-card">
-                <img src={mathIcon} alt='math icon'/>
-              <span>Math</span>
-            </div>
-            <div className="course-card">
-                <img src={engIcon} alt='english icon'/>
-              <span>English</span>
-            </div>
+            {/* <Link to="/mathCourse_info_page" className='link'>
+              <div className="course-card">
+                  <img src={mathIcon} alt='math icon'/>
+                  <span>Math</span>
+              </div>
+            </Link> */}
+            <Link to="/englishCourse_info_page" className='link'>
+              <div className="course-card">
+                  <img src={engIcon} alt='english icon'/>
+                <span>English</span>
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -82,7 +87,7 @@ function HomePage() {
                 </div>
               </div>
             </div>
-            <button className="register-btn"><a href='/Contact'>Register</a></button>
+            <button className="register-btn"><a href='/Contact_page'>Register</a></button>
           </div>
         </div>
 

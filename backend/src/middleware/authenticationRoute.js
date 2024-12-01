@@ -13,6 +13,35 @@ function createTokenStudent(user) {
     id: user.student_id,
     name: user.student_name,
     email: user.student_email,
+    role: "student",
+  };
+
+  // Sign the token with an expiration time (1 hour in this case)
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
+  return token;
+}
+
+function createTokenAdmission(user) {
+  // Payload contains essential user data (id, role, name, etc.)
+  const payload = {
+    id: user.admission_id,
+    name: user.admission_name,
+    email: user.admission_email,
+    role: "admission",
+  };
+
+  // Sign the token with an expiration time (1 hour in this case)
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
+  return token;
+}
+
+function createTokenTutor(user) {
+  // Payload contains essential user data (id, role, name, etc.)
+  const payload = {
+    id: user.admission_id,
+    name: user.admission_name,
+    email: user.admission_email,
+    role: "tutor",
   };
 
   // Sign the token with an expiration time (1 hour in this case)
@@ -93,7 +122,9 @@ async function comparePasswords(plainPassword, hashedPassword) {
 
 // Export the utility functions
 module.exports = {
+  createTokenAdmission,
   createTokenStudent,
+  createTokenTutor,
   verifyToken,
   hashPassword,
   comparePasswords,

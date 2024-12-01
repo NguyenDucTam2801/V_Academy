@@ -101,16 +101,11 @@ const updateTutorInfo = (tutor_id, tutorData) => {
 };
 const addLesson = (lessonData) => {
   return new Promise((resolve, reject) => {
-    const sql = `
-      INSERT INTO lesson (lesson_topic, tutor_id, lesson_descript, lesson_note, lesson_url)
-      VALUES (?, ?, ?, ?, ?)
-    `;
-    
+    const sql = "INSERT INTO `lesson` ( `lesson_topic`, `lesson_descript`, `lesson_note`, `lesson_url`, `lesson_startTime`) VALUES (?, ?, ?, ?, ?)";
     db.query(
       sql,
       [
         lessonData.lesson_topic,
-        lessonData.tutor_id,
         lessonData.lesson_descript,
         lessonData.lesson_note || null,  // Optional fields, if no value is provided, null is used
         lessonData.lesson_url || null,   // Optional fields, if no value is provided, null is used

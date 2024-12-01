@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/admissionSignIn", admissionController.admissionSignIn);
 router.put("/admissionUpdate", verifyToken, admissionController.admissionUpdate);
 router.get("/admissionInfo/:id", verifyToken, admissionController.admissionGetInfo);
-router.get("/admissionApplications/:id", verifyToken, admissionController.admissionGetApplications);
-router.get("/admissionApplicationDetail/:application_id", verifyToken, admissionController.admissionGetApplicationDetail);
+// router.get("/admissionApplications/:id", verifyToken, admissionController.admissionGetApplications);
+// router.get("/admissionApplicationDetail/:application_id", verifyToken, admissionController.admissionGetApplicationDetail);
 
 module.exports = router;

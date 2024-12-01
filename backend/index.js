@@ -32,5 +32,5 @@ app.listen(port, () => {
 //routes
 app.use("/api/students", require("./src/routes/studentRoutes"));
 app.use("/api/tutor", require("./src/routes/admissionRoute"));
-app.use("/api/admission", require("./src/routes/tutorRoute"));
+// app.use("/api/admission", require("./src/routes/tutorRoute"));
 

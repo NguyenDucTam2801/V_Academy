@@ -1,5 +1,6 @@
 const db = require("../config/db");
 const {
+  TutorCreate,
   TutorList,
   signInTutor,
   validatePassword,
@@ -55,7 +56,7 @@ const tutorSignIn = async (req, res) => {
     });
   }
 };
-  
+
 const tutorUpdate = (req, res) => {
   const tutorInfo = req.body;
 
@@ -85,11 +86,23 @@ const tutorGetInfo = (req, res) => {
   });
 };
 const createLesson = async (req, res) => {
-  const { lesson_topic, tutor_id, lesson_descript, lesson_note, lesson_url, lesson_startTime } = req.body;
+  const {
+    lesson_topic,
+    tutor_id,
+    lesson_descript,
+    lesson_note,
+    lesson_url,
+    lesson_startTime,
+  } = req.body;
 
   // Check for required fields
   if (!lesson_topic || !tutor_id || !lesson_descript) {
-    return res.status(400).json({ error: 'Missing required fields: lesson_topic, tutor_id, or lesson_descript' });
+    return res
+      .status(400)
+      .json({
+        error:
+          "Missing required fields: lesson_topic, tutor_id, or lesson_descript",
+      });
   }
 
   try {
@@ -104,13 +117,13 @@ const createLesson = async (req, res) => {
     });
     // Respond with success message
     return res.status(201).json({
-      message: 'Lesson added successfully',
+      message: "Lesson added successfully",
       data: result,
     });
   } catch (err) {
     // Respond with error if the lesson creation fails
-    console.error('Error adding lesson:', err);
-    return res.status(500).json({ error: 'Failed to add lesson' });
+    console.error("Error adding lesson:", err);
+    return res.status(500).json({ error: "Failed to add lesson" });
   }
 };
 
@@ -119,15 +132,15 @@ const getNewest = async (req, res) => {
   try {
     const lesson = await getNewestLesson();
     if (!lesson) {
-      return res.status(404).json({ message: 'No lessons found' });
+      return res.status(404).json({ message: "No lessons found" });
     }
     return res.status(200).json({
-      message: 'Newest lesson fetched successfully',
+      message: "Newest lesson fetched successfully",
       data: lesson,
     });
   } catch (err) {
-    console.error('Error fetching newest lesson:', err);
-    return res.status(500).json({ error: 'Failed to fetch newest lesson' });
+    console.error("Error fetching newest lesson:", err);
+    return res.status(500).json({ error: "Failed to fetch newest lesson" });
   }
 };
 
@@ -137,26 +150,130 @@ const addLessonToClassController = async (req, res) => {
 
   // Check for required fields
   if (!classId || !lessonId) {
-    return res.status(400).json({ error: 'Missing classId or lessonId' });
+    return res.status(400).json({ error: "Missing classId or lessonId" });
   }
 
   try {
     // Call the addLessonToClass function
     const result = await addLessonToClass(classId, lessonId);
     return res.status(201).json({
-      message: 'Lesson added to class successfully',
+      message: "Lesson added to class successfully",
       data: result,
     });
   } catch (err) {
-    console.error('Error adding lesson to class:', err);
-    return res.status(500).json({ error: 'Failed to add lesson to class' });
+    console.error("Error adding lesson to class:", err);
+    return res.status(500).json({ error: "Failed to add lesson to class" });
+  }
+};
+
+// Controller to get the details of a specific lesson for a tutor
+const getTutorLessonDetailController = async (req, res) => {
+  const { lesson_id } = req.params;
+
+  try {
+    const lessonDetail = await getTutorLessonDetail(lesson_id);
+
+    if (!lessonDetail) {
+      return res.status(404).json({ message: "Lesson not found" });
+    }
+
+    return res.status(200).json({
+      message: "Lesson detail fetched successfully",
+      data: lessonDetail,
+    });
+  } catch (err) {
+    console.error("Error fetching lesson detail:", err);
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch lesson detail", details: err.message });
+  }
+};
+
+// Controller to get the details of a specific class for a tutor
+const getTutorClassDetailController = async (req, res) => {
+  const { class_id } = req.params;
+
+  try {
+    const classDetail = await getTutorClassDetail(class_id);
+
+    if (!classDetail) {
+      return res.status(404).json({ message: "Class not found" });
+    }
+
+    return res.status(200).json({
+      message: "Class detail fetched successfully",
+      data: classDetail,
+    });
+  } catch (err) {
+    console.error("Error fetching class detail:", err);
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch class detail", details: err.message });
+  }
+};
+
+// Controller to get the classes associated with a tutor
+const getTutorClassController = async (req, res) => {
+  const { tutor_id } = req.params;
+
+  try {
+    const classes = await getTutorClass(tutor_id);
+
+    if (!classes || classes.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No classes found for this tutor" });
+    }
+
+    return res.status(200).json({
+      message: "Classes fetched successfully",
+      data: classes,
+    });
+  } catch (err) {
+    console.error("Error fetching classes:", err);
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch classes", details: err.message });
+  }
+};
+
+// Controller to get the lessons associated with a class for a tutor
+const getTutorLessonClassController = async (req, res) => {
+  const { class_id } = req.params;
+
+  try {
+    const lessons = await getTutorLessonClass(class_id);
+
+    if (!lessons || lessons.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No lessons found for this class" });
+    }
+
+    return res.status(200).json({
+      message: "Lessons for class fetched successfully",
+      data: lessons,
+    });
+  } catch (err) {
+    console.error("Error fetching lessons for class:", err);
+    return res
+      .status(500)
+      .json({
+        error: "Failed to fetch lessons for class",
+        details: err.message,
+      });
   }
 };
 
 module.exports = {
+  getTutorClassController,
+  getTutorClassDetailController,
+  getTutorLessonClassController,
+  getTutorLessonDetailController,
   tutorSignIn,
   tutorUpdate,
   tutorGetInfo,
-  createLesson,addLessonToClassController,
-  getNewest
+  createLesson,
+  addLessonToClassController,
+  getNewest,
 };

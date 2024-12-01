@@ -8,10 +8,10 @@ const router = express.Router();
 router.post("/tutorSignIn", tutorController.tutorSignIn);
 router.put("/tutorUpdate", verifyToken, tutorController.tutorUpdate);
 router.get("/tutorInfo/:id", verifyToken, tutorController.tutorGetInfo);
-// router.get("/tutorClass/:id", verifyToken, tutorController.tutorGetClass);
-router.get("/tutorLessonClass/:class_id", verifyToken, tutorController.tutorGetLessonClass);
-router.get("/tutorClassDetail/:class_id", verifyToken, tutorController.tutorGetClassDetail);
-router.get("/tutorLessonDetail/:lesson_id", verifyToken, tutorController.tutorGetLessonDetail);
+router.get("/tutorClass/:id", verifyToken, tutorController.getTutorClassController);
+router.get("/tutorLessonClass/:class_id", verifyToken, tutorController.getTutorLessonClassController);
+router.get("/tutorClassDetail/:class_id", verifyToken, tutorController.getTutorClassDetailController);
+router.get("/tutorLessonDetail/:lesson_id", verifyToken, tutorController.getTutorLessonDetailController);
 // Route to add a new lesson
 router.post('/lesson', tutorController.createLesson);
   // Route to get the newest lesson

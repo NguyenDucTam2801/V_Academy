@@ -526,6 +526,16 @@ ALTER TABLE `tutor`
 ALTER TABLE `tutor_account`
   ADD CONSTRAINT `tutor_id_fk` FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`);
 COMMIT;
+DELIMITER $$
+CREATE TRIGGER `set_end_time` BEFORE INSERT ON `lesson` FOR EACH ROW BEGIN
+    -- Check if startTime is provided
+    IF NEW.lesson_startTime IS NOT NULL THEN
+        -- Add 1 hour to startTime and set it as endTime
+        SET NEW.lesson_endTime = DATE_ADD(NEW.lesson_startTime, INTERVAL 1 HOUR);
+    END IF;
+END
+$$
+DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

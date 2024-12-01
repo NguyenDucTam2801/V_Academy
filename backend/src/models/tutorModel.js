@@ -99,8 +99,77 @@ const updateTutorInfo = (tutor_id, tutorData) => {
     );
   });
 };
+const addLesson = (lessonData) => {
+  return new Promise((resolve, reject) => {
+    const sql = `
+      INSERT INTO lesson (lesson_topic, tutor_id, lesson_descript, lesson_note, lesson_url)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+    
+    db.query(
+      sql,
+      [
+        lessonData.lesson_topic,
+        lessonData.tutor_id,
+        lessonData.lesson_descript,
+        lessonData.lesson_note || null,  // Optional fields, if no value is provided, null is used
+        lessonData.lesson_url || null,   // Optional fields, if no value is provided, null is used
+        lessonData.lesson_startTime,
+      ],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+const getNewestLesson = () => {
+  return new Promise((resolve, reject) => {
+    const sql = `
+      SELECT * FROM lesson
+      ORDER BY lesson_id DESC
+      LIMIT 1
+    `;
+    db.query(sql, (err, result) => {
+      if (err) {
+        return reject(err);  // Reject if there's a database error
+      }
+      // If no lessons are found, resolve with null
+      if (result.length === 0) {
+        return resolve(null);
+      }
+      // Otherwise, resolve with the newest lesson
+      return resolve(result[0]);
+    });
+  });
+};
+const addLessonToClass = (classId, lessonId) => {
+  return new Promise((resolve, reject) => {
+    // SQL query to insert a record into the class_lesson table
+    const sql = `
+      INSERT INTO class_lesson (class_id, lesson_id) 
+      VALUES (?, ?)
+    `;
+    // Execute the query
+    db.query(sql, [classId, lessonId], (err, result) => {
+      if (err) {
+        // Reject promise if there's an error with the query
+        return reject(err);
+      }
+      // Resolve with the result if the insert is successful
+      return resolve(result);
+    });
+  });
+};
+
 
 module.exports = {
+  addLessonToClass,
+  addLesson,
+  getNewestLesson,
   TutorCreate,
   TutorList,
   signInTutor,

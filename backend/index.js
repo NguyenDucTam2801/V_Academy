@@ -18,13 +18,12 @@ dotenv.config();
 
 //test app
 app.get("/", (req, res) => {
-  return res.status(200).send("<h1>Hello World</h1>");
+  return res.status(200).send("<p><b>Hello World</b></p>");
 });
 
 app.post("/", (req, res) => {
-  return res.status(200).send("<h1>Hello World</h1>");
+  return res.status(200).send("<p><b>Hello World</b></p>");
 });
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`.bgMagenta.white);
 });
@@ -32,4 +31,6 @@ app.listen(port, () => {
 
 //routes
 app.use("/api/students", require("./src/routes/studentRoutes"));
+app.use("/api/tutor", require("./src/routes/admissionRoute"));
+app.use("/api/admission", require("./src/routes/tutorRoute"));
 

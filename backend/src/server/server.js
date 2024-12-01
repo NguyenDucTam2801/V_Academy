@@ -1,29 +1,36 @@
-require("dotenv").config();
 const express = require("express");
-const authController = require("../controllers/authController");
-const userController = require("../controllers/userController");
-const authorize = require("./authMiddleware");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const morgan = require("morgan");
+const db = require("./../config/db");
+const bodyParser = require("body-parser");
 
 const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(morgan("dev"));
 app.use(express.json());
+// Middleware to parse incoming requests with JSON payloads
+app.use(bodyParser.json());
 
-// Routes xác thực
-app.post("/api/auth/login", authController.login);
-app.post("/api/auth/refresh-token", authController.refreshToken);
+//config .env
+dotenv.config();
 
-// Routes người dùng
-app.put("/api/auth/update-password", authorize(["user", "tutor", "admission"]), userController.updatePassword);
-app.get("/api/users", authorize(["admission"]), userController.getAllUsers);
-
-// Các route được bảo vệ
-app.get("/api/protected/tutor-admission", authorize(["tutor", "admission"]), (req, res) => {
-  res.json({ message: "Welcome, authorized tutor or admission user!" });
+//test app
+app.get("/", (req, res) => {
+  return res.status(200).send("<p><b>Hello World</b></p>");
 });
 
-app.get("/api/protected/user", authorize(["user"]), (req, res) => {
-  res.json({ message: "Welcome, authorized regular user!" });
+app.post("/", (req, res) => {
+  return res.status(200).send("<p><b>Hello World</b></p>");
+});
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`.bgMagenta.white);
 });
 
-// Khởi động server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+//routes
+app.use("/api/students", require("./../routes/studentRoutes"));
+app.use("/api/students", require("./../routes/admissionRoute"));
+app.use("/api/students", require("./../routes/tutorRoute"));
+

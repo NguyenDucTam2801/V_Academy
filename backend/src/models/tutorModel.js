@@ -134,13 +134,79 @@ const addLessonToClass = (classId, lessonId) => {
     });
   });
 };
+const getTutorClass = (tutor_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM class WHERE tutor_id =?";
+    console.log("[TutorModel] Getting tutor's class", tutor_id);
+    db.query(sql, [tutor_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("Tutor's class not found"));
+      }
+      return resolve(result); // Return all classes the tutor is teaching
+    });
+  });
+};
 
+const getTutorLessonClass = (class_id) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT * FROM `lesson` LEFT JOIN class_lesson ON class_lesson.lesson_id = lesson.lesson_id WHERE class_lesson.class_id = ?";
+    console.log("[TutorModel] Getting tutor's lesson for class", class_id);
+    db.query(sql, [class_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("No lessons found for this class"));
+      }
+      return resolve(result); // Return lessons in the specified class
+    });
+  });
+};
+
+const getTutorClassDetail = (class_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM class WHERE class_id = ?";
+    console.log("[TutorModel] Getting class detail for tutor", class_id);
+    db.query(sql, [class_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("Class not found"));
+      }
+      return resolve(result[0]);
+    });
+  });
+};
+
+const getTutorLessonDetail = (lesson_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM lesson WHERE lesson_id = ?";
+    console.log("[TutorModel] Getting lesson detail for tutor", lesson_id);
+    db.query(sql, [lesson_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("Lesson not found"));
+      }
+      return resolve(result[0]); // Return details of the specific lesson
+    });
+  });
+};
 
 module.exports = {
+  getTutorLessonDetail,
+  getTutorClassDetail,
+  getTutorClass,
+  getTutorLessonClass,
   addLessonToClass,
   addLesson,
   getNewestLesson,
-  TutorCreate,
   TutorList,
   signInTutor,
   getTutorInfo,

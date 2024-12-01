@@ -3,7 +3,6 @@ import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
 import Footer from "../components/outside/Footer";
-import { logInAPI } from "../api/auth/LogIn";
 export const LoginPage = () => {
   const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
@@ -42,7 +41,6 @@ export const LoginPage = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const response = logInAPI(formData);
     if (response.success) {
       setMessage(response.message);
     } else {

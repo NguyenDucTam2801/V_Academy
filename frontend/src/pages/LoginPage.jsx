@@ -1,4 +1,4 @@
-import React, { useState, useNavigate, useEffect, userRef } from "react";
+import React, { useState, useNavigate, useEffect, useRef, useContext } from "react";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
@@ -10,6 +10,9 @@ import AlertStatus from "../components/alert/AlertStatus";
 import { set } from "react-hook-form";
 
 export const LoginPage = () => {
+  const userRef = useRef();
+  const { setAuth } = useContext(AuthContext);
+
   const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
@@ -61,11 +64,56 @@ export const LoginPage = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const response = formData;
-    if (response.success) {
-      setMessage(response.message);
-    } else {
-      setMessage("An unexpected error occurred");
+
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({
+          username: formData.email,
+          password: formData.password,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      localStorage.setItem("token", JSON.stringify(response?.data?.token));
+      localStorage.setItem("user", JSON.stringify(response?.data?.user));
+      setSuccess(true);
+      setMessage("You logged in.");
+      setShowMessage(true);
+      console.log(JSON.stringify(response?.data?.token));
+      console.log(JSON.stringify(response));
+
+      // setAuth({
+      //   userName: accessToken.userName,
+      //   password: accessToken.password,
+      //   role,
+      //   accessToken,
+      // });
+      setFormData({
+        role: roles[0],
+        email: "",
+        password: "",
+      });
+    } catch (err) {
+      if (err?.response) {
+        setMessage("Login Error");
+        console.log(err.response);
+        setSuccess(false);
+      } else if (err.response?.status === 400) {
+        setMessage("Invalid credentials");
+        console.log(err.response);
+
+        setSuccess(false);
+      } else if (err.response?.status === 404) {
+        console.log(err.response);
+
+        setMessage("User not found");
+        setSuccess(false);
+      }
+
+      setShowMessage(true);
     }
   };
 

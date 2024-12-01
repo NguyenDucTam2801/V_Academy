@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
 import Footer from "../components/outside/Footer";
+import { studentURL, tutorURL, admissionURL } from "../api/axios";
+import AuthContext from "../context/AuthProvider";
+import axios from "axios";
+
 export const LoginPage = () => {
+  const userRef = useRef();
+  const errRef = useRef();
+  const { setAuth } = useContext(AuthContext);
+
   const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
@@ -13,6 +21,14 @@ export const LoginPage = () => {
     email: "",
     password: "",
   });
+
+  const LOGIN_URL =
+    role === "Student"
+      ? "http://localhost:3001/api/students/studentSignIn"
+      : role === "Turtor"
+      ? "http://localhost:3001/api/tutor/tutorSignIn"
+      : "http://localhost:3001/api/admissions/admissionSignIn";
+  const [success, setSuccess] = useState(false);
 
   const [message, setMessage] = useState("");
   const [passwordFieldType, setPasswordFieldType] = useState(
@@ -39,12 +55,59 @@ export const LoginPage = () => {
     setFormData({ ...formData, role: e.target.value });
   };
 
+  useEffect(() => {
+    // userRef.current.focus();
+    console.log(LOGIN_URL);
+  }, []);
+
+  useEffect(() => {
+    setMessage("");
+  }, [formData]);
+
   const handleSignIn = async (e) => {
     e.preventDefault();
-    if (response.success) {
-      setMessage(response.message);
-    } else {
-      setMessage("An unexpected error occurred");
+
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({
+          username: formData.email,
+          password: formData.password,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      localStorage.setItem("token", JSON.stringify(response?.data?.token));
+
+      console.log(JSON.stringify(response?.data?.token));
+      console.log(JSON.stringify(response));
+      const accessToken = response?.data?.tzoken;
+      const roles = response?.data?.roles;
+      setAuth({
+        userName: accessToken.userName,
+        password: accessToken.password,
+        role,
+        accessToken,
+      });
+      setFormData({
+        role: roles[0],
+        email: "",
+        password: "",
+      });
+      setSuccess(true);
+      setMessage(accessToken);
+      return;
+    } catch (err) {
+      if (err?.response) {
+        setMessage("Login Error");
+      } else if (err.response?.status === 400) {
+        setMessage("Invalid credentials");
+      } else if (err.response?.status === 404) {
+        setMessage("User not found");
+      }
+      // errRef.current.focus();
     }
   };
   return (
@@ -82,6 +145,7 @@ export const LoginPage = () => {
               <form onSubmit={handleSignIn} method="post">
                 <label htmlFor="email">Email</label>
                 <input
+                  ref={userRef}
                   type="email"
                   name="email"
                   value={formData.email}

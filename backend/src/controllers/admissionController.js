@@ -58,9 +58,9 @@ const admissionSignIn = async (req, res) => {
 
 const admissionUpdate = (req, res) => {
   const admissionInfo = req.body;
-
+  const admission_id = req.params.id;
   try {
-    updateAdmissionInfo(admissionInfo.admission_id, admissionInfo);
+    updateAdmissionInfo(admission_id, admissionInfo);
     res.status(200).json({
       success: true,
       message: "Admission officer information updated successfully",
@@ -76,16 +76,7 @@ const admissionUpdate = (req, res) => {
 };
 //Create Student
 const createStudent = async (req, res) => {
-  const studentData = {
-    student_id: req.body.student_id,
-    student_name: req.body.student_name,
-    student_birth: req.body.student_birth,
-    student_email: req.body.student_email,
-    student_phone: req.body.student_phone,
-    student_address: req.body.student_address,
-    student_url: req.body.student_url,
-    student_descript: req.body.student_descript,
-  };
+  const studentData = req.body;
 
   // Call the model's create method
   StudentCreate.create(studentData, (err, result) => {
@@ -114,17 +105,7 @@ const createStudent = async (req, res) => {
 };
 //Create Tutor
 const createTutor = async (req, res) => {
-  const tutorData = {
-    tutor_id: req.body.tutor_id,
-    tutor_name: req.body.tutor_name,
-    tutor_birth: req.body.tutor_birth,
-    tutor_email: req.body.tutor_email,
-    tutor_phone: req.body.tutor_phone,
-    tutor_region: req.body.tutor_region,
-    tutor_address: req.body.tutor_address,
-    tutor_url: req.body.tutor_url,
-    tutor_descript: req.body.tutor_descript,
-  };
+  const tutorData = req.body;
 
   // Call the model's create method
   TutorCreate.create(tutorData, (err, result) => {
@@ -154,21 +135,33 @@ const createTutor = async (req, res) => {
 ////Create Tutor account
 const createTutorAccount = (req, res) => {
   const tutorAccountData = req.body;
-  TutorAccountCreate.create(tutorAccountData, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to create tutor account', details: err });
+  const tutorInfo = TutorAccountCreate.create(
+    tutorAccountData,
+    (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ error: "Failed to create tutor account", details: err });
+      }
+      // return res.status(201).json({ message: 'Tutor account created successfully', result });
     }
-    return res.status(201).json({ message: 'Tutor account created successfully', result });
-  });
+  );
+  return res
+    .status(201)
+    .json({ message: "Tutor account created successfully", tutorInfo });
 };
 //Create Student Account
 const createStudentAccount = (req, res) => {
   const studentAccountData = req.body;
   StudentAccountCreate.create(studentAccountData, (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to create student account', details: err });
+      return res
+        .status(500)
+        .json({ error: "Failed to create student account", details: err });
     }
-    return res.status(201).json({ message: 'Student account created successfully', result });
+    return res
+      .status(201)
+      .json({ message: "Student account created successfully", result });
   });
 };
 const admissionGetInfo = (req, res) => {
@@ -191,4 +184,5 @@ module.exports = {
   admissionSignIn,
   admissionUpdate,
   admissionGetInfo,
+  updateAdmissionInfo,
 };

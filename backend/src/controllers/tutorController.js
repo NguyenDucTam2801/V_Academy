@@ -1,6 +1,5 @@
 const db = require("../config/db");
 const {
-  TutorCreate,
   TutorList,
   signInTutor,
   validatePassword,
@@ -56,7 +55,7 @@ const tutorSignIn = async (req, res) => {
     });
   }
 };
-
+  
 const tutorUpdate = (req, res) => {
   const tutorInfo = req.body;
 

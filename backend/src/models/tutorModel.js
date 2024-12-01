@@ -17,31 +17,6 @@ const signInTutor = (username) => {
   });
 };
 
-const TutorCreate = {
-  create: (tutorData, callback) => {
-    const sql = `INSERT INTO tutor (tutor_id, tutor_name, tutor_email, tutor_phone, tutor_address, tutor_url, tutor_specialty, tutor_description)
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    db.query(
-      sql,
-      [
-        tutorData.tutor_id,
-        tutorData.tutor_name,
-        tutorData.tutor_email,
-        tutorData.tutor_phone,
-        tutorData.tutor_address,
-        tutorData.tutor_url || null,
-        tutorData.tutor_specialty,
-        tutorData.tutor_description,
-      ],
-      (err, result) => {
-        if (err) {
-          return callback(err);
-        }
-        return callback(null, result);
-      }
-    );
-  },
-};
 
 const TutorList = {
   getAll: (callback) => {

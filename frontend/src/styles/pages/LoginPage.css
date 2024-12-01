@@ -62,7 +62,8 @@
   align-items: center;
   gap: 1rem;
   border: 2px solid rgb(255, 255, 255);
-  width: 60%;
+  width: 40%;
+  height: 65%;
   padding: 0;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -90,7 +91,6 @@
 }
 
 .form-input label {
-  margin-bottom: 10px;
   font-weight: bold;
   font-size: 1.3rem;
 }
@@ -186,22 +186,6 @@
   display: none;
 }
 
-.forgot-password {
-  margin-bottom: 20px;
-}
-
-.forgot-password a {
-  text-decoration: none;
-  color: #0084ff;
-  font-size: 1.2rem;
-  transition: all 0.3s;
-}
-
-.forgot-password a:hover {
-  font-size: 1.5rem;
-  text-decoration: underline;
-  color: #ff8800;
-}
 
 .forgot-password a:active {
   color: #1900ff;

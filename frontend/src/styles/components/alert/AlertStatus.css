@@ -1,0 +1,66 @@
+.failed {
+  padding: 5px;
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.success {
+  padding: 5px;
+  background-color: #04ca88; /* Green */
+  color: white;
+}
+
+.alert {
+  position: absolute;
+  display:block;
+  animation: slideIn 1s forwards, slideOut 1s 4s forwards;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  left: 25%;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+  position: absolute;
+}
+
+@keyframes slideIn {
+  0% {
+    bottom: -100%; /* Start off the screen */
+    opacity: 0; /* Start invisible */
+  }
+  50% {
+    bottom: 10%; /* Move to the center of the screen */
+    opacity: 1; /* Fade in */
+  }
+  100% {
+    bottom: 10%; /* Stay in the center */
+    opacity: 1; /* Keep visible */
+  }
+}
+
+/* Animation for moving the panel back down after staying in the center */
+@keyframes slideOut {
+  0% {
+    bottom: 10%; /* Start at the center */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    bottom: -100%; /* Move back off-screen */
+    opacity: 0; /* Fade out */
+  }
+}

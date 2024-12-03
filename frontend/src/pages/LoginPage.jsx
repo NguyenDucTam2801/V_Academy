@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useNavigate, useEffect, userRef } from "react";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
@@ -33,7 +33,7 @@ export const LoginPage = () => {
     passwordFieldTypeList[0]
   );
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [passwordVisibleAction, setPasswordVisibleAction] = useState(
     passwordVisibleActionList[0]
@@ -61,7 +61,7 @@ export const LoginPage = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const response = logInAPI(formData);
+    const response = formData;
     if (response.success) {
       setMessage(response.message);
     } else {

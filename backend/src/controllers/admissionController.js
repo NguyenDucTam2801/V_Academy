@@ -1,5 +1,6 @@
 const db = require("../config/db");
 const {
+  addClass,
   StudentAccountCreate,
   TutorAccountCreate,
   TutorCreate,
@@ -12,6 +13,8 @@ const {
   updateAdmissionInfo,
   getAdmissionApplications,
   getAdmissionApplicationDetails,
+  addClass,
+  getCourse,
 } = require("../models/admissionModel");
 
 const {
@@ -175,8 +178,90 @@ const admissionGetInfo = (req, res) => {
       .json({ message: "Admission officer found", admission: result });
   });
 };
+//create class
+const createClass = async (req, res) => {
+  const classData = req.body;
 
+  // Kiểm tra dữ liệu đầu vào
+  if (!classData.class_name || !classData.course_id || !classData.tutor_id || !classData.student_id || !classData.admission_id) {
+    return res.status(400).send({
+      success: false,
+      message: "All fields are required: class_name, course_id, tutor_id, student_id, admission_id",
+    });
+  }
+
+  // Call the model's addClass method
+  addClass.create(classData, (err, result) => {
+    try {
+      if (err) {
+        return res.status(500).send({
+          success: false,
+          message: "Error creating class",
+          error: err,
+        });
+      }
+      return res.status(201).send({
+        success: true,
+        message: "Class created successfully and linked to tutor and student!",
+        data: result,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: "Internal server error",
+        error: err.message,
+      });
+    }
+  });
+};
+
+//getCourse
+const getCourseById = (req, res) => {
+  const courseId = req.params.courseId;  // Lấy course_id từ URL parameters
+
+  // Kiểm tra nếu courseId không được cung cấp
+  if (!courseId) {
+    return res.status(400).send({
+      success: false,
+      message: "Course ID is required",
+    });
+  }
+
+  // Call the model's getCourse method
+  getCourse.create(courseId, (err, result) => {
+    try {
+      if (err) {
+        return res.status(500).send({
+          success: false,
+          message: "Error fetching course details",
+          error: err,
+        });
+      }
+      if (result.length === 0) {
+        return res.status(404).send({
+          success: false,
+          message: "Course not found",
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message: "Course details fetched successfully",
+        data: result,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: "Internal server error",
+        error: err.message,
+      });
+    }
+  });
+};
 module.exports = {
+  getCourseById,
+  createClass,
   createStudentAccount,
   createTutorAccount,
   createTutor,

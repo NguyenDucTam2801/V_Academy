@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
 import Footer from "../components/outside/Footer";
 import { logInAPI } from "../api/auth/LogIn";
 export const LoginPage = () => {
-  const roles = ["Student", "Turtor", "Admission"];
+  const roles = ["Student", "Tuitor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
   const [role, setRole] = useState(roles[0]);
@@ -19,6 +20,9 @@ export const LoginPage = () => {
   const [passwordFieldType, setPasswordFieldType] = useState(
     passwordFieldTypeList[0]
   );
+
+  const navigate = useNavigate();
+
   const [passwordVisibleAction, setPasswordVisibleAction] = useState(
     passwordVisibleActionList[0]
   );
@@ -45,6 +49,14 @@ export const LoginPage = () => {
     const response = logInAPI(formData);
     if (response.success) {
       setMessage(response.message);
+
+      if (formData.role === "Student") {
+        navigate("/student_manage_page");
+      } else if (formData.role === "Tuitor") {
+        navigate("/tuitor_manage_page");
+      } else if (formData.role === "Admission") {
+        navigate("/admin_manage_page");
+      }
     } else {
       setMessage("An unexpected error occurred");
     }

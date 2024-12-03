@@ -1,0 +1,50 @@
+{
+    "courses": [
+      {
+        "course_id": "C101",
+        "course_name": "Introduction to Programming",
+        "lessons": 10,
+        "tutor_id": "T001",
+        "tutor_name": "John Doe",
+        "start_time": "2024-12-01T09:00:00",
+        "end_time": "2024-12-01T11:00:00"
+      },
+      {
+        "course_id": "C102",
+        "course_name": "Advanced Mathematics",
+        "lessons": 12,
+        "tutor_id": "T002",
+        "tutor_name": "Jane Smith",
+        "start_time": "2024-12-02T10:00:00",
+        "end_time": "2024-12-02T12:00:00"
+      },
+      {
+        "course_id": "C103",
+        "course_name": "English Literature",
+        "lessons": 15,
+        "tutor_id": "T003",
+        "tutor_name": "Michael Brown",
+        "start_time": "2024-12-03T14:00:00",
+        "end_time": "2024-12-03T16:00:00"
+      },
+      {
+        "course_id": "C104",
+        "course_name": "Data Structures and Algorithms",
+        "lessons": 14,
+        "tutor_id": "T004",
+        "tutor_name": "Emily White",
+        "start_time": "2024-12-04T13:00:00",
+        "end_time": "2024-12-04T15:00:00"
+      },
+      {
+        "course_id": "C105",
+        "course_name": "Machine Learning Basics",
+        "lessons": 20,
+        "tutor_id": "T005",
+        "tutor_name": "Robert Black",
+        "start_time": "2024-12-05T08:00:00",
+        "end_time": "2024-12-05T10:00:00"
+      }
+    ]
+  }
+  

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
 import Footer from "../components/outside/Footer";
-import { logInAPI } from "../api/auth/LogIn";
+import { studentURL, tutorURL, admissionURL } from "../api/axios";
+import AuthContext from "../context/AuthProvider";
+import axios from "axios";
+import AlertStatus from "../components/alert/AlertStatus";
+import { set } from "react-hook-form";
+
 export const LoginPage = () => {
-  const roles = ["Student", "Tuitor", "Admission"];
+  const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
   const [role, setRole] = useState(roles[0]);
@@ -16,6 +20,14 @@ export const LoginPage = () => {
     password: "",
   });
 
+  const LOGIN_URL =
+    role === "Student"
+      ? "http://localhost:3001/api/students/studentSignIn"
+      : role === "Turtor"
+      ? "http://localhost:3001/api/tutor/tutorSignIn"
+      : "http://localhost:3001/api/admissions/admissionSignIn";
+  const [success, setSuccess] = useState();
+  const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [passwordFieldType, setPasswordFieldType] = useState(
     passwordFieldTypeList[0]
@@ -38,6 +50,9 @@ export const LoginPage = () => {
 
   const handleChangeForm = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setShowMessage(false);
+    setMessage("");
+    setSuccess(false);
   };
   const handleChangeRole = (e) => {
     setRole(e.target.value);
@@ -49,18 +64,18 @@ export const LoginPage = () => {
     const response = logInAPI(formData);
     if (response.success) {
       setMessage(response.message);
-
-      if (formData.role === "Student") {
-        navigate("/student_manage_page");
-      } else if (formData.role === "Tuitor") {
-        navigate("/tuitor_manage_page");
-      } else if (formData.role === "Admission") {
-        navigate("/admin_manage_page");
-      }
     } else {
       setMessage("An unexpected error occurred");
     }
   };
+
+  useEffect(() => {
+    // userRef.current.focus();
+    console.log("Show mess: ", showMessage);
+    console.log("Success: ", success);
+    console.log("Message: ", message);
+  }, [success, showMessage, message]);
+
   return (
     <div>
       <NavBar />
@@ -96,6 +111,7 @@ export const LoginPage = () => {
               <form onSubmit={handleSignIn} method="post">
                 <label htmlFor="email">Email</label>
                 <input
+                  ref={userRef}
                   type="email"
                   name="email"
                   value={formData.email}
@@ -123,13 +139,19 @@ export const LoginPage = () => {
                 </div>
                 <br />
                 <input type="submit" value="Login" />
-                {message && <p>{message}</p>}
               </form>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
+      {showMessage &&
+        (success ? (
+          <AlertStatus message={message} status="success" />
+        ) : (
+          <AlertStatus message={message} status="failed" />
+        ))}
     </div>
   );
 };

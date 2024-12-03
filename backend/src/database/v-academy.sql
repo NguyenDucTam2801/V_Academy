@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2024 at 04:51 AM
+-- Generation Time: Dec 03, 2024 at 08:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,17 +35,16 @@ CREATE TABLE `admission` (
   `admission_phone` varchar(12) NOT NULL,
   `admission_address` varchar(50) NOT NULL,
   `admission_url` varchar(50) DEFAULT NULL,
-  `admission_region` varchar(50) DEFAULT NULL,
-  `isActivation` tinyint(3) UNSIGNED NOT NULL
+  `admission_region` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admission`
 --
 
-INSERT INTO `admission` (`admission_id`, `admission_name`, `admission_birth`, `admission_email`, `admission_phone`, `admission_address`, `admission_url`, `admission_region`, `isActivation`) VALUES
-(1, 'Chloe Adams', '1980-09-10', 'chloe.adams@example.com', '3334445555', '202 Birch St.', NULL, 'East Region', 1),
-(2, 'David Green', '1982-11-22', 'david.green@example.com', '4445556666', '303 Cedar St.', NULL, 'West Region', 1);
+INSERT INTO `admission` (`admission_id`, `admission_name`, `admission_birth`, `admission_email`, `admission_phone`, `admission_address`, `admission_url`, `admission_region`) VALUES
+(1, 'Chloe Adams TEster', '1980-09-09', 'chloe.adams@example.com', '3334445555', '202 Birch St.', NULL, NULL),
+(2, 'David Green', '1982-11-22', 'david.green@example.com', '4445556666', '303 Cedar St.', NULL, 'West Region');
 
 -- --------------------------------------------------------
 
@@ -64,7 +63,7 @@ CREATE TABLE `admission_account` (
 --
 
 INSERT INTO `admission_account` (`admission_userName`, `admission_password`, `admission_id`) VALUES
-('admission_chloe', '$2a$10$jwHzWVM0vygKGMLfGcJIPeoWx3q7lEbe1y9xqAxLT9lvPnNAGYi86', 1),
+('chloe@example.com', '$2a$10$nQjabF87311isUA64yurKuRgKymUxyKhYIY29/lbnTTBsqqhkNhdu', 1),
 ('admission_green', 'adminpass2', 2);
 
 -- --------------------------------------------------------
@@ -201,7 +200,23 @@ INSERT INTO `lesson` (`lesson_id`, `lesson_topic`, `lesson_descript`, `lesson_no
 (1, 'Lesson 1: Basic Greetings', 'Introduction to common greetings in English', NULL, 'https://pwr.edu.zoom.us/j/13asdf55-aADF312', '2024-10-16 15:50:22', '2024-10-16 10:00:00'),
 (2, 'Lesson 2: Basic Verbs', 'Introduction to essential verbs in English', NULL, 'https://pwr.edu.zoom.us/j/aisufhqn-fasdfkjq-46fd6dgh', '2024-10-16 15:50:50', '2024-10-17 10:00:00'),
 (3, 'Lesson 1: Advanced Grammar', 'In-depth look at complex grammatical structures', NULL, 'https://pwr.edu.zoom.us/j/fauhooiqjp-sf32AF6543-agoqwga9', '2024-10-16 15:51:19', '2024-10-16 19:00:00'),
-(4, 'Lesson 2: Advanced Vocabulary', 'Study of advanced vocabulary in context', NULL, 'https://pwr.edu.zoom.us/j/faiubiouawd-653asgAFsg-ioanpow6JH', '2024-10-16 15:51:44', '2024-10-17 19:00:00');
+(4, 'Lesson 2: Advanced Vocabulary', 'Study of advanced vocabulary in context', NULL, 'https://pwr.edu.zoom.us/j/faiubiouawd-653asgAFsg-ioanpow6JH', '2024-10-16 15:51:44', '2024-10-17 19:00:00'),
+(6, 'teseter', 'none', 'none', NULL, '2024-12-01 11:07:28', '2024-12-01 12:07:28'),
+(7, 'null', 'laskmdfklasmdf', 'nkdflanf', 'nasfnasfd', '2024-12-01 11:08:03', '2024-12-01 12:08:03');
+
+--
+-- Triggers `lesson`
+--
+DELIMITER $$
+CREATE TRIGGER `set_end_time` BEFORE INSERT ON `lesson` FOR EACH ROW BEGIN
+    -- Check if startTime is provided
+    IF NEW.lesson_startTime IS NOT NULL THEN
+        -- Add 1 hour to startTime and set it as endTime
+        SET NEW.lesson_endTime = DATE_ADD(NEW.lesson_startTime, INTERVAL 1 HOUR);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -228,7 +243,10 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_birth`, `student_e
 (1, 'John Doe', '2005-05-15', 'john.doe@example.com', '1234567890', '123 Elm St.', NULL, 'A diligent student'),
 (2, 'Jane Smith', '2004-12-30', 'jane.smith@example.com', '0987654321', '456 Oak St.', NULL, 'An eager learner'),
 (3, 'Michael Green', '2003-11-25', 'michael.green@example.com', '5556667777', '321 Cedar St.', NULL, 'New student in the academy'),
-(4, 'Michael Jackson', '2003-12-30', 'michael.jackson@example.com', '5556668888', '300 Cedar St.', NULL, 'New student in the academy 1');
+(4, 'Michael Jackson', '2003-12-30', 'michael.jackson@example.com', '5556668888', '300 Cedar St.', NULL, 'New student in the academy 1'),
+(5, 'John Doe 1', '2005-05-14', 'john.doe1@example.com', '1234567891', '123 Elm St.', NULL, 'A diligent student'),
+(6, 'Alice Johnson 2', '1985-07-19', 'alice.johnson2@example.com', '1112223333', '789 Pine St.', NULL, 'Experienced English tutor'),
+(30, 'tester', '1985-07-19', 'tester@example.com', '11122233334', '789 Pine St.', NULL, 'Experienced English tutor');
 
 -- --------------------------------------------------------
 
@@ -248,7 +266,8 @@ CREATE TABLE `student_account` (
 
 INSERT INTO `student_account` (`student_id`, `student_userName`, `student_password`) VALUES
 (1, 'john_doe@example.com', '$2a$10$07fCE7yUrPTTFlSJg83Lj.fjPEM2Re1..S98sVkfzScHyeWOWIR8q'),
-(2, 'jane_smith@example.com', 'pass4567');
+(2, 'jane_smith@example.com', 'pass4567'),
+(30, 'tester@example.com', '$2b$10$Y./a3vXqdUs/MQFpdZ1Nj.MKl79iXrLzl.nnxhE.2oRsVWBQUDnyC');
 
 -- --------------------------------------------------------
 
@@ -285,7 +304,6 @@ CREATE TABLE `tutor` (
   `tutor_address` varchar(50) NOT NULL,
   `tutor_url` varchar(100) DEFAULT NULL,
   `tutor_descript` varchar(500) DEFAULT NULL,
-  `isActivation` tinyint(3) UNSIGNED NOT NULL,
   `subject_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -293,9 +311,13 @@ CREATE TABLE `tutor` (
 -- Dumping data for table `tutor`
 --
 
-INSERT INTO `tutor` (`tutor_id`, `tutor_name`, `tutor_birth`, `tutor_email`, `tutor_phone`, `tutor_region`, `tutor_address`, `tutor_url`, `tutor_descript`, `isActivation`, `subject_id`) VALUES
-(1, 'Alice Johnson', '1985-07-20', 'alice.johnson@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 1, 'eng_sub'),
-(2, 'Bob Brown', '1990-08-05', 'bob.brown@example.com', '2223334444', 'South Region', '101 Maple St.', NULL, 'Specialized in advanced English', 1, 'eng_sub');
+INSERT INTO `tutor` (`tutor_id`, `tutor_name`, `tutor_birth`, `tutor_email`, `tutor_phone`, `tutor_region`, `tutor_address`, `tutor_url`, `tutor_descript`, `subject_id`) VALUES
+(1, 'Alice Johnson', '1985-07-20', 'alice.johnson@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
+(2, 'Bob Brown', '1990-08-05', 'bob.brown@example.com', '2223334444', 'South Region', '101 Maple St.', NULL, 'Specialized in advanced English', 'eng_sub'),
+(3, 'Alice Johnson 1', '1985-07-19', 'alice.johnson1@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
+(5, 'John Doe', '1990-01-01', 'john@example.com', '1234567890', 'North', '123 Main Street', NULL, 'Experienced in Math tutoring', 'eng_sub'),
+(6, 'Alice Johnson 2', '1985-07-19', 'alice.johnson2@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
+(12, 'tester', '1985-07-19', 'tester@example.com', '11122233456', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub');
 
 -- --------------------------------------------------------
 
@@ -314,8 +336,10 @@ CREATE TABLE `tutor_account` (
 --
 
 INSERT INTO `tutor_account` (`tutor_id`, `tutor_userName`, `tutor_password`) VALUES
-(1, 'prof_alice', 'teach2022'),
-(2, 'prof_bob', 'passwordABC');
+(1, 'alice@example.com', '$2a$10$nQjabF87311isUA64yurKuRgKymUxyKhYIY29/lbnTTBsqqhkNhdu'),
+(2, 'prof_bob', 'passwordABC'),
+(5, 'john_deo_test@example.com', 'passtest'),
+(12, 'tester@example.com', '$2b$10$0B5g26XXAzkCFpRATgbyyOhutMjdondZ2QWrK64u0l2WvqkAlZY2m');
 
 --
 -- Indexes for dumped tables
@@ -443,31 +467,31 @@ ALTER TABLE `customer_contact`
 -- AUTO_INCREMENT for table `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `lesson_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `lesson_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `student_account`
 --
 ALTER TABLE `student_account`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tutor`
 --
 ALTER TABLE `tutor`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tutor_account`
 --
 ALTER TABLE `tutor_account`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -518,7 +542,7 @@ ALTER TABLE `student_account`
 -- Constraints for table `tutor`
 --
 ALTER TABLE `tutor`
-  ADD CONSTRAINT `fk_tutor_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tutor_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tutor_account`
@@ -526,16 +550,6 @@ ALTER TABLE `tutor`
 ALTER TABLE `tutor_account`
   ADD CONSTRAINT `tutor_id_fk` FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`);
 COMMIT;
-DELIMITER $$
-CREATE TRIGGER `set_end_time` BEFORE INSERT ON `lesson` FOR EACH ROW BEGIN
-    -- Check if startTime is provided
-    IF NEW.lesson_startTime IS NOT NULL THEN
-        -- Add 1 hour to startTime and set it as endTime
-        SET NEW.lesson_endTime = DATE_ADD(NEW.lesson_startTime, INTERVAL 1 HOUR);
-    END IF;
-END
-$$
-DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

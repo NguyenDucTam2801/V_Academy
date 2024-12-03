@@ -112,20 +112,24 @@ const StudentCreate = {
               return callback(err);
             }
             var id = result[0].latest_student_id;
-            console.log("[StudentCreate] password doesnt hashed:", studentData.student_password);
+            console.log(
+              "[StudentCreate] password doesnt hashed:",
+              studentData.student_password
+            );
             var hasedPassword = hashPassword(studentData.student_password);
-         
+
             hasedPassword.then((result) => {
-                console.log("[StudentCreate] hasedPassword", result);
-                var password=result;
-                db.query(
-                  `INSERT INTO student_account (student_id, student_username, student_password) VALUES (?, ?, ?);`,
-                  [id, studentData.student_email, password],
-                  (err, result) => {
-                    if (err) {
-                      return callback(err);
-                    }
-                    db.query(" SELECT * FROM student_account WHERE student_id = ?;",
+              console.log("[StudentCreate] hasedPassword", result);
+              var password = result;
+              db.query(
+                `INSERT INTO student_account (student_id, student_username, student_password) VALUES (?, ?, ?);`,
+                [id, studentData.student_email, password],
+                (err, result) => {
+                  if (err) {
+                    return callback(err);
+                  }
+                  db.query(
+                    " SELECT * FROM student_account WHERE student_id = ?;",
                     [id],
                     (err, result) => {
                       if (err) {
@@ -133,9 +137,9 @@ const StudentCreate = {
                       }
                       return callback(null, result);
                     }
-                    );
-                  }
-                );
+                  );
+                }
+              );
             });
           }
         );
@@ -175,20 +179,24 @@ const TutorCreate = {
               return callback(err);
             }
             var id = result[0].latest_tutor_id;
-            console.log("[TutorCreate] password doesnt hashed:", tutorData.tutor_password);
+            console.log(
+              "[TutorCreate] password doesnt hashed:",
+              tutorData.tutor_password
+            );
             var hasedPassword = hashPassword(tutorData.tutor_password);
-         
+
             hasedPassword.then((result) => {
-                console.log("[TutorCreate] hasedPassword", result);
-                var password=result;
-                db.query(
-                  `INSERT INTO tutor_account (tutor_id, tutor_username, tutor_password) VALUES (?, ?, ?);`,
-                  [id, tutorData.tutor_email, password],
-                  (err, result) => {
-                    if (err) {
-                      return callback(err);
-                    }
-                    db.query(" SELECT * FROM tutor_account WHERE tutor_id = ?;",
+              console.log("[TutorCreate] hasedPassword", result);
+              var password = result;
+              db.query(
+                `INSERT INTO tutor_account (tutor_id, tutor_username, tutor_password) VALUES (?, ?, ?);`,
+                [id, tutorData.tutor_email, password],
+                (err, result) => {
+                  if (err) {
+                    return callback(err);
+                  }
+                  db.query(
+                    " SELECT * FROM tutor_account WHERE tutor_id = ?;",
                     [id],
                     (err, result) => {
                       if (err) {
@@ -196,9 +204,9 @@ const TutorCreate = {
                       }
                       return callback(null, result);
                     }
-                    );
-                  }
-                );
+                  );
+                }
+              );
             });
           }
         );

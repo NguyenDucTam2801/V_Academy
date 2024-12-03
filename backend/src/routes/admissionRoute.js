@@ -10,5 +10,7 @@ router.put("/update/:id", verifyToken, admissionController.admissionUpdate);
 router.get("/info/:id", verifyToken, admissionController.admissionGetInfo);
 router.post("/createStudent",verifyToken, admissionController.createStudent);
 router.post("/createTutor",verifyToken, admissionController.createTutor);
+router.get('/course/:courseId', admissionController.getCourseById);
+router.post('/addClass', admissionController.addClass);
 
 module.exports = router;

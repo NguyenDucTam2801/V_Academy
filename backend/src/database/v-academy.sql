@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2024 at 08:09 AM
+-- Generation Time: Dec 01, 2024 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -244,9 +244,7 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_birth`, `student_e
 (2, 'Jane Smith', '2004-12-30', 'jane.smith@example.com', '0987654321', '456 Oak St.', NULL, 'An eager learner'),
 (3, 'Michael Green', '2003-11-25', 'michael.green@example.com', '5556667777', '321 Cedar St.', NULL, 'New student in the academy'),
 (4, 'Michael Jackson', '2003-12-30', 'michael.jackson@example.com', '5556668888', '300 Cedar St.', NULL, 'New student in the academy 1'),
-(5, 'John Doe 1', '2005-05-14', 'john.doe1@example.com', '1234567891', '123 Elm St.', NULL, 'A diligent student'),
-(6, 'Alice Johnson 2', '1985-07-19', 'alice.johnson2@example.com', '1112223333', '789 Pine St.', NULL, 'Experienced English tutor'),
-(30, 'tester', '1985-07-19', 'tester@example.com', '11122233334', '789 Pine St.', NULL, 'Experienced English tutor');
+(5, 'John Doe 1', '2005-05-14', 'john.doe1@example.com', '1234567891', '123 Elm St.', NULL, 'A diligent student');
 
 -- --------------------------------------------------------
 
@@ -266,8 +264,7 @@ CREATE TABLE `student_account` (
 
 INSERT INTO `student_account` (`student_id`, `student_userName`, `student_password`) VALUES
 (1, 'john_doe@example.com', '$2a$10$07fCE7yUrPTTFlSJg83Lj.fjPEM2Re1..S98sVkfzScHyeWOWIR8q'),
-(2, 'jane_smith@example.com', 'pass4567'),
-(30, 'tester@example.com', '$2b$10$Y./a3vXqdUs/MQFpdZ1Nj.MKl79iXrLzl.nnxhE.2oRsVWBQUDnyC');
+(2, 'jane_smith@example.com', 'pass4567');
 
 -- --------------------------------------------------------
 
@@ -314,10 +311,7 @@ CREATE TABLE `tutor` (
 INSERT INTO `tutor` (`tutor_id`, `tutor_name`, `tutor_birth`, `tutor_email`, `tutor_phone`, `tutor_region`, `tutor_address`, `tutor_url`, `tutor_descript`, `subject_id`) VALUES
 (1, 'Alice Johnson', '1985-07-20', 'alice.johnson@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
 (2, 'Bob Brown', '1990-08-05', 'bob.brown@example.com', '2223334444', 'South Region', '101 Maple St.', NULL, 'Specialized in advanced English', 'eng_sub'),
-(3, 'Alice Johnson 1', '1985-07-19', 'alice.johnson1@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
-(5, 'John Doe', '1990-01-01', 'john@example.com', '1234567890', 'North', '123 Main Street', NULL, 'Experienced in Math tutoring', 'eng_sub'),
-(6, 'Alice Johnson 2', '1985-07-19', 'alice.johnson2@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
-(12, 'tester', '1985-07-19', 'tester@example.com', '11122233456', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub');
+(3, 'Alice Johnson 1', '1985-07-19', 'alice.johnson1@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub');
 
 -- --------------------------------------------------------
 
@@ -337,9 +331,7 @@ CREATE TABLE `tutor_account` (
 
 INSERT INTO `tutor_account` (`tutor_id`, `tutor_userName`, `tutor_password`) VALUES
 (1, 'alice@example.com', '$2a$10$nQjabF87311isUA64yurKuRgKymUxyKhYIY29/lbnTTBsqqhkNhdu'),
-(2, 'prof_bob', 'passwordABC'),
-(5, 'john_deo_test@example.com', 'passtest'),
-(12, 'tester@example.com', '$2b$10$0B5g26XXAzkCFpRATgbyyOhutMjdondZ2QWrK64u0l2WvqkAlZY2m');
+(2, 'prof_bob', 'passwordABC');
 
 --
 -- Indexes for dumped tables
@@ -473,25 +465,25 @@ ALTER TABLE `lesson`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `student_account`
 --
 ALTER TABLE `student_account`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tutor`
 --
 ALTER TABLE `tutor`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tutor_account`
 --
 ALTER TABLE `tutor_account`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -542,7 +534,7 @@ ALTER TABLE `student_account`
 -- Constraints for table `tutor`
 --
 ALTER TABLE `tutor`
-  ADD CONSTRAINT `fk_tutor_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_tutor_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `tutor_account`

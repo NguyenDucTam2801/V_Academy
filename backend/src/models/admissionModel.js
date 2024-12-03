@@ -258,7 +258,46 @@ const StudentAccountCreate = {
     );
   },
 };
+const addClass = (classData, callback) => {
+  // SQL query to insert a new class
+  const sql = `INSERT INTO class (class_name, class_description, course_id, tutor_id, student_id, admission_id)
+               VALUES (?, ?, ?, ?, ?, ?)`;
+
+  // Thực hiện query để thêm dữ liệu lớp học vào database
+  db.query(
+    sql,
+    [
+      classData.class_name,
+      classData.class_description,
+      classData.course_id,
+      classData.tutor_id,
+      classData.student_id,
+      classData.admission_id,
+    ],
+    (err, result) => {
+      if (err) {
+        return callback(err);
+      }
+      return callback(null, result);
+    }
+  );
+};
+//getCourse
+const getCourse = (courseId, callback) => {
+  // SQL query to select a course by its course_id
+  const sql = `SELECT * FROM course WHERE course_id = ?`;
+
+  // Thực hiện query để lấy dữ liệu khóa học từ database
+  db.query(sql, [courseId], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);  // Trả về dữ liệu khóa học
+  });
+};
 module.exports = {
+  getCourse,
+  addClass,
   StudentAccountCreate,
   TutorAccountCreate,
   TutorCreate,

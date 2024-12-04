@@ -258,43 +258,144 @@ const StudentAccountCreate = {
     );
   },
 };
-const addClass = (classData, callback) => {
-  // SQL query to insert a new class
-  const sql = `INSERT INTO class (class_name, class_description, course_id, tutor_id, student_id, admission_id)
-               VALUES (?, ?, ?, ?, ?, ?)`;
+const addClass = {
+  create: (classData, callback) => {
+    const sql = `INSERT INTO class (class_name, class_descript, course_id, tutor_id, student_id, admission_id)
+                 VALUES (?, ?, ?, ?, ?, ?)`;
 
-  // Thực hiện query để thêm dữ liệu lớp học vào database
-  db.query(
-    sql,
-    [
-      classData.class_name,
-      classData.class_description,
-      classData.course_id,
-      classData.tutor_id,
-      classData.student_id,
-      classData.admission_id,
-    ],
-    (err, result) => {
+    console.log("[addClass] classData:", classData);
+
+    // Insert class into database
+    db.query(
+      sql,
+      [
+        classData.class_name,
+        classData.class_descript,
+        classData.course_id,
+        classData.tutor_id,
+        classData.student_id,
+        classData.admission_id,
+      ],
+      (err, result) => {
+        if (err) {
+          console.error("[addClass] Error inserting class:", err);
+          return callback(err);
+        }
+
+        console.log("[addClass] Successfully added class:", result);
+
+        // Fetch the class based on the admission ID
+        const fetchSql = "SELECT * FROM `class` WHERE `admission_id` = ?";
+        db.query(
+          fetchSql,
+          [classData.admission_id],
+          (fetchErr, fetchResult) => {
+            if (fetchErr) {
+              console.error("[addClass] Error fetching class:", fetchErr);
+              return callback(fetchErr);
+            }
+
+            console.log("[addClass] Retrieved class:", fetchResult);
+            return callback(null, fetchResult);
+          }
+        );
+      }
+    );
+  },
+};
+
+//getCourse
+const getCourse = {
+  get: (callback) => {
+    const sql = `SELECT * FROM course`;
+
+    // Thực hiện query để lấy dữ liệu khóa học từ database
+    db.query(sql, (err, result) => {
       if (err) {
         return callback(err);
       }
-      return callback(null, result);
-    }
-  );
-};
-//getCourse
-const getCourse = (courseId, callback) => {
+      return callback(null, result); // Trả về dữ liệu khóa học
+    });
+  },
   // SQL query to select a course by its course_id
-  const sql = `SELECT * FROM course WHERE course_id = ?`;
+};
 
-  // Thực hiện query để lấy dữ liệu khóa học từ database
-  db.query(sql, [courseId], (err, result) => {
+const getStudents = (callback) => {
+  var sql = "SELECT * FROM `student`";
+  db.query(sql, (err, result) => {
     if (err) {
       return callback(err);
     }
-    return callback(null, result);  // Trả về dữ liệu khóa học
+    return callback(null, result);
   });
 };
+
+const getTutors = (callback) => {
+  var sql = "SELECT * FROM `tutor`";
+  db.query(sql, (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+};
+
+const getClasses = (admission_id, callback) => {
+  var sql = "SELECT * FROM `class` WHERE `admission_id` = ?";
+  db.query(sql, admission_id, (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+};
+
+const getCustomerContacts = (callback) => {
+  var sql = "SELECT * FROM `customer_contact`";
+  db.query(sql, (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+};
+
+const changeCustomerContactStatus = (customer_id, status, callback) => {
+  const updateSql = `
+    UPDATE customer_contact 
+    SET customer_status = ? 
+    WHERE customer_id = ?`;
+
+  const fetchSql = `
+    SELECT * 
+    FROM customer_contact 
+    WHERE customer_id = ?`;
+
+  db.query(updateSql, [status, customer_id], (updateErr, updateResult) => {
+    if (updateErr) {
+      console.error("[changeCustomerContactStatus] Update Error:", updateErr);
+      return callback(updateErr);
+    }
+
+    console.log("[changeCustomerContactStatus] Update Result:", updateResult);
+
+    if (updateResult.affectedRows === 0) {
+      return callback(new Error("No rows updated. Check if the customer_id exists."));
+    }
+
+    // Fetch updated customer data
+    db.query(fetchSql, [customer_id], (fetchErr, fetchResult) => {
+      if (fetchErr) {
+        console.error("[changeCustomerContactStatus] Fetch Error:", fetchErr);
+        return callback(fetchErr);
+      }
+
+      console.log("[changeCustomerContactStatus] Fetched Data:", fetchResult);
+      return callback(null, fetchResult);
+    });
+  });
+};
+
 module.exports = {
   getCourse,
   addClass,
@@ -306,4 +407,9 @@ module.exports = {
   signInAdmission,
   getAdmissionInfo,
   updateAdmissionInfo,
+  getStudents,
+  getTutors,
+  getClasses,
+  getCustomerContacts,
+  changeCustomerContactStatus,
 };

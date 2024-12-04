@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const app = require('express')();
+const app = require("express")();
 require("dotenv").config();
 
 // Secret key for JWT token generation (from .env)
 const JWT_SECRET = process.env.JWT_SECRET;
-
 
 function createTokenStudent(user) {
   // Payload contains essential user data (id, role, name, etc.)
@@ -38,9 +37,9 @@ function createTokenAdmission(user) {
 function createTokenTutor(user) {
   // Payload contains essential user data (id, role, name, etc.)
   const payload = {
-    id: user.admission_id,
-    name: user.admission_name,
-    email: user.admission_email,
+    id: user.tutor_id,
+    name: user.tutor_name,
+    email: user.tutor_email,
     role: "tutor",
   };
 
@@ -50,7 +49,7 @@ function createTokenTutor(user) {
 }
 
 // Verify JWT Token
-function verifyToken(req, res,next) {
+function verifyToken(req, res, next) {
   // Step 1: Get the token from the Authorization header
   const authHeader = req.headers["authorization"];
 
@@ -59,7 +58,8 @@ function verifyToken(req, res,next) {
   if (!authHeader) {
     console.log("[StudentJWT]Auth headers is not found");
     return res.status(401).json({
-      message: "[StudentJWT]Authentication credentials were missing or incorrect",
+      message:
+        "[StudentJWT]Authentication credentials were missing or incorrect",
     });
   }
 
@@ -68,7 +68,8 @@ function verifyToken(req, res,next) {
   if (!authHeader.startsWith("Bearer")) {
     console.log("[StudentJWT]Invalid auth mechanism");
     return res.status(401).json({
-      message: "[StudentJWT]Authentication credentials were missing or incorrect",
+      message:
+        "[StudentJWT]Authentication credentials were missing or incorrect",
     });
   }
 
@@ -77,9 +78,12 @@ function verifyToken(req, res,next) {
   // IF bearer auth header is provided, but token is not provided
   // THEN return 401 Unauthorized error
   if (!token) {
-    console.log("[StudentJWT]Bearer token missing in the authorization headers.");
+    console.log(
+      "[StudentJWT]Bearer token missing in the authorization headers."
+    );
     return res.status(401).json({
-      message: "[StudentJWT]Authentication credentials were missing or incorrect",
+      message:
+        "[StudentJWT]Authentication credentials were missing or incorrect",
     });
   }
 
@@ -94,7 +98,9 @@ function verifyToken(req, res,next) {
     next();
   } catch (err) {
     // Step 5: Handle invalid or expired token
-    return res.status(400).json({ message: "[StudentJWT]Invalid or expired token." });
+    return res
+      .status(400)
+      .json({ message: "[StudentJWT]Invalid or expired token." });
   }
 }
 

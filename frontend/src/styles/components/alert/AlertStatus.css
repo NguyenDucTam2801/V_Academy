@@ -58,9 +58,12 @@
   0% {
     bottom: 10%; /* Start at the center */
     opacity: 1; /* Fully visible */
+
   }
   100% {
     bottom: -100%; /* Move back off-screen */
     opacity: 0; /* Fade out */
+    display: none
+
   }
 }

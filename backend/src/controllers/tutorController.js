@@ -44,7 +44,7 @@ const tutorSignIn = async (req, res) => {
       res.status(200).json({
         token: createTokenTutor(result),
         message: "Login successful",
-        tutor: result,
+        user: result,
       });
     });
   } catch (err) {

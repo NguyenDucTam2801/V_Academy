@@ -86,7 +86,7 @@ const updateStudentInfo = (student_id, studentData) => {
 
 const getStudentClass = (student_id) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM class WHERE student_id =?";
+    const sql = "SELECT * FROM `class` WHERE `student_id` = ?";
     console.log("[StudentModel]Getting student class", student_id);
     db.query(sql, [student_id], (err, result) => {
       if (err) {
@@ -95,7 +95,8 @@ const getStudentClass = (student_id) => {
       if (result.length === 0) {
         return reject(new Error("Student not found"));
       }
-      return resolve(result[0]);
+      console.log("[StudentModel]Student class", result);
+      return resolve(result );
     });
   });
 };

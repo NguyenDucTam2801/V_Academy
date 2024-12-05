@@ -34,7 +34,6 @@
 
 .navbar-logo:hover{
   background-color: #ffffff;
-  font-size: 1.7rem;
   border-radius: 10px;
   border: none;
   box-shadow: 0 10px 20px #89cff3;
@@ -44,6 +43,12 @@
 .navbar-logo:hover a{
   color: #000000;
   font-size: 1.7rem;
+}
+
+.navbar-logo:hover h1{
+  color: #000000;
+  font-size: 1.7rem;
+  padding-right:10px
 }
 
 .navbar-logo:hover .logo{

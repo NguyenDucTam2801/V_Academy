@@ -50,7 +50,7 @@ const admissionSignIn = async (req, res) => {
       res.status(200).json({
         token: createTokenAdmission(result),
         message: "Login successful",
-        admission: result,
+        user: result,
       });
     });
   } catch (err) {

@@ -75,7 +75,7 @@ const studentSignIn = async (req, res) => {
       res.status(200).json({
         token: createTokenStudent(result),
         message: "Login successful",
-        student: result,
+        user: result,
       });
     });
   } catch (err) {

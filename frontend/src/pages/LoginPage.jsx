@@ -1,4 +1,6 @@
-import React, { useState, useNavigate, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
@@ -8,10 +10,12 @@ import AuthContext from "../context/AuthProvider";
 import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import { set } from "react-hook-form";
+import Cookies from "js-cookie";
 
 export const LoginPage = () => {
   const userRef = useRef();
   const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const roles = ["Student", "Turtor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
@@ -25,18 +29,23 @@ export const LoginPage = () => {
 
   const LOGIN_URL =
     role === "Student"
-      ? "http://localhost:3001/api/students/studentSignIn"
+      ? "http://localhost:3001/api/student/signIn"
       : role === "Turtor"
-      ? "http://localhost:3001/api/tutor/tutorSignIn"
-      : "http://localhost:3001/api/admissions/admissionSignIn";
+      ? "http://localhost:3001/api/tutor/signIn"
+      : "http://localhost:3001/api/admission/signIn";
+
+  const navigateLink =
+    role === "Student"
+      ? "/student"
+      : role === "Turtor"
+      ? "/tutor"
+      : "/admin";
   const [success, setSuccess] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [passwordFieldType, setPasswordFieldType] = useState(
     passwordFieldTypeList[0]
   );
-
-  // const navigate = useNavigate();
 
   const [passwordVisibleAction, setPasswordVisibleAction] = useState(
     passwordVisibleActionList[0]
@@ -77,14 +86,15 @@ export const LoginPage = () => {
           withCredentials: true,
         }
       );
-      localStorage.setItem("token", JSON.stringify(response?.data?.token));
-      localStorage.setItem("user", JSON.stringify(response?.data?.user));
+      Cookies.set("token", response?.data?.token);
+      Cookies.set("role", role);
+      Cookies.set("user", JSON.stringify(response?.data?.user));
+      console.log("response", JSON.stringify(response?.data?.user));
       setSuccess(true);
       setMessage("You logged in.");
       setShowMessage(true);
-      console.log(JSON.stringify(response?.data?.token));
-      console.log(JSON.stringify(response));
 
+      console.warn("cookie", document.cookie);
       // setAuth({
       //   userName: accessToken.userName,
       //   password: accessToken.password,
@@ -96,6 +106,7 @@ export const LoginPage = () => {
         email: "",
         password: "",
       });
+      navigate(navigateLink + "_dashboard");
     } catch (err) {
       if (err?.response) {
         setMessage("Login Error");
@@ -194,12 +205,9 @@ export const LoginPage = () => {
       </div>
 
       <Footer />
-      {showMessage &&
-        (success ? (
-          <AlertStatus message={message} status="success" />
-        ) : (
-          <AlertStatus message={message} status="failed" />
-        ))}
+      {showMessage && !success && (
+        <AlertStatus message={message} status="failed" />
+      )}
     </div>
   );
 };

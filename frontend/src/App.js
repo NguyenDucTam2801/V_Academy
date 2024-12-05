@@ -11,6 +11,7 @@ import CourseEngAdvanced from "./pages/CourseAdvancedEng";
 import StdManagePage from "./pages/StudentManagePage";
 import TuitorManagePage from "./pages/TuitorManagePage";
 import AdminManagePage from "./pages/AdminManagePage";
+import ClassDetailPage from "./pages/ClassDetailPage";
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
         <Route path="/englishCourse_info_page" element={<CourseInfoPageGeneralEng/>} />
         <Route path="/basic_english_course_page" element={<CourseEngBasic/>} />
         <Route path="/advanced_english_course_page" element={<CourseEngAdvanced/>} />
-        <Route path="/student_manage_page" element={<StdManagePage/>} />
-        <Route path="/tuitor_manage_page" element={<TuitorManagePage/>} />
-        <Route path="/admin_manage_page" element={<AdminManagePage/>} />
+        <Route path="/student_dashboard" element={<StdManagePage/>} />
+        <Route path="/tuitor_dashboard" element={<TuitorManagePage/>} />
+        <Route path="/admin_dashboard" element={<AdminManagePage/>} />
+        <Route path="/class_detail/:id" element={<ClassDetailPage/>} />
       </Routes>
     </Router>
   );

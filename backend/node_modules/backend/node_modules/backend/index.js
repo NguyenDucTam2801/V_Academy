@@ -2,8 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const morgan = require("morgan");
-const db = require("./src/config/db");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -12,6 +12,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 // Middleware to parse incoming requests with JSON payloads
 app.use(bodyParser.json());
+
+// Use CORS middleware
+app.use(cors());
 
 //config .env
 dotenv.config();

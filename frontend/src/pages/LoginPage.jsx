@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/outside/NavBar";
 import "../styles/pages/LoginPage.css";
 import background from "../assets/background.jpg";
-import Footer from "../components/outside/Footer";
+import Footer from "../components/outside/Footer.jsx";
 import { studentURL, tutorURL, admissionURL } from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import axios from "axios";

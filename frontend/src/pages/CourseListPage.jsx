@@ -24,11 +24,12 @@ function CourseListPage() {
       );
 
   return (
-    <div style={{
+    <div>
+      <div style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat",
       }}>
         <NavBar/>
         <div className="container">
@@ -70,8 +71,10 @@ function CourseListPage() {
                 
             </div>
         </div>
-        <Footer/>
     </div>
+    <Footer/>
+    </div>
+    
   )
 }
 

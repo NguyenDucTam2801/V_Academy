@@ -13,48 +13,59 @@ import tiktok from "../../assets/8547041_tiktok_icon 1.png"
 function Footer() {
   return (
     <footer className='footer'>
-        <Link to='/home_page'>
-            <div className='footer-logo'>
-                <img src={logo} alt="logo" className="logo" />
-                <Link to="/home_page">Academy</Link>
-            </div>
-        </Link>
-
-        {/* Brief self Intro */}
-        <div className='footer-content'>
+        <div className='footer-logo'>
+            <img src={logo} alt="logo" className="logo" />
+            <Link to="/home_page">Academy</Link>
+        </div>
+        <div className='footer-intro-container'>
             <div className='footer-description'>
                 <p>V-academy is a non-profit organization.</p>
                 <p>Our mission is to provide a world-class education, completely free, to anyone, anywhere.</p>
-                
             </div> 
 
             {/* Contact Info */}
             <div className='footer-contactInfo'>
-                <p><img src={phone} alt='phone icon'/><b>0901234567</b></p>
-            </div>
-            <div className='footer-contactInfo'>
-                <p><img src={mail} alt='mail icon'/><b>Vacademy@gmail.com</b></p>
+                <div className='phone-contact-container'>
+                    <div className='phone-icon'>
+                        <img src={phone} alt='phone icon'/>
+                    </div>
+                    <div className='phone-number'>
+                        <p><b>0901234567</b></p>
+                    </div>
+
+                </div>
+
+                <div className='mail-contact-container'>
+                    <div className='mail-icon'>
+                        <img src={mail} alt='mail icon'/>
+                    </div>
+                    <div className='mail-info'>
+                        <p><b>Vacademy@gmail.com</b></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div className="footer-social">
-            <span className="social-icon">
-                <img src={facebook} alt='facebook icon'/>
-            </span>
-            <span className="social-icon">
-                <img src={instagram} alt='insta icon'/>
-            </span>
-            <span className="social-icon">
-                <img src={linkedin} alt='linkedin icon'/>
-            </span>
-            <span className="social-icon">
-                <img src={X} alt='x icon'/>
-            </span>
-            <span className="social-icon">
-                <img src={tiktok} alt='tiktok icon'/>
-            </span>
-        </div>
-        <div className="footer-copyright">
-            &copy; 2024 V-academy copyright
+        <div className='footer-social-media-copyright'>
+            <div className="footer-social">
+                <span >
+                    <img src={facebook} alt='facebook icon'/>
+                </span>
+                <span >
+                    <img src={instagram} alt='insta icon'/>
+                </span>
+                <span >
+                    <img src={linkedin} alt='linkedin icon'/>
+                </span>
+                <span >
+                    <img src={X} alt='x icon'/>
+                </span>
+                <span >
+                    <img src={tiktok} alt='tiktok icon'/>
+                </span>
+            </div>
+            <div className="footer-copyright">
+                &copy; 2024 V-academy copyright
+            </div>
         </div>
     </footer>
   )

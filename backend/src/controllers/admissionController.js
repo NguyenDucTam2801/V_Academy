@@ -19,6 +19,10 @@ const {
   getClasses,
   getCustomerContacts,
   changeCustomerContactStatus,
+  getLessonDetailAdmission,
+  getLessonClassAdmission,
+  getClassDetailAdmission,
+  getSubjectAdminstration
 } = require("../models/admissionModel");
 
 const {
@@ -328,7 +332,7 @@ const getClassList = (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Class list fetched successfully",
-      data: result,
+      class: result,
     });
   });
 };
@@ -388,6 +392,151 @@ const changeCustomerContactProcessStatus = (req, res) => {
   });
 };
 
+const getClassDetail = async (req, res) => {
+  const class_id = req.params.class_id;
+
+  if (!class_id) {
+    return res.status(400).send({
+      success: false,
+      message: "class_id is required",
+    });
+  }
+
+  console.log("[admissionControle] class_id", class_id);
+
+  try {
+    // Call the model's getClassDetail method
+    const result = await getClassDetailAdmission(class_id);
+
+    if (!result) {
+      return res.status(404).send({
+        success: false,
+        message: "No class found",
+      });
+    }
+
+    console.log("[admissionControle] Success: Class details fetched");
+    return res.status(200).send({
+      success: true,
+      message: "Class details fetched successfully",
+      class: result,
+    });
+  } catch (err) {
+    console.error("[admissionControle] Error fetching class details:", err);
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching class details",
+      error: err.message,
+    });
+  }
+};
+
+const getLessonDetail = async (req, res) => {
+  const lesson_id = req.params.lesson_id;
+
+  if (!lesson_id) {
+    return res.status(400).send({
+      success: false,
+      message: "lesson_id is required",
+    });
+  }
+
+  try {
+    // Call the model's getLessonDetailAdmission method
+    const result = await getLessonDetailAdmission(lesson_id);
+
+    if (!result || result.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: "No lesson found",
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: "Lesson details fetched successfully",
+      lesson: result,
+    });
+  } catch (err) {
+    console.error("[getLessonDetail] Error fetching lesson details:", err);
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching lesson details",
+      error: err.message,
+    });
+  }
+};
+
+const getLessonClass = async (req, res) => {
+  const class_id = req.params.class_id;
+
+  if (!class_id) {
+    return res.status(400).send({
+      success: false,
+      message: "class_id is required",
+    });
+  }
+
+  try {
+    // Call the model's getLessonClassAdmission method
+    const result = await getLessonClassAdmission(class_id);
+
+    if (!result || result.length === 0) {
+      return res.status(404).send({
+        success: true,
+        message: "No lesson found",
+      });
+    }
+
+    console.log("[admissionControle] Success: Lesson details fetched");
+    return res.status(200).send({
+      success: true,
+      message: "Lesson details fetched successfully",
+      class: result,
+    });
+  } catch (err) {
+    console.error("[admissionControle] Error fetching lesson details:", err);
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching lesson details",
+      error: err.message,
+    });
+  }
+};
+
+const getSubject = (req, res) => {
+  // Call the model's getSubject method
+  getSubjectAdminstration((err, result) => {
+    try {
+      if (err) {
+        return res.status(500).send({
+          success: false,
+          message: "Error fetching subject details",
+          error: err,
+        });
+      }
+      if (result.length === 0) {
+        return res.status(404).send({
+          success: false,
+          message: "No Subject not found",
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message: "Subject list fetched successfully",
+        data: result,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: "Internal server error",
+        error: err.message,
+      });
+    }
+  });
+}
+
 module.exports = {
   getCourses,
   createClass,
@@ -404,4 +553,8 @@ module.exports = {
   getClassList,
   getCustomerContactList,
   changeCustomerContactProcessStatus,
+  getClassDetail,
+  getLessonDetail,
+  getLessonClass,
+  getSubject
 };

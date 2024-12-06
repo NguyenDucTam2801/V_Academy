@@ -52,7 +52,6 @@ const {
 //   }
 // };
 
-
 const studentSignIn = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -229,7 +228,7 @@ const studentGetClass = (req, res) => {
 const studentGetLessonClass = (req, res) => {
   console.log(
     "[StudentController]Getting student lesson class",
-    req.params.classs_id
+    req.params.class_id
   );
   const classesData = getStudentLessonClass(req.params.class_id);
   classesData.then((result) => {
@@ -276,7 +275,7 @@ const studentGetLessonDetail = (req, res) => {
     }
     res
       .status(200)
-      .json({ message: "[studentControlled]Result found", class: result });
+      .json({ message: "[studentControlled]Result found", lesson: result });
   });
 };
 
@@ -288,7 +287,7 @@ module.exports = {
   studentUpdate,
   studentGetInfo,
   studentGetClass,
-  studentGetLessonClass,    
+  studentGetLessonClass,
   studentGetClassDetail,
   studentGetLessonDetail,
 };

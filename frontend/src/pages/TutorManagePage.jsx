@@ -1,14 +1,13 @@
-import { useState, React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
-// import Data from "../Sample/StdSampleData.json";
-import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
+import { Link } from "react-router-dom";
+import {NavBar} from "../components/inside/NavBar";
 import Cookies from "js-cookie";
-import { NavBar } from "../components/inside/NavBar";
+import axios from "axios";
 
-function AdminManagePage() {
+function TutorManagePage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
@@ -16,16 +15,14 @@ function AdminManagePage() {
   console.log("user" + JSON.stringify(user));
   const [classList, setClassList] = useState({});
   const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/create_class", label: "Create Class" },
-    { url: "/create_tutor", label: "Create Tutor" },
-    { url: "/create_student", label: "Create Student" },
+    { url: "/tutor_dashboard", label: "Regitered Class" },
+    { url: "/create_lesson", label: "Create Lesson" },
   ];
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/admissionClass/${user.admission_id}`,
+          `http://localhost:3001/api/tutor/tutorClass/${user.tutor_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,7 +36,7 @@ function AdminManagePage() {
     };
     fetchData();
   }, []);
-  console.log("Class list "+JSON.stringify(classList));
+  console.log("Class list " + JSON.stringify(classList));
   return (
     <div className="container">
       <NavBar linkList={links} role={role} />
@@ -75,7 +72,11 @@ function AdminManagePage() {
             <tbody>
               {Object.values(classList).map((record, index) => (
                 <tr key={index}>
-                  <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
+                  <td>
+                    <Link to={"/class_detail/" + record.class_id}>
+                      {record.class_name}
+                    </Link>
+                  </td>
                   <td>{record.tutor_id}</td>
                   <td>{record.course_id}</td>
                 </tr>
@@ -89,4 +90,4 @@ function AdminManagePage() {
   );
 }
 
-export default AdminManagePage
+export default TutorManagePage;

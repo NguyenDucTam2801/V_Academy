@@ -7,8 +7,22 @@ import { useEffect, useState } from "react";
 
 export default function ClassDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
-  const links = [{ url: "/regitered_class", label: "Regitered Class" }];
   const role = Cookies.get("role");
+  console.log("role", role);
+  const links =
+    role === "Student"
+      ? [{ url: "/student_dashboard", label: "Regitered Class" }]
+      : role === "Tutor"
+      ? [
+          { url: "/tutor_dashboard", label: "Regitered Class" },
+          { url: "/create_lesson", label: "Create Lesson" },
+        ]
+      : [
+          { url: "/admin_dashboard", label: "Regitered Class" },
+          { url: "/create_class", label: "Create Class" },
+          { url: "/create_tutor", label: "Create Tutor" },
+          { url: "/create_student", label: "Create Student" },
+        ];
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const [classDetail, setClassDetail] = useState({});
@@ -39,7 +53,7 @@ export default function ClassDetailPage() {
     const fetchClassDetailData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/student/studentClassDetail/${id}`,
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -57,7 +71,7 @@ export default function ClassDetailPage() {
     const fetchLessonListData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/student/studentLessonClass/${id}`,
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -90,7 +104,7 @@ export default function ClassDetailPage() {
               </tr>
             </thead>
             <tbody>
-              {Object.values(lessonList).map((record, index) => (
+              {!Object.keys(lessonList).length==0 ? (Object.values(lessonList).map((record, index) => (
                 <tr key={index}>
                   <td>
                     <Link to={"/lesson_detail/" + record.lesson_id}>
@@ -105,7 +119,12 @@ export default function ClassDetailPage() {
                     {formatDate(record.lesson_endTime)}
                   </td>
                 </tr>
-              ))}
+              )))
+              : (
+                <tr>
+                  <td colSpan="5" style={{textAlign:"center"}}>No lesson found</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

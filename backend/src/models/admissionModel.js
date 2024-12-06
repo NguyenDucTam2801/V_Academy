@@ -341,11 +341,13 @@ const getTutors = (callback) => {
 };
 
 const getClasses = (admission_id, callback) => {
+  console.log("[admissionModel] getClasses admission_id:", admission_id);
   var sql = "SELECT * FROM `class` WHERE `admission_id` = ?";
   db.query(sql, admission_id, (err, result) => {
     if (err) {
       return callback(err);
     }
+    console.log("[admissionModel] getClasses result:", result);
     return callback(null, result);
   });
 };
@@ -380,7 +382,9 @@ const changeCustomerContactStatus = (customer_id, status, callback) => {
     console.log("[changeCustomerContactStatus] Update Result:", updateResult);
 
     if (updateResult.affectedRows === 0) {
-      return callback(new Error("No rows updated. Check if the customer_id exists."));
+      return callback(
+        new Error("No rows updated. Check if the customer_id exists.")
+      );
     }
 
     // Fetch updated customer data
@@ -395,6 +399,60 @@ const changeCustomerContactStatus = (customer_id, status, callback) => {
     });
   });
 };
+
+const getClassDetailAdmission = (class_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM `class` WHERE `class_id` = ?";
+    db.query(sql, [class_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("Class not found"));
+      }
+      console.log("[admissionModel] getClassDetailAdmission result:", result);
+      return resolve(result[0]);
+    });
+  });
+};
+
+const getLessonDetailAdmission = (lesson_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM `lesson` WHERE `lesson_id` = ?";
+    db.query(sql, [lesson_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      if (result.length === 0) {
+        return reject(new Error("Lesson not found"));
+      }
+      return resolve(result[0]);
+    });
+  });
+};
+
+const getLessonClassAdmission = (class_id) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT * FROM `lesson` left join class_lesson on class_lesson.lesson_id = lesson.lesson_id where class_lesson.class_id=?;";
+    db.query(sql, [class_id], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      console.log("[admissionModel] getLessonClassAdmission result:", result);
+      return resolve(result);
+    });
+  });
+};
+const getSubjectAdminstration = (callback) => {
+  var sql = "SELECT * FROM `subject`";
+  db.query(sql, (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+}
 
 module.exports = {
   getCourse,
@@ -412,4 +470,8 @@ module.exports = {
   getClasses,
   getCustomerContacts,
   changeCustomerContactStatus,
+  getClassDetailAdmission,
+  getLessonDetailAdmission,
+  getLessonClassAdmission,
+  getSubjectAdminstration
 };

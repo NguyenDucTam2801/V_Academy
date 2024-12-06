@@ -10,12 +10,40 @@ router.put("/update/:id", verifyToken, admissionController.admissionUpdate);
 router.get("/info/:id", verifyToken, admissionController.admissionGetInfo);
 router.post("/createStudent", verifyToken, admissionController.createStudent);
 router.post("/createTutor", verifyToken, admissionController.createTutor);
-router.get("/courses", verifyToken, admissionController.getCourses);
+router.get("/course", verifyToken, admissionController.getCourses);
+router.get("/subject", verifyToken, admissionController.getSubject);
 router.post("/addClass", verifyToken, admissionController.createClass);
 router.get("/studentList", verifyToken, admissionController.getStudentList);
 router.get("/tutorList", verifyToken, admissionController.getTutorList);
-router.get("/classList/:admission_id", verifyToken, admissionController.getClassList);
-router.get("/customerContactList", verifyToken, admissionController.getCustomerContactList);
-router.put("/changeCustomerContactStatus/:customer_id", verifyToken, admissionController.changeCustomerContactProcessStatus);
+router.get(
+  "/admissionClass/:admission_id",
+  verifyToken,
+  admissionController.getClassList
+);
+router.get(
+  "/customerContactList",
+  verifyToken,
+  admissionController.getCustomerContactList
+);
+router.put(
+  "/changeCustomerContactStatus/:customer_id",
+  verifyToken,
+  admissionController.changeCustomerContactProcessStatus
+);
+router.get(
+  "/admissionClassDetail/:class_id",
+  verifyToken,
+  admissionController.getClassDetail
+);
+router.get(
+  "/admissionLessonDetail/:lesson_id",
+  verifyToken,
+  admissionController.getLessonDetail
+);
+router.get(
+  "/admissionLessonClass/:class_id",
+  verifyToken,
+  admissionController.getLessonClass
+);
 
 module.exports = router;

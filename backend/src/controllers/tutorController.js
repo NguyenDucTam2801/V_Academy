@@ -182,7 +182,7 @@ const getTutorLessonDetailController = async (req, res) => {
 
     return res.status(200).json({
       message: "Lesson detail fetched successfully",
-      data: lessonDetail,
+      lesson: lessonDetail,
     });
   } catch (err) {
     console.error("Error fetching lesson detail:", err);
@@ -205,7 +205,7 @@ const getTutorClassDetailController = async (req, res) => {
 
     return res.status(200).json({
       message: "Class detail fetched successfully",
-      data: classDetail,
+      class: classDetail,
     });
   } catch (err) {
     console.error("Error fetching class detail:", err);
@@ -230,7 +230,7 @@ const getTutorClassController = async (req, res) => {
 
     return res.status(200).json({
       message: "Classes fetched successfully",
-      data: classes,
+      class: classes,
     });
   } catch (err) {
     console.error("Error fetching classes:", err);
@@ -255,7 +255,7 @@ const getTutorLessonClassController = async (req, res) => {
 
     return res.status(200).json({
       message: "Lessons for class fetched successfully",
-      data: lessons,
+      class: lessons,
     });
   } catch (err) {
     console.error("Error fetching lessons for class:", err);

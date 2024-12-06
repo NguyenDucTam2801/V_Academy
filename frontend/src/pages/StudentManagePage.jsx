@@ -25,53 +25,36 @@ function StudentManagePage() {
       {/* data table */}
       <main className="content">
         <div className="content-box" >
-          {/* {
-            Data.map( record => {
-              return(
-                <div>
-                  {record.CourseID}
-                  {record.CourseName}
-                  {record.TutorID}
-                  {record.TutorName}
-                  {record.TutorPhone}
-                  {record.TutorEmail}
-                  {record.StartTime}
-                  {record.EndTime}
-                </div>
-              )
-            })
-          } */}
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Class Name</th>
-          <th>Lessions</th>
-          <th>Tutor ID</th>
-          <th>Tutor Name</th>
-          <th>Tutor Email</th>
-          <th>Tutor Phone</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Data.map((record, index) => (
-          <tr key={index}>
-            <td>{record.CourseID}</td>
-            <td>{record.CourseName}</td>
-            <td>{record.Lessions}</td>
-            <td>{record.TutorID}</td>
-            <td>{record.TutorName}</td>
-            <td>{record.TutorEmail}</td>
-            <td>{record.TutorPhone}</td>
-            <td>{record.StartTime}</td>
-            <td>{record.EndTime}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Class Name</th>
+                <th>Lessions</th>
+                <th>Tutor ID</th>
+                <th>Tutor Name</th>
+                <th>Tutor Email</th>
+                <th>Tutor Phone</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Data.map((record, index) => (
+                <tr key={index}>
+                  <td>{record.CourseID}</td>
+                  <td>{record.CourseName}</td>
+                  <td>{record.Lessions}</td>
+                  <td>{record.TutorID}</td>
+                  <td>{record.TutorName}</td>
+                  <td>{record.TutorEmail}</td>
+                  <td>{record.TutorPhone}</td>
+                  <td>{record.StartTime}</td>
+                  <td>{record.EndTime}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
         </div>
       </main>

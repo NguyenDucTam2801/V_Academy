@@ -18,15 +18,17 @@ export default function ContactPage() {
       };
 
   return (
-    <div style={
-        {
-          backgroundImage: `url(${background})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed"
-        }
-      }>
+    <div>
+        <div style={
+            {
+                backgroundImage: `url(${background})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                width: "100%",
+            }
+        }>
+        <div className='reg-full-container'>
         <NavBar/>
         <div className="register-container" >
             <h2>Register for education</h2>
@@ -97,7 +99,11 @@ export default function ContactPage() {
                 <button type="submit" className="submit-button">Register</button>
             </form>
         </div>
-        <Footer/>
     </div>
+    </div>
+    <Footer/>
+    </div>
+    
+    
   )
 }

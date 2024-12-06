@@ -2,6 +2,7 @@ import React from 'react'
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png"
 import { Link } from 'react-router-dom';
+import SampleData from "../Sample/TutorSampleData.json";
 
 function TuitorManagePage() {
   return (
@@ -23,7 +24,24 @@ function TuitorManagePage() {
 
       {/* data table */}
       <main className="content">
-        <div className="content-box"></div>
+        <div className="content-box">
+          <table>
+            <thead>
+              <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Lessions</th>
+                <th>Tutor ID</th>
+                <th>Tutor Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
       </main>
     </div>
   )

@@ -113,6 +113,7 @@ const getStudentLessonClass = (class_id) => {
       if (result.length === 0) {
         return reject(new Error("Student not found"));
       }
+      console.log("[StudentModel]Student lesson class", result);
       return resolve(result);
     });
   });
@@ -129,7 +130,8 @@ const getStudentClassDetail = (class_id) => {
       if (result.length === 0) {
         return reject(new Error("Student not found"));
       }
-      return resolve(result[0]);
+      console.log("[StudentModel]Student class detail", result);
+      return resolve(result);
     });
   });
 };
@@ -145,6 +147,7 @@ const getStudentLessonDetail = (lesson_id) => {
       if (result.length === 0) {
         return reject(new Error("Student not found"));
       }
+      console.log("[StudentModel]Student lesson detail", result);
       return resolve(result[0]);
     });
   });

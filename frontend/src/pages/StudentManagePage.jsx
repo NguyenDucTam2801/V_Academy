@@ -15,7 +15,7 @@ function StudentManagePage() {
   console.log("role" + role);
   const [classList, setClassList] = useState({});
   const links = [
-    { url: "/regitered_class", label: "Regitered Class" }
+    { url: "/student_dashboard", label: "Regitered Class" }
   ];
   useEffect(() => {
     const fetchData = async () => {

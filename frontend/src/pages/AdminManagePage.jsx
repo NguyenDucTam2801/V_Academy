@@ -13,9 +13,10 @@ function AdminManagePage() {
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
   console.log("role" + role);
+  console.log("user" + JSON.stringify(user));
   const [classList, setClassList] = useState({});
   const links = [
-    { url: "/regitered_class", label: "Regitered Class" },
+    { url: "/admin_dashboard", label: "Regitered Class" },
     { url: "/create_class", label: "Create Class" },
     { url: "/create_tutor", label: "Create Tutor" },
     { url: "/create_student", label: "Create Student" },
@@ -24,7 +25,7 @@ function AdminManagePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/student/studentClass/${user.admission_id}`,
+          `http://localhost:3001/api/admission/admissionClass/${user.admission_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,7 +39,7 @@ function AdminManagePage() {
     };
     fetchData();
   }, []);
-  console.log(classList);
+  console.log("Class list "+JSON.stringify(classList));
   return (
     <div className="container">
       <NavBar linkList={links} role={role} />

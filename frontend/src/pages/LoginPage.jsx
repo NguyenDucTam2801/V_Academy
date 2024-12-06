@@ -17,7 +17,7 @@ export const LoginPage = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const roles = ["Student", "Turtor", "Admission"];
+  const roles = ["Student", "Tutor", "Admission"];
   const passwordVisibleActionList = ["Show", "Hide"];
   const passwordFieldTypeList = ["password", "text"];
   const [role, setRole] = useState(roles[0]);
@@ -30,14 +30,14 @@ export const LoginPage = () => {
   const LOGIN_URL =
     role === "Student"
       ? "http://localhost:3001/api/student/signIn"
-      : role === "Turtor"
+      : role === "Tutor"
       ? "http://localhost:3001/api/tutor/signIn"
       : "http://localhost:3001/api/admission/signIn";
 
   const navigateLink =
     role === "Student"
       ? "/student"
-      : role === "Turtor"
+      : role === "Tutor"
       ? "/tutor"
       : "/admin";
   const [success, setSuccess] = useState();
@@ -134,7 +134,10 @@ export const LoginPage = () => {
     console.log("Success: ", success);
     console.log("Message: ", message);
   }, [success, showMessage, message]);
-
+useEffect(() => {
+  handleChangeRole({ target: { value: role } });
+    console.log("role", role);
+  }, [role]);
   return (
     <div>
       <NavBar />

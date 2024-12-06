@@ -3,7 +3,7 @@ import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
 import AlertStatus from "../components/alert/AlertStatus";
 import { Link } from "react-router-dom";
-import {NavBar} from "../components/inside/NavBar";
+import { NavBar } from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -11,8 +11,7 @@ function TutorManagePage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
-  console.log("role" + role);
-  console.log("user" + JSON.stringify(user));
+  console.log("user" + user);
   const [classList, setClassList] = useState({});
   const links = [
     { url: "/tutor_dashboard", label: "Regitered Class" },
@@ -36,10 +35,11 @@ function TutorManagePage() {
     };
     fetchData();
   }, []);
+  console.log("role" + role);
   console.log("Class list " + JSON.stringify(classList));
   return (
     <div className="container">
-      <NavBar linkList={links} role={role} />
+      <NavBar linkList={links} role={role} username={user.tutor_name} />
 
       {/* data table */}
       <main className="content">

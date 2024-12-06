@@ -88,8 +88,8 @@ export const LoginPage = () => {
       );
       Cookies.set("token", response?.data?.token);
       Cookies.set("role", role);
-      Cookies.set("user", JSON.stringify(response?.data?.user));
-      console.log("response", JSON.stringify(response?.data?.user));
+      Cookies.set("user", JSON.stringify(response?.data?.user),{ path: '/' });
+      console.log("Cookie value:", Cookies.get("user"));
       setSuccess(true);
       setMessage("You logged in.");
       setShowMessage(true);

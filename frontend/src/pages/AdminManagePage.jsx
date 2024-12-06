@@ -42,7 +42,7 @@ function AdminManagePage() {
   console.log("Class list "+JSON.stringify(classList));
   return (
     <div className="container">
-      <NavBar linkList={links} role={role} />
+      <NavBar linkList={links} role={role} username={user.admission_name}/>
 
       {/* data table */}
       <main className="content">

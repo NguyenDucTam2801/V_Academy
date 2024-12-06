@@ -1,9 +1,13 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { NavBar } from "../components/inside/NavBar";
-import Cookies from "js-cookie";
+import { useState, React, useEffect } from "react";
+import "../styles/pages/ManagePage.css";
+import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+// import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import AlertStatus from "../components/alert/AlertStatus";
+import Cookies from "js-cookie";
+import { NavBar } from "../components/inside/NavBar";
+import { useParams } from "react-router-dom";
 
 export default function ClassDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -89,7 +93,7 @@ export default function ClassDetailPage() {
   console.log("lesson list", lessonList);
   return (
     <div className="class_detail_page">
-      <NavBar linkList={links} role={role} />
+      <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name} />
       <main className="page-content">
         <div className="class_info"></div>
         <div className="lesson_list">

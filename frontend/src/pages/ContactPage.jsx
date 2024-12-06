@@ -42,15 +42,16 @@ export default function ContactPage() {
   };
 
   return (
-    <div
+    <div>
+      <div
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
       }}
     >
+      <div className="reg-full-container">
       <NavBar />
       <div className="register-container">
         <h2>Register for education</h2>
@@ -142,6 +143,8 @@ export default function ContactPage() {
           </button>
         </form>
       </div>
+    </div></div>
+      
       <Footer />
       {showMessage &&
         (success ? (
@@ -150,5 +153,6 @@ export default function ContactPage() {
           <AlertStatus message={message} status="failed" />
         ))}
     </div>
+    
   );
 }

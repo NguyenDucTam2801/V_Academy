@@ -38,7 +38,7 @@ function StudentManagePage() {
   console.log(classList);
   return (
     <div className="container">
-      <NavBar linkList={links} role={role} />
+      <NavBar linkList={links} role={role} username={user.student_name}/>
 
       {/* data table */}
       <main className="content">

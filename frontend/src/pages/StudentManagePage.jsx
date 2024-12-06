@@ -42,35 +42,6 @@ function StudentManagePage() {
 
       {/* data table */}
       <main className="content">
-<<<<<<< HEAD
-        <div className="content-box" >
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Class Name</th>
-                <th>Lessions</th>
-                <th>Tutor ID</th>
-                <th>Tutor Name</th>
-                <th>Tutor Email</th>
-                <th>Tutor Phone</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Data.map((record, index) => (
-                <tr key={index}>
-                  <td>{record.CourseID}</td>
-                  <td>{record.CourseName}</td>
-                  <td>{record.Lessions}</td>
-                  <td>{record.TutorID}</td>
-                  <td>{record.TutorName}</td>
-                  <td>{record.TutorEmail}</td>
-                  <td>{record.TutorPhone}</td>
-                  <td>{record.StartTime}</td>
-                  <td>{record.EndTime}</td>
-=======
         <div className="content-box">
           {/* {
             Data.map( record => {
@@ -103,15 +74,10 @@ function StudentManagePage() {
                   <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
                   <td>{record.tutor_id}</td>
                   <td>{record.course_id}</td>
->>>>>>> 96da6bef890c24101fbb0003952146ddf675b896
                 </tr>
               ))}
             </tbody>
           </table>
-<<<<<<< HEAD
-
-=======
->>>>>>> 96da6bef890c24101fbb0003952146ddf675b896
         </div>
       </main>
       <AlertStatus message="Login Success" status="success" />

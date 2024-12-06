@@ -4,6 +4,7 @@ import { NavBar } from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "../styles/pages/ManagePage.css";
 
 export default function ClassDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -74,11 +75,11 @@ export default function ClassDetailPage() {
   console.log("class detail", classDetail);
   console.log("lesson list", lessonList);
   return (
-    <div className="class_detail_page">
+    <div className="container">
       <NavBar linkList={links} role={role} />
-      <main className="page-content">
+      <main className="content">
         <div className="class_info"></div>
-        <div className="lesson_list">
+        <div className="content-box">
           <table>
             <thead>
               <tr>

@@ -204,20 +204,10 @@ export const LoginPage = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-      <Footer/>
-      {showMessage &&
-        (success ? (
-          <AlertStatus message={message} status="success" />
-        ) : (
-          <AlertStatus message={message} status="failed" />
-        ))}
-=======
       <Footer />
       {showMessage && !success && (
         <AlertStatus message={message} status="failed" />
       )}
->>>>>>> 96da6bef890c24101fbb0003952146ddf675b896
     </div>
   );
 };

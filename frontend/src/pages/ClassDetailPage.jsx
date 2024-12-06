@@ -8,6 +8,7 @@ import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
+import "../styles/pages/ManagePage.css";
 
 export default function ClassDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -96,7 +97,7 @@ export default function ClassDetailPage() {
       <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name} />
       <main className="page-content">
         <div className="class_info"></div>
-        <div className="lesson_list">
+        <div className="content-box">
           <table>
             <thead>
               <tr>

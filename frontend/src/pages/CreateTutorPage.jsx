@@ -7,6 +7,7 @@ import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
+import "../styles/pages/UpdateDataFrameStyle.css"
 
 export default function CreateTutorPage() {
   const token = Cookies.get("token");
@@ -70,5 +71,8 @@ export default function CreateTutorPage() {
   console.log("Subject list " + JSON.stringify(subjectList));
   return <div>
   <NavBar linkList={links} role={role} />
+  <div className="create-tutor-container">
+
+  </div>
   </div>;
 }

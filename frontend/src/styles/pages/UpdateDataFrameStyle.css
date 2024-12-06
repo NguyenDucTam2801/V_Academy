@@ -1,0 +1,12 @@
+.create-tutor-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 1px solid #666;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 5%;
+    height: 80%;
+}

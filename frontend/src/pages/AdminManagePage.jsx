@@ -1,7 +1,7 @@
 import { useState, React, useEffect } from "react";
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
@@ -38,6 +38,10 @@ function AdminManagePage() {
     };
     fetchData();
   }, []);
+  const navigate = useNavigate();
+  const createClass = () => {
+    navigate("/create_class");
+  }
   console.log("Class list "+JSON.stringify(classList));
   return (
     <div className="container">
@@ -62,7 +66,10 @@ function AdminManagePage() {
               )
             })
           } */}
-
+          <div className="header">
+          <h1>Class List</h1>
+          <button onClick={createClass}>Create Class</button>
+        </div>
           <table>
             <thead>
               <tr>

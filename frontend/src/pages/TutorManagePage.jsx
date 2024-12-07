@@ -40,7 +40,6 @@ function TutorManagePage() {
   return (
     <div className="container">
       <NavBar linkList={links} role={role} username={user.tutor_name} />
-
       {/* data table */}
       <main className="content">
         <div className="content-box">

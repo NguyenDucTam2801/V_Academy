@@ -59,10 +59,11 @@ const tutorSignIn = async (req, res) => {
 
 const tutorUpdate = (req, res) => {
   const tutorInfo = req.body;
-
+  const tutor_id = req.params.id;
   try {
-    console.log("Tutor Info", tutorInfo.tutor_id);
-    updateTutorInfo(tutorInfo.tutor_id, tutorInfo);
+    console.log("Tutor Info", tutorInfo);
+    console.log("Tutor ID", tutor_id);
+    updateTutorInfo(tutor_id, tutorInfo);
     res.status(200).json({
       success: true,
       message: "Tutor information updated successfully",
@@ -92,7 +93,7 @@ const createLessontoClass = async (req, res) => {
     lesson_descript,
     lesson_note,
     lesson_url,
-    lesson_startTime
+    lesson_startTime,
   } = req.body;
 
   const { class_id } = req.params;
@@ -100,24 +101,31 @@ const createLessontoClass = async (req, res) => {
   // console.log("[tutorController] createLessontoClass", req.body, class_id);
 
   // Check for required fields
-  if (!lesson_topic|| !class_id || !lesson_descript|| !lesson_url|| !lesson_startTime) {
-    return res
-      .status(400)
-      .json({
-        error:
-          "Missing required fields: Missing Information, Please Check input data and Try Again",
-      });
+  if (
+    !lesson_topic ||
+    !class_id ||
+    !lesson_descript ||
+    !lesson_url ||
+    !lesson_startTime
+  ) {
+    return res.status(400).json({
+      error:
+        "Missing required fields: Missing Information, Please Check input data and Try Again",
+    });
   }
 
   try {
     // Call the addLesson function
-    const result = await addLesson({
-      lesson_topic,
-      lesson_descript,
-      lesson_note,
-      lesson_url,
-      lesson_startTime
-    }, class_id);
+    const result = await addLesson(
+      {
+        lesson_topic,
+        lesson_descript,
+        lesson_note,
+        lesson_url,
+        lesson_startTime,
+      },
+      class_id
+    );
     // Respond with success message
     return res.status(201).json({
       message: "Lesson added successfully",
@@ -259,12 +267,10 @@ const getTutorLessonClassController = async (req, res) => {
     });
   } catch (err) {
     console.error("Error fetching lessons for class:", err);
-    return res
-      .status(500)
-      .json({
-        error: "Failed to fetch lessons for class",
-        details: err.message,
-      });
+    return res.status(500).json({
+      error: "Failed to fetch lessons for class",
+      details: err.message,
+    });
   }
 };
 
@@ -276,5 +282,5 @@ module.exports = {
   tutorSignIn,
   tutorUpdate,
   tutorGetInfo,
-  createLessontoClass
+  createLessontoClass,
 };

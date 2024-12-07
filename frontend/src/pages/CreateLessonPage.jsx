@@ -64,7 +64,7 @@ export default function CreateLessonPage() {
   console.log("Class list " + JSON.stringify(classList));
   return (
     <div>
-      <NavBar linkList={links} role={role} />
-    </div>
+      <NavBar linkList={links} role={role} username={user.tutor_name} />
+      </div>
   )
 }

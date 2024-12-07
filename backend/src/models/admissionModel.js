@@ -87,12 +87,12 @@ const updateAdmissionInfo = (admission_id, admissionData) => {
 //Create Student
 const StudentCreate = {
   create: (studentData, callback) => {
-    const sql = `INSERT INTO student (student_id, student_name, student_birth, student_email, student_phone, student_address, student_url, student_descript)
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+    console.log("[AdmissionModel]studentData ",studentData)
+    const sql = `INSERT INTO student (student_name, student_birth, student_email, student_phone, student_address, student_url, student_descript)
+                         VALUES ( ?, ?, ?, ?, ?, ?, ?);`;
     db.query(
       sql,
       [
-        studentData.student_id,
         studentData.student_name,
         studentData.student_birth,
         studentData.student_email,
@@ -103,6 +103,7 @@ const StudentCreate = {
       ],
       (err, result) => {
         if (err) {
+          console.log("[AdmissionModel]err "+err)
           return callback(err);
         }
         db.query(

@@ -89,6 +89,7 @@ const studentSignIn = async (req, res) => {
 
 const studentUpdate = (req, res) => {
   const studentInfo = req.body;
+  const student_id = req.params.id;
 
   // Validate the student information
   const validationResult = validateStudentInfo(studentInfo);
@@ -103,7 +104,7 @@ const studentUpdate = (req, res) => {
 
   try {
     // Update the student information in the database
-    updateStudentInfo(studentInfo.student_id, studentInfo);
+    updateStudentInfo(student_id, studentInfo);
   } catch (err) {
     console.log(err);
     return res.status(500).send({
@@ -131,12 +132,6 @@ const studentGetInfo = (req, res) => {
 
 function validateStudentInfo(studentInfo) {
   const errors = [];
-
-  // Validate student_id
-  if (!studentInfo.student_id || typeof studentInfo.student_id !== "string") {
-    errors.push("Invalid student_id: Must be a non-empty string.");
-  }
-
   // Validate student_name
   if (
     !studentInfo.student_name ||

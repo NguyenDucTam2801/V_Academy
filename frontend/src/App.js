@@ -17,7 +17,7 @@ import CreateStudentPage from "./pages/CreateStudentPage";
 import CreateTutorPage from "./pages/CreateTutorPage";
 import TutorListPage from "./pages/TutorListPage";
 import StudentistPage from "./pages/StudentListPage";
-import ProfilePage from "./pages/ProfilePage";
+import TutorManagePage from "./pages/TutorManagePage";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
         <Route path="/basic_english_course_page" element={<CourseEngBasic/>} />
         <Route path="/advanced_english_course_page" element={<CourseEngAdvanced/>} />
         <Route path="/student_dashboard" element={<StdManagePage/>} />
+        <Route path="/tutor_dashboard" element={<TutorManagePage/>} />
         <Route path="/admin_dashboard" element={<AdminManagePage/>} />
         <Route path="/class_detail/:id" element={<ClassDetailPage/>} />
         <Route path="/lesson_detail/:id" element={<LessonDetailPage/>} />

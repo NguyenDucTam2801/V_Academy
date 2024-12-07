@@ -99,7 +99,7 @@ const createStudent = async (req, res) => {
           error: err,
         });
       }
-      return res.status(201).send({
+      return res.status(200).send({
         success: true,
         message: "Student created successfully!",
         data: result,
@@ -189,7 +189,7 @@ const admissionGetInfo = (req, res) => {
 //create class
 const createClass = async (req, res) => {
   const classData = req.body;
-
+  console.log("[admissionController] classData", classData);
   // Input validation
   if (
     !classData.class_name ||

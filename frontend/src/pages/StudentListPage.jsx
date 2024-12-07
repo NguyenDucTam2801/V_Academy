@@ -48,7 +48,7 @@ export default function StudentListPage() {
     <main className="content">
       <div className="content-box">
         <div className="header">
-          <h1>Tutor List</h1>
+          <h1>Student List</h1>
           <button onClick={createStudent}>Create Student</button>
         </div>
         <table>

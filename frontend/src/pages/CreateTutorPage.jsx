@@ -113,7 +113,6 @@ export default function CreateTutorPage() {
                 placeholder="Birthday"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -123,7 +122,6 @@ export default function CreateTutorPage() {
                 placeholder="Email"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -133,7 +131,6 @@ export default function CreateTutorPage() {
                 placeholder="Phone Number"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -143,7 +140,6 @@ export default function CreateTutorPage() {
                 placeholder="Region"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -153,7 +149,6 @@ export default function CreateTutorPage() {
                 placeholder="Address"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -163,7 +158,6 @@ export default function CreateTutorPage() {
                 placeholder="URL"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
@@ -173,11 +167,16 @@ export default function CreateTutorPage() {
                 placeholder="Description"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <div className="form-frame-group">
-              <select name="subject_id" id="subject_id" onChange={handleChange} required>
+              <select
+                name="subject_id"
+                id="subject_id"
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Subject</option>
                 {Object.values(subjectList).map((record, index) => {
                   console.log("record", record.subject_id);
                   return (
@@ -195,7 +194,6 @@ export default function CreateTutorPage() {
                 placeholder="Password"
                 onChange={handleChange}
                 required
-
               />
             </div>
             <button type="submit" className="submit-form-button">

@@ -12,6 +12,9 @@ export default function CreateStudentPage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
+  const [success, setSuccess] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
   const [studentInfo, setStudentInfo] = useState({
     student_name: "",
     student_birth: "",
@@ -20,6 +23,7 @@ export default function CreateStudentPage() {
     student_address: "",
     student_url: "",
     student_descript: "",
+    // student_password: "",
   });
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
@@ -56,6 +60,9 @@ export default function CreateStudentPage() {
         }
         catch (error) {
           console.log(error);
+          setSuccess(false);
+          setShowMessage(true);
+          setMessage("Create Fail! "+error);
         }
     }
 
@@ -93,6 +100,10 @@ export default function CreateStudentPage() {
           <input type="text" name="student_descript" placeholder="Description"
           onChange={handleChange}/>
         </div>
+        {/* <div className="form-frame-group">
+          <input type="text" name="student_password" placeholder="Password"
+          onChange={handleChange}/>
+        </div> */}
       <button type="submit" className="submit-form-button">Create New</button>
       </div>
     </form>

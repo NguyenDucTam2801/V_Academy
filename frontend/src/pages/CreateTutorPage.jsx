@@ -16,7 +16,7 @@ export default function CreateTutorPage() {
   const role = Cookies.get("role");
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
-  const [success, setSuccess] = useState();
+  const [success, setSuccess] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [tutorInfo, setTutorInfo] = useState({
@@ -29,6 +29,7 @@ export default function CreateTutorPage() {
     tutor_url: "",
     tutor_descript: "",
     subject_id: "",
+    // tutor_password: "",
   });
   const [subjectList, setSubjectList] = useState([]);
   const links = [
@@ -117,6 +118,10 @@ export default function CreateTutorPage() {
           <input type="text" name="tutor_descript" placeholder="Description"
           onChange={handleChange}/>
         </div>
+        {/* <div className="form-frame-group">
+          <input type="text" name="tutor_password" placeholder="Password"
+          onChange={handleChange}/>
+        </div> */}
         <div className="form-frame-group">
          <select name="subject" id="subject">
           {Object.values(subjectList).map((record, index) => (

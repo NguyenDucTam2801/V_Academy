@@ -87,6 +87,10 @@ export default function CreateClassPage() {
     fetchData();
   }, []);
 
+  const handleChange = (e) => {
+    setCreateClassForm({...createClassForm, [e.target.value]: e.target.value});
+  }
+
   const handleCreateClass=async()=>{
     try {
       const res = await axios.post(
@@ -112,11 +116,15 @@ export default function CreateClassPage() {
     <div>
       <NavBar linkList={links} role={role} />
       \<div className="create-tutor-container">
-    <h2>Update New Student Information</h2>
-    <form onSubmit={handleSubmit}>
+    <h2>Update New Class Information</h2>
+    <form onSubmit={handleCreateClass}>
       <div className="form-frame">
         <div className="form-frame-group">
-          <input type="text" name="student_name" placeholder="Full Name" 
+          <input type="text" name="class_name" placeholder="Class Name" 
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="text" name="class_descript" placeholder="Description"
           onChange={handleChange}/>
         </div>
         <div className="form-frame-group">
@@ -124,23 +132,19 @@ export default function CreateClassPage() {
           onChange={handleChange}/>
         </div>
         <div className="form-frame-group">
-          <input type="email" name="student_email" placeholder="Email"
+          <input type="text" name="course_id" placeholder="Course ID"
           onChange={handleChange}/>
         </div>
         <div className="form-frame-group">
-          <input type="text" name="student_phone" placeholder="Phone Number"
+          <input type="text" name="tutor_id" placeholder="Tutor ID"
           onChange={handleChange}/>
         </div>
         <div className="form-frame-group">
-          <input type="text" name="student_address" placeholder="Address"
+          <input type="text" name="student_id" placeholder="Student ID"
           onChange={handleChange}/>
         </div>
         <div className="form-frame-group">
-          <input type="text" name="student_url" placeholder="URL"
-          onChange={handleChange}/>
-        </div>
-        <div className="form-frame-group">
-          <input type="text" name="student_descript" placeholder="Description"
+          <input type="text" name="admission_id" placeholder="Admission ID"
           onChange={handleChange}/>
         </div>
       <button type="submit" className="submit-form-button">Create New</button>

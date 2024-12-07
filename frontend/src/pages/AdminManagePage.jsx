@@ -17,9 +17,8 @@ function AdminManagePage() {
   const [classList, setClassList] = useState({});
   const links = [
     { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/create_class", label: "Create Class" },
-    { url: "/create_tutor", label: "Create Tutor" },
-    { url: "/create_student", label: "Create Student" },
+    { url: "/tutor_list", label: "Tutor List" },
+    { url: "/student_list", label: "Student List" },
   ];
   useEffect(() => {
     const fetchData = async () => {

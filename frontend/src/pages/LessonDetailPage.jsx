@@ -12,15 +12,19 @@ import { useParams } from "react-router-dom";
 export default function LessonDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
   const role = Cookies.get("role");
-  const links = role === "Student" 
-  ? [{ url: "/student_dashboard", label: "Regitered Class" }] 
-  : role === "Tutor" 
-  ? [{ url: "/tutor_dashboard", label: "Regitered Class" }, { url: "/create_lesson", label: "Add Class" }] 
-  : [{ url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/create_class", label: "Create Class" },
-    { url: "/create_tutor", label: "Create Tutor" },
-    { url: "/create_student", label: "Create Student" }
-  ];
+  const links =
+    role === "Student"
+      ? [{ url: "/student_dashboard", label: "Regitered Class" }]
+      : role === "Tutor"
+      ? [
+          { url: "/tutor_dashboard", label: "Regitered Class" },
+          { url: "/create_lesson", label: "Add Class" },
+        ]
+      : [
+          { url: "/admin_dashboard", label: "Regitered Class" },
+          { url: "/tutor_list", label: "Tutor List" },
+          { url: "/student_list", label: "Student List" },
+        ];
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const [lessonDetail, setLessonDetail] = useState({});
@@ -45,7 +49,11 @@ export default function LessonDetailPage() {
   console.log("lessonDetail", lessonDetail);
   return (
     <div>
-      <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name}/>
+      <NavBar
+        linkList={links}
+        role={role}
+        username={user.admission_name || user.student_name || user.tutor_name}
+      />
     </div>
-  )
+  );
 }

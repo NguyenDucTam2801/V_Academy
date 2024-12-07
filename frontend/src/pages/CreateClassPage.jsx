@@ -28,9 +28,8 @@ export default function CreateClassPage() {
   });
   const links = [
     { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/create_class", label: "Create Class" },
-    { url: "/create_tutor", label: "Create Tutor" },
-    { url: "/create_student", label: "Create Student" },
+    { url: "/tutor_list", label: "Tutor List" },
+    { url: "/student_list", label: "Student List" },
   ];
   useEffect(() => {
     const fetchData = async () => {
@@ -104,10 +103,13 @@ export default function CreateClassPage() {
     }
   }
 
+  const handleChange = (e) => {}
+  const handleSubmit = (e) => {}
   console.log("Course list " + JSON.stringify(courseList));
   console.log("Student list " + JSON.stringify(studentList));
   console.log("Tutor list " + JSON.stringify(tutorList));
   console.log("Admission ID " + admission_id);
+
   return (
     <div>
       <NavBar linkList={links} role={role} />

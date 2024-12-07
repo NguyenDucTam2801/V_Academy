@@ -123,3 +123,32 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #e6e6e6;
 }
+
+main h1{
+  margin-left: 10px;
+}
+
+.header button{
+  margin-right: 10px;
+  padding:15px;
+  font-size: large;
+  background-color:#ffbb00; 
+  color:white;
+  border: 2px solid #fafafa;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.header button:hover{
+  background-color: #33d6ff;
+  font-size: 1.7rem;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

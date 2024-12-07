@@ -1,5 +1,4 @@
 import { useState, React, useEffect } from "react";
-import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 // import Data from "../Sample/StdSampleData.json";
@@ -92,9 +91,9 @@ export default function ClassDetailPage() {
   console.log("class detail", classDetail);
   console.log("lesson list", lessonList);
   return (
-    <div className="class_detail_page">
+    <div className="container">
       <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name} />
-      <main className="page-content">
+      <main className="content">
         <div className="class_info"></div>
         <div className="content-box">
           <table>

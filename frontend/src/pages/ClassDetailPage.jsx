@@ -30,6 +30,7 @@ export default function ClassDetailPage() {
   const user = JSON.parse(Cookies.get("user"));
   const [classDetail, setClassDetail] = useState({});
   const [lessonList, setLessonList] = useState({});
+  const [studentList, setStudentList] = useState({});
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -88,8 +89,27 @@ export default function ClassDetailPage() {
     };
     fetchLessonListData();
   }, []);
+  useEffect(() => {
+    const fetchStudentListData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}StudentClass/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setStudentList(res.data.class);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStudentListData();
+  }, []);
   console.log("class detail", classDetail);
   console.log("lesson list", lessonList);
+  console.log("lesson list", studentList);
   return (
     <div className="container">
       <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name} />
@@ -98,29 +118,40 @@ export default function ClassDetailPage() {
         <div className="content-box">
           <table>
             <thead>
-              <tr>
-                <th>Lesson Topic</th>
-                <th>Description</th>
-                <th>Note</th>
-                <th>URL</th>
-                <th>Period</th>
-              </tr>
+              {/* <tr>
+                <th>Class Name</th>
+                <th>Class Description</th>
+                <th>Course ID</th>
+                <th>Tuotr ID</th>
+                <th>Student ID</th>
+                <th>Admission ID</th>
+              </tr> */}
             </thead>
             <tbody>
-              {!Object.keys(lessonList).length==0 ? (Object.values(lessonList).map((record, index) => (
+              {Object.keys(classDetail).length > 0 || Object.keys(lessonList).length > 0 || Object.keys(studentList).length > 0 ? (
+    Object.keys(classDetail).length > 0 &&
+    Object.values(classDetail).map((record, index) => (
                 <tr key={index}>
-                  <td>
-                    <Link to={"/lesson_detail/" + record.lesson_id}>
-                      {record.lesson_topic}
+                  <tr><th>Class Name</th><td>
+                    <Link to={"/lesson_detail/" + record.class_id}>
+                      {record.class_name}
                     </Link>
-                  </td>
-                  <td>{record.lesson_descript}</td>
-                  <td>{record.lesson_note}</td>
-                  <td>{record.lesson_url}</td>
-                  <td>
-                    {formatDate(record.lesson_startTime)} -{" "}
-                    {formatDate(record.lesson_endTime)}
-                  </td>
+                  </td></tr>
+                  
+                  <tr><th>Class Description</th>
+                  <td>{record.class_descript}</td></tr>
+                  <tr><th>Course ID</th>
+                    <td>{record.course_id}</td>
+                  </tr>
+                  <tr><th>Tutor ID</th>
+                    <td>{record.tutor_id}</td>
+                  </tr>
+                  <tr><th>Student ID</th>
+                    <td>{record.student_id}</td>
+                  </tr>
+                  <tr><th>Admission ID</th>
+                    <td>{record.admission_id}</td>
+                  </tr>
                 </tr>
               )))
               : (
@@ -128,6 +159,7 @@ export default function ClassDetailPage() {
                   <td colSpan="5" style={{textAlign:"center"}}>No lesson found</td>
                 </tr>
               )}
+              
             </tbody>
           </table>
         </div>

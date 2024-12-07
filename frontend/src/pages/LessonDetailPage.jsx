@@ -28,8 +28,28 @@ export default function LessonDetailPage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const [lessonDetail, setLessonDetail] = useState({});
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    console.log("date", date);
+
+    // Extract the components
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+    const year = date.getFullYear();
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const period = hours >= 12 ? "PM" : "AM";
+
+    // Convert to 12-hour format
+    hours = hours % 12 || 12;
+
+    // Format the output
+    const formattedDate = `${day}/${month}/${year} (${hours}:${minutes}${period})`;
+    return formattedDate;
+  };
   useEffect(() => {
-    const fetchClassDetailData = async () => {
+    const fetchLessionDetailData = async () => {
       try {
         const res = await axios.get(
           `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
@@ -44,7 +64,7 @@ export default function LessonDetailPage() {
         console.log(error);
       }
     };
-    fetchClassDetailData();
+    fetchLessionDetailData();
   }, []);
   console.log("lessonDetail", lessonDetail);
   return (
@@ -54,6 +74,43 @@ export default function LessonDetailPage() {
         role={role}
         username={user.admission_name || user.student_name || user.tutor_name}
       />
+      <main className="content">
+        <div className="class_info"></div>
+        <div className="content-box">
+          <table>
+            <thead>
+              <tr>
+                <th>Lesson Topic</th>
+                <th>Description</th>
+                <th>Note</th>
+                <th>URL</th>
+                <th>Period</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!Object.keys(lessonDetail).length==0 ? (Object.values(lessonDetail).map((record, index) => {
+                console.log("record"+record)
+                return(
+                <tr key={index}>
+                  <td>{record.lesson_id}</td>
+                  <td>{record.lesson_topic}</td>
+                  <td>{record.lesson_descript}</td>
+                  <td>{record.lesson_note}</td>
+                  <td>{record.lesson_url}</td>
+                  <td>
+                    {formatDate(record.lesson_startTime)} -{" "}
+                    {formatDate(record.lesson_endTime)}</td>
+                </tr>
+              )}))
+              : (
+                <tr>
+                  <td colSpan="5" style={{textAlign:"center"}}>No lesson found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
   );
 }

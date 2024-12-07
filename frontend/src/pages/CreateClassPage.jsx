@@ -111,6 +111,42 @@ export default function CreateClassPage() {
   return (
     <div>
       <NavBar linkList={links} role={role} />
+      \<div className="create-tutor-container">
+    <h2>Update New Student Information</h2>
+    <form onSubmit={handleSubmit}>
+      <div className="form-frame">
+        <div className="form-frame-group">
+          <input type="text" name="student_name" placeholder="Full Name" 
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="date" name="tutor_birth" placeholder="Birthday"
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="email" name="student_email" placeholder="Email"
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="text" name="student_phone" placeholder="Phone Number"
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="text" name="student_address" placeholder="Address"
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="text" name="student_url" placeholder="URL"
+          onChange={handleChange}/>
+        </div>
+        <div className="form-frame-group">
+          <input type="text" name="student_descript" placeholder="Description"
+          onChange={handleChange}/>
+        </div>
+      <button type="submit" className="submit-form-button">Create New</button>
+      </div>
+    </form>
+  </div>
     </div>
   );
 }

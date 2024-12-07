@@ -56,24 +56,8 @@ export default function ProfilePage() {
               setMessage("Modify Fail! "+error);
             }
         }
-        useEffect(()=>{
-            const fetchData = async () => {
-                try {
-                  const res = await axios.get(
-                    `http://localhost:3001/api/${role.toLowerCase()}/info/${user.student_id || user.tutor_id || user.admission_id}`,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  );
-                  setUserInfo(res.data.class);
-                } catch (error) {
-                  console.log(error);
-                }
-              };
-              fetchData();
-        })
+    
+        console.log("user info",user)
   return (
     <div>
         <NavBar linkList={links} role={role} username={user.admission_name}/>
@@ -87,6 +71,7 @@ export default function ProfilePage() {
                 name={`${role}_name`}
                 placeholder="Full Name"
                 onChange={handleChange}
+                value=""
                 required
               />
             </div>

@@ -18,6 +18,7 @@ import CreateTutorPage from "./pages/CreateTutorPage";
 import TutorListPage from "./pages/TutorListPage";
 import StudentistPage from "./pages/StudentListPage";
 import TutorManagePage from "./pages/TutorManagePage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (

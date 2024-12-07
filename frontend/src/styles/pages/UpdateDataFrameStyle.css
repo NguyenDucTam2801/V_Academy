@@ -39,6 +39,15 @@
     background-color: #f9f9f9;
 }
 
+.form-frame-group select {
+    width: 61vw;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    background-color: #f9f9f9;
+}
+
 .submit-form-button {
     background-color: #00a9ff;
     color: #070707;

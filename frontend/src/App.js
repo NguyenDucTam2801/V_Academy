@@ -15,6 +15,9 @@ import CreateLessonPage from "./pages/CreateLessonPage";
 import CreateClassPage from "./pages/CreateClassPage";
 import CreateStudentPage from "./pages/CreateStudentPage";
 import CreateTutorPage from "./pages/CreateTutorPage";
+import TutorListPage from "./pages/TutorListPage";
+import StudentistPage from "./pages/StudentListPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -35,7 +38,10 @@ function App() {
         <Route path="/create_lesson" element={<CreateLessonPage/>} />
         <Route path="/create_class" element={<CreateClassPage/>} />
         <Route path="/create_student" element={<CreateStudentPage/>} />
-        <Route path="/create_tutor" element={<CreateTutorPage/>} />
+        <Route path="/create_tutor" element={<CreateTutorPage/>}/>
+        <Route path="/tutor_list" element={<TutorListPage/>}/>
+        <Route path="/student_list" element={<StudentistPage/>}/>
+        <Route path="/edit_profile" element={<ProfilePage/>}/>
       </Routes>
     </Router>
   );

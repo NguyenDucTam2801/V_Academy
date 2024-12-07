@@ -22,10 +22,9 @@ export default function ClassDetailPage() {
           { url: "/create_lesson", label: "Create Lesson" },
         ]
       : [
-          { url: "/admin_dashboard", label: "Regitered Class" },
-          { url: "/create_class", label: "Create Class" },
-          { url: "/create_tutor", label: "Create Tutor" },
-          { url: "/create_student", label: "Create Student" },
+        { url: "/admin_dashboard", label: "Regitered Class" },
+        { url: "/tutor_list", label: "Tutor List" },
+        { url: "/student_list", label: "Student List" },
         ];
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));

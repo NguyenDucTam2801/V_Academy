@@ -8,23 +8,17 @@ import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
+import {route} from "./routes/route";
 
 export default function LessonDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
   const role = Cookies.get("role");
   const links =
     role === "Student"
-      ? [{ url: "/student_dashboard", label: "Regitered Class" }]
+      ? route.student_routes
       : role === "Tutor"
-      ? [
-          { url: "/tutor_dashboard", label: "Regitered Class" },
-          { url: "/create_lesson", label: "Add Class" },
-        ]
-      : [
-          { url: "/admin_dashboard", label: "Regitered Class" },
-          { url: "/tutor_list", label: "Tutor List" },
-          { url: "/student_list", label: "Student List" },
-        ];
+      ? route.tutor_routes
+      : route.admission_routes;
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const [lessonDetail, setLessonDetail] = useState({});

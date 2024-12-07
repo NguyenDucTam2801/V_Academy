@@ -5,19 +5,16 @@ import { NavBar } from "../components/inside/NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/pages/ManagePage.css";
 import { use } from "react";
+import { route } from "./routes/route";
 
 export default function TutorListPage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
-  const role = Cookies.get("role");
+  const role = Cookies.get("role").toLowerCase();
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
   const [tutorList, setTutorList] = useState({});
-  const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/tutor_list", label: "Tutor List" },
-    { url: "/student_list", label: "Student List" },
-  ];
+  const links = route.admission_routes;
   useEffect(() => {
     const fetchData = async () => {
       try {

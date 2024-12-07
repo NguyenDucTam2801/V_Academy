@@ -126,7 +126,7 @@ const studentGetInfo = (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Student not found" });
     }
-    res.status(200).json({ message: "Student found", student: result });
+    res.status(200).json({ message: "Student found", user: result });
   });
 };
 

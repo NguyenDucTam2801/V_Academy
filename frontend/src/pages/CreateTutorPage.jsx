@@ -8,6 +8,7 @@ import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import "../styles/pages/UpdateDataFrameStyle.css";
+import {route} from "./routes/route";
 
 export default function CreateTutorPage() {
   const CREATE_TUTOR_URL = "http://localhost:3001/api/admission/createTutor";
@@ -33,11 +34,7 @@ export default function CreateTutorPage() {
     tutor_password: "",
   });
   const [subjectList, setSubjectList] = useState([]);
-  const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/tutor_list", label: "Tutor List" },
-    { url: "/student_list", label: "Student List" },
-  ];
+  const links = route.admission_routes;
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -19,6 +19,7 @@ import TutorListPage from "./pages/TutorListPage";
 import StudentistPage from "./pages/StudentListPage";
 import TutorManagePage from "./pages/TutorManagePage";
 import ProfilePage from "./pages/ProfilePage";
+import CustomerListPage from "./pages/CustomerListPage";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/tutor_list" element={<TutorListPage/>}/>
         <Route path="/student_list" element={<StudentistPage/>}/>
         <Route path="/edit_profile" element={<ProfilePage/>}/>
+        <Route path="customer_list" element={<CustomerListPage/>}/>
       </Routes>
     </Router>
   );

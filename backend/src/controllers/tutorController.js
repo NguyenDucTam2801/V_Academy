@@ -84,7 +84,7 @@ const tutorGetInfo = (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Tutor not found" });
     }
-    res.status(200).json({ message: "Tutor found", tutor: result });
+    res.status(200).json({ message: "Tutor found", user: result });
   });
 };
 const createLessontoClass = async (req, res) => {
@@ -225,7 +225,7 @@ const getTutorClassDetailController = async (req, res) => {
 
 // Controller to get the classes associated with a tutor
 const getTutorClassController = async (req, res) => {
-  const { id } = req.params;
+  const  id  = req.params.id;
   console.log("[tutorController]: getTutorClassController", id);
   try {
     const classes = await getTutorClass(id);
@@ -241,7 +241,19 @@ const getTutorClassController = async (req, res) => {
       class: classes,
     });
   } catch (err) {
-    console.error("Error fetching classes:", err);
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
     return res
       .status(500)
       .json({ error: "Failed to fetch classes", details: err.message });

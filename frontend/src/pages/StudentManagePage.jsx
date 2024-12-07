@@ -1,6 +1,7 @@
 import { useState, React, useEffect } from "react";
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
+import {route} from "./routes/route";
 import { Link } from "react-router-dom";
 // import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
@@ -11,12 +12,12 @@ import { NavBar } from "../components/inside/NavBar";
 function StudentManagePage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
+  console.log("user" + JSON.stringify(user));
   const role = Cookies.get("role");
   console.log("role" + role);
   const [classList, setClassList] = useState({});
-  const links = [
-    { url: "/student_dashboard", label: "Regitered Class" }
-  ];
+  const links = route.student_routes;
+  console.log("links" + JSON.stringify(links));
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +39,7 @@ function StudentManagePage() {
   console.log(classList);
   return (
     <div className="container">
-      <NavBar linkList={links} role={role} username={user.student_name}/>
+      <NavBar linkList={links} role={role} username={user.student_name} />
 
       {/* data table */}
       <main className="content">
@@ -71,7 +72,11 @@ function StudentManagePage() {
             <tbody>
               {Object.values(classList).map((record, index) => (
                 <tr key={index}>
-                  <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
+                  <td>
+                    <Link to={"/class_detail/" + record.class_id}>
+                      {record.class_name}
+                    </Link>
+                  </td>
                   <td>{record.tutor_id}</td>
                   <td>{record.course_id}</td>
                 </tr>

@@ -183,7 +183,7 @@ const admissionGetInfo = (req, res) => {
     }
     res
       .status(200)
-      .json({ message: "Admission officer found", admission: result });
+      .json({ message: "Admission officer found", user: result });
   });
 };
 //create class

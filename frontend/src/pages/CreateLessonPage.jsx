@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {NavBar} from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { route } from "./routes/route";
 
 
 export default function CreateLessonPage() {
@@ -22,10 +23,7 @@ export default function CreateLessonPage() {
     lesson_url: "",
     lesson_startTime: "",
   });
-  const links = [
-    { url: "/tutor_dashboard", label: "Regitered Class" },
-    { url: "/create_lesson", label: "Create Lesson" },
-  ];
+  const links = route.tutor_routes;
   useEffect(() => {
     const fetchData = async () => {
       try {

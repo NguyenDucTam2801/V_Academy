@@ -7,6 +7,7 @@ import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
+import { route } from "./routes/route";
 
 export default function CreateStudentPage() {
   const token = Cookies.get("token");
@@ -28,11 +29,7 @@ export default function CreateStudentPage() {
   });
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
-  const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/tutor_list", label: "Tutor List" },
-    { url: "/student_list", label: "Student List" },
-  ];
+  const links = route.admission_routes;
 
   const handleChange = (e) => {
     setStudentInfo({

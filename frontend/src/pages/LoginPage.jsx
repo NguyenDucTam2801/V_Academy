@@ -11,6 +11,7 @@ import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import { set } from "react-hook-form";
 import Cookies from "js-cookie";
+import { use } from "react";
 
 export const LoginPage = () => {
   const userRef = useRef();
@@ -35,11 +36,7 @@ export const LoginPage = () => {
       : "http://localhost:3001/api/admission/signIn";
 
   const navigateLink =
-    role === "Student"
-      ? "/student"
-      : role === "Tutor"
-      ? "/tutor"
-      : "/admin";
+    role === "Student" ? "/student" : role === "Tutor" ? "/tutor" : "/admin";
   const [success, setSuccess] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
@@ -88,7 +85,7 @@ export const LoginPage = () => {
       );
       Cookies.set("token", response?.data?.token);
       Cookies.set("role", role);
-      Cookies.set("user", JSON.stringify(response?.data?.user),{ path: '/' });
+      Cookies.set("user", JSON.stringify(response?.data?.user));
       console.log("Cookie value:", Cookies.get("user"));
       setSuccess(true);
       setMessage("You logged in.");
@@ -134,10 +131,19 @@ export const LoginPage = () => {
     console.log("Success: ", success);
     console.log("Message: ", message);
   }, [success, showMessage, message]);
-useEffect(() => {
-  handleChangeRole({ target: { value: role } });
+  useEffect(() => {
+    handleChangeRole({ target: { value: role } });
     console.log("role", role);
   }, [role]);
+  useEffect(() => {
+    const clearAllCookies = () => {
+      document.cookie.split(";").forEach((cookie) => {
+        const name = cookie.split("=")[0].trim();
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      });
+    };
+    clearAllCookies();
+  }, []);
   return (
     <div>
       <NavBar />

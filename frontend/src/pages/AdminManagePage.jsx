@@ -1,6 +1,7 @@
 import { useState, React, useEffect } from "react";
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
+import { route } from "./routes/route";
 import { Link, useNavigate } from "react-router-dom";
 // import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
@@ -10,16 +11,13 @@ import { NavBar } from "../components/inside/NavBar";
 
 function AdminManagePage() {
   const token = Cookies.get("token");
-  const user = JSON.parse(Cookies.get("user"));
-  const role = Cookies.get("role");
+  const user =JSON.parse(Cookies.get("user"));
+  const role = Cookies.get("role").toLowerCase();
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
   const [classList, setClassList] = useState({});
-  const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/tutor_list", label: "Tutor List" },
-    { url: "/student_list", label: "Student List" },
-  ];
+
+  const links = route.admission_routes;
   useEffect(() => {
     const fetchData = async () => {
       try {

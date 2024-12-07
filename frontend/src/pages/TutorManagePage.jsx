@@ -6,19 +6,16 @@ import { Link } from "react-router-dom";
 import { NavBar } from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { route } from "./routes/route";
 
 function TutorManagePage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
-  console.log("user" + user);
   const [classList, setClassList] = useState({});
-  const links = [
-    { url: "/tutor_dashboard", label: "Regitered Class" },
-    { url: "/create_lesson", label: "Create Lesson" },
-  ];
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Fetching data");
       try {
         const res = await axios.get(
           `http://localhost:3001/api/tutor/tutorClass/${user.tutor_id}`,
@@ -28,6 +25,7 @@ function TutorManagePage() {
             },
           }
         );
+        console.log("response: " +res);
         setClassList(res.data.class);
       } catch (error) {
         console.log(error);
@@ -37,6 +35,8 @@ function TutorManagePage() {
   }, []);
   console.log("role" + role);
   console.log("Class list " + JSON.stringify(classList));
+  console.log("user" + JSON.stringify(user));
+  const links = route.tutor_routes;
   return (
     <div className="container">
       <NavBar linkList={links} role={role} username={user.tutor_name} />

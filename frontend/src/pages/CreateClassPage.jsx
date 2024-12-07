@@ -7,6 +7,7 @@ import { NavBar } from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { set } from "react-hook-form";
+import { route } from "./routes/route";
 
 export default function CreateClassPage() {
   const token = Cookies.get("token");
@@ -30,11 +31,7 @@ export default function CreateClassPage() {
     student_id: "",
     admission_id: admission_id,
   });
-  const links = [
-    { url: "/admin_dashboard", label: "Regitered Class" },
-    { url: "/tutor_list", label: "Tutor List" },
-    { url: "/student_list", label: "Student List" },
-  ];
+  const links = route.admission_routes;
   useEffect(() => {
     const fetchData = async () => {
       try {

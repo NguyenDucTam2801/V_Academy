@@ -1,10 +1,9 @@
 import { useState, React, useEffect } from "react";
-import "../styles/pages/ManagePage.css";
-import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import "../styles/pages/DetailPageStyle.css";
+// import "../styles/pages/ManagePage.css"
 // import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
-import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
@@ -21,7 +20,9 @@ export default function LessonDetailPage() {
       : route.admission_routes;
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
-  const [lessonDetail, setLessonDetail] = useState({});
+  const [classDetail, setClassDetail] = useState({});
+  const [lessonList, setLessonList] = useState({});
+  const [studentList, setStudentList] = useState({});
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     console.log("date", date);
@@ -42,25 +43,84 @@ export default function LessonDetailPage() {
     const formattedDate = `${day}/${month}/${year} (${hours}:${minutes}${period})`;
     return formattedDate;
   };
+  // useEffect(() => {
+  //   const fetchLessionDetailData = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setLessonDetail(res.data.lesson);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchLessionDetailData();
+  // }, []);
+  // console.log("lessonDetail", lessonDetail);
+
   useEffect(() => {
-    const fetchLessionDetailData = async () => {
+    const fetchClassDetailData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setLessonDetail(res.data.lesson);
+        setClassDetail(res.data.class);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchLessionDetailData();
-  }, []);
-  console.log("lessonDetail", lessonDetail);
+    fetchClassDetailData();
+  }, [id, role, token]);
+  useEffect(() => {
+    const fetchLessonListData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setLessonList(res.data.class);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLessonListData();
+  }, [id, role, token]);
+  useEffect(() => {
+    const fetchStudentListData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}StudentClass/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setStudentList(res.data.class);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStudentListData();
+  }, [id, role, token]);
+  console.log("class detail", classDetail);
+  console.log("lesson list", lessonList);
+  console.log("lesson list", studentList);
+
   return (
     <div>
       <NavBar
@@ -68,43 +128,50 @@ export default function LessonDetailPage() {
         role={role}
         username={user.admission_name || user.student_name || user.tutor_name}
       />
-      <main className="content">
-        <div className="class_info"></div>
-        <div className="content-box">
-          <table>
-            <thead>
-              <tr>
-                <th>Lesson Topic</th>
-                <th>Description</th>
-                <th>Note</th>
-                <th>URL</th>
-                <th>Period</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!Object.keys(lessonDetail).length==0 ? (Object.values(lessonDetail).map((record, index) => {
-                console.log("record"+record)
-                return(
-                <tr key={index}>
-                  <td>{record.lesson_id}</td>
-                  <td>{record.lesson_topic}</td>
-                  <td>{record.lesson_descript}</td>
-                  <td>{record.lesson_note}</td>
-                  <td>{record.lesson_url}</td>
-                  <td>
-                    {formatDate(record.lesson_startTime)} -{" "}
-                    {formatDate(record.lesson_endTime)}</td>
-                </tr>
-              )}))
-              : (
-                <tr>
-                  <td colSpan="5" style={{textAlign:"center"}}>No lesson found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+    <main className="detail-content">
+      <div className="scrollable-frame">
+        <div className="lesson-detail-container">
+          {Object.keys(lessonList).length > 0 ? (
+            Object.values(lessonList).map((record, index) => (
+              <div className="lesson-box" key={index}>
+                <div className="lesson-row">
+                  <div className="label">Lesson ID:</div>
+                  <div className="value">{record.lesson_id}</div>
+                </div>
+                <div className="lesson-row">
+                  <div className="label">Lesson Topic:</div>
+                  <div className="value">{record.lesson_topic}</div>
+                </div>
+                <div className="lesson-row">
+                  <div className="label">Description:</div>
+                  <div className="value">{record.lesson_descript}</div>
+                </div>
+                <div className="lesson-row">
+                  <div className="label">Note:</div>
+                  <div className="value">{record.lesson_note}</div>
+                </div>
+                <div className="lesson-row">
+                  <div className="label">URL:</div>
+                  <div className="value">
+                    <a href={record.lesson_url} target="_blank" rel="noopener noreferrer">
+                      {record.lesson_url}
+                    </a>
+                  </div>
+                </div>
+                <div className="lesson-row">
+                  <div className="label">Period:</div>
+                  <div className="value">
+                    {formatDate(record.lesson_startTime)} - {formatDate(record.lesson_endTime)}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-lesson">No lesson found</div>
+          )}
         </div>
-      </main>
+      </div>
+    </main>
     </div>
   );
 }

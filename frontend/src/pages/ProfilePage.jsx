@@ -5,7 +5,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/pages/ManagePage.css";
 import AlertStatus from "../components/alert/AlertStatus";
-import {route} from "./routes/route";
+import { route } from "./routes/route";
+import regexTesting from "./regexTest/regexTesting";
 
 export default function ProfilePage() {
   const token = Cookies.get("token");
@@ -18,12 +19,19 @@ export default function ProfilePage() {
   const [success, setSuccess] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState({});
   const links =
     role === "student"
       ? route.student_routes
       : role === "tutor"
       ? route.tutor_routes
       : route.admission_routes;
+  const [password, setPassword] = useState({
+    current: "",
+    new: "",
+    confirm: "",
+  });
+
   const [userInfo, setUserInfo] = useState({
     [role + "_name"]:
       user.student_name || user.tutor_name || user.admission_name,
@@ -34,13 +42,50 @@ export default function ProfilePage() {
     [role + "_address"]:
       user.student_address || user.tutor_address || user.admission_address,
   });
+  const handleChangePassword = (e) => {
+    const { name, value } = e.target;
+    setPassword({
+      ...password,
+      [name]: value,
+    });
+    if (!regexTesting(name, value, role)) {
+      setError((prev) => ({
+        ...prev,
+        [name]: `Invalid ${name.replace(
+          "_",
+          " "
+        )}. Please follow the correct format.`,
+      }));
+    } else {
+      setError((prev) => ({
+        ...prev,
+        [name]: "",
+      })); // Clear error if input is valid
+    }
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setUserInfo({
       ...userInfo,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
     console.log("e target", e.target.value);
     console.log("e name", e.target.name);
+    if (!regexTesting(name, value, "Tutor")) {
+      setError((prev) => ({
+        ...prev,
+        [name]: `Invalid ${name.replace(
+          "_",
+          " "
+        )}. Please follow the correct format.`,
+      }));
+    } else {
+      setError((prev) => ({
+        ...prev,
+        [name]: "",
+      })); // Clear error if input is valid
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +119,54 @@ export default function ProfilePage() {
       setMessage("Modify Fail! " + error);
     }
   };
+
+  const changePassword = async (e) => {
+    e.preventDefault();
+  
+    if (password.new !== password.confirm) {
+      setSuccess(false);
+      setShowMessage(true);
+      setMessage("New password and confirmation password do not match.");
+      return;
+    }
+  
+    try {
+      console.log("Changing password", password);
+  
+      const res = await axios.put(
+        `http://localhost:3001/api/${role.toLowerCase()}/changePassword/${
+          user.student_id || user.tutor_id || user.admission_id
+        }`,
+        {
+          current_password: password.current,
+          new_password: password.new,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (res.status === 200) {
+        console.log("Password updated successfully");
+        setMessage("Password updated successfully");
+        setShowMessage(true);
+        setSuccess(true);
+        setPassword({ current: "", new: "", confirm: "" }); // Clear form fields
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      setSuccess(false);
+      setShowMessage(true);
+  
+      const errorMessage =
+        error.response?.data?.message ||
+        "Failed to update password. Please try again.";
+      setMessage(errorMessage);
+    }
+  };
+  
 
   const udpateUserInfo = async () => {
     try {
@@ -135,6 +228,11 @@ export default function ProfilePage() {
                 value={userInfo[`${role}_name`]}
                 required
               />
+              {error[`${role.toLowerCase()}_name`] && (
+                <p className="error-message">
+                  {error[`${role.toLowerCase()}_name`]}
+                </p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -145,6 +243,11 @@ export default function ProfilePage() {
                 value={formatDate(userInfo[`${role}_birth`])}
                 required
               />
+              {error[`${role.toLowerCase()}_birth`] && (
+                <p className="error-message">
+                  {error[`${role.toLowerCase()}_birth`]}
+                </p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -155,6 +258,11 @@ export default function ProfilePage() {
                 value={userInfo[`${role}_phone`]}
                 required
               />
+              {error[`${role.toLowerCase()}_phone`] && (
+                <p className="error-message">
+                  {error[`${role.toLowerCase()}_phone`]}
+                </p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -165,16 +273,68 @@ export default function ProfilePage() {
                 value={userInfo[`${role}_address`]}
                 required
               />
+              {error[`${role.toLowerCase()}_address`] && (
+                <p className="error-message">
+                  {error[`${role.toLowerCase()}_address`]}
+                </p>
+              )}
             </div>
             <button type="submit" className="submit-form-button">
               Accept Modification
             </button>
           </div>
         </form>
+        <hr></hr>
+        <div className="change-password-form">
+          <h2>Change Password</h2>
+          <form onSubmit={changePassword}>
+            <div className="form-frame">
+              <div className="form-frame-group">
+                <input
+                  type="password"
+                  placeholder="Current Password"
+                  id="currentPassword"
+                  name="current"
+                  value={password.current}
+                  onChange={handleChangePassword}
+                  required
+                />
+              </div>
+              <div className="form-frame-group">
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  id="newPassword"
+                  name="new"
+                  value={password.new}
+                  onChange={handleChangePassword}
+                  required
+                />
+              </div>
+              <div className="form-frame-group">
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  id="confirmPassword"
+                  name="confirm"
+                  value={password.confirm}
+                  onChange={handleChangePassword}
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" className="submit-form-button">
+              Change Password
+            </button>
+          </form>
+        </div>
       </div>
-      {showMessage && (!success ? (
-        <AlertStatus message={message} status="failed" />
-      ):(<AlertStatus message={message} status="success" />))}
+      {showMessage &&
+        (!success ? (
+          <AlertStatus message={message} status="failed" />
+        ) : (
+          <AlertStatus message={message} status="success" />
+        ))}
     </div>
   );
 }

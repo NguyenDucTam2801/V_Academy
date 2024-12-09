@@ -105,31 +105,31 @@ export default function ClassDetailPage() {
               <tbody>
                 <tr>
                   <th>Class ID</th>
-                  <td>{classDetail.class_id}</td>
+                  <td>{classDetail[0].class_id}</td>
                 </tr>
                 <tr>
                   <th>Class Name</th>
-                  <td>{classDetail.class_name}</td>
+                  <td>{classDetail[0].class_name}</td>
                 </tr>
                 <tr>
                   <th>Class description</th>
-                  <td>{classDetail.class_descript}</td>
+                  <td>{classDetail[0].class_descript}</td>
                 </tr>
                 <tr>
                   <th>Course ID</th>
-                  <td>{classDetail.course_id}</td>
+                  <td>{classDetail[0].course_id}</td>
                 </tr>
                 <tr>
                   <th>Tutor ID</th>
-                  <td>{classDetail.tutor_id}</td>
+                  <td>{classDetail[0].tutor_id}</td>
                 </tr>
                 <tr>
                   <th>Student ID</th>
-                  <td>{classDetail.student_id}</td>
+                  <td>{classDetail[0].student_id}</td>
                 </tr>
                 <tr>
                   <th>Admission ID</th>
-                  <td>{classDetail.admission_id}</td>
+                  <td>{classDetail[0].admission_id}</td>
                 </tr>
               </tbody>
             ) : null}

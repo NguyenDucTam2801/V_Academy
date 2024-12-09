@@ -56,7 +56,7 @@ export default function CustomerListPage() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     const year = date.getFullYear();
@@ -114,10 +114,16 @@ export default function CustomerListPage() {
                   <td>{formatDate(record.customer_birthday)}</td>
                   <td>{record.customer_extra}</td>
                   <td>
-                    <select name="status" id="status" value={record.customer_status} onChange={handleChangeStatus}>
+                    <select
+                      name="status"
+                      id="status"
+                      value={record.customer_status}
+                      onChange={handleChangeStatus}
+                    >
                       <option value="TO DO">ACTIVE</option>
                       <option value="IN PROCESS">CALLING</option>
                       <option value="FINISHED">FINISHED</option>
+                      <option value="CANCELED">CANCELED</option>
                     </select>
                   </td>
                 </tr>

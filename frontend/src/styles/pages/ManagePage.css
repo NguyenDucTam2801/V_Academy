@@ -152,3 +152,9 @@ main h1{
   align-items: center;
   margin-bottom: 20px;
 }
+
+.error-message{
+  color: red;
+  font-size: 1.5rem;
+  margin-left: 10px;
+}

@@ -1,8 +1,6 @@
 import { useState, React, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import "../styles/pages/DetailPageStyle.css";
-// import "../styles/pages/ManagePage.css"
-// import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
@@ -43,26 +41,6 @@ export default function LessonDetailPage() {
     const formattedDate = `${day}/${month}/${year} (${hours}:${minutes}${period})`;
     return formattedDate;
   };
-  // useEffect(() => {
-  //   const fetchLessionDetailData = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setLessonDetail(res.data.lesson);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchLessionDetailData();
-  // }, []);
-  // console.log("lessonDetail", lessonDetail);
-
   useEffect(() => {
     const fetchClassDetailData = async () => {
       try {
@@ -131,41 +109,44 @@ export default function LessonDetailPage() {
     <main className="detail-content">
       <div className="scrollable-frame">
         <div className="lesson-detail-container">
-          {Object.keys(lessonList).length > 0 ? (
-            Object.values(lessonList).map((record, index) => (
-              <div className="lesson-box" key={index}>
-                <div className="lesson-row">
-                  <div className="label">Lesson ID:</div>
-                  <div className="value">{record.lesson_id}</div>
-                </div>
-                <div className="lesson-row">
-                  <div className="label">Lesson Topic:</div>
-                  <div className="value">{record.lesson_topic}</div>
-                </div>
-                <div className="lesson-row">
-                  <div className="label">Description:</div>
-                  <div className="value">{record.lesson_descript}</div>
-                </div>
-                <div className="lesson-row">
-                  <div className="label">Note:</div>
-                  <div className="value">{record.lesson_note}</div>
-                </div>
-                <div className="lesson-row">
-                  <div className="label">URL:</div>
-                  <div className="value">
-                    <a href={record.lesson_url} target="_blank" rel="noopener noreferrer">
-                      {record.lesson_url}
-                    </a>
+        {Object.keys(lessonList).length > 0 ? (
+        Object.values(lessonList).map((record, index) => (
+                  <div className="lesson-box" key={index}>
+                    <div className="lesson-row">
+                      <div className="label">Lesson ID:</div>
+                      <div className="value"> 
+                      <div className="value">{record.lesson_id}</div>
+                      </div>
+                    </div>
+                    <div className="lesson-row">
+                      <div className="label">Lesson Topic:</div>
+                      <div className="value">{record.lesson_topic}</div>
+                    </div>
+                    <div className="lesson-row">
+                      <div className="label">Description:</div>
+                      <div className="value">{record.lesson_descript}</div>
+                    </div>
+                    <div className="lesson-row">
+                      <div className="label">Note:</div>
+                      <div className="value">{record.lesson_note}</div>
+                    </div>
+                    <div className="lesson-row">
+                      <div className="label">URL:</div>
+                      <div className="value">
+                        <a href={record.lesson_url} target="_blank" rel="noopener noreferrer">
+                          {record.lesson_url}
+                        </a>
+                      </div>
+                    </div>
+                    <div className="lesson-row">
+                      <div className="label">Period:</div>
+                      <div className="value">
+                        {formatDate(record.lesson_startTime)} - {formatDate(record.lesson_endTime)}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="lesson-row">
-                  <div className="label">Period:</div>
-                  <div className="value">
-                    {formatDate(record.lesson_startTime)} - {formatDate(record.lesson_endTime)}
-                  </div>
-                </div>
-              </div>
-            ))
+                )
+            )
           ) : (
             <div className="no-lesson">No lesson found</div>
           )}
@@ -175,3 +156,5 @@ export default function LessonDetailPage() {
     </div>
   );
 }
+
+

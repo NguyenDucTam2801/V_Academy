@@ -14,6 +14,6 @@ router.get("/studentClass/:id", verifyToken, studentController.studentGetClass);
 router.get("/studentLessonClass/:class_id", verifyToken, studentController.studentGetLessonClass);
 router.get("/studentClassDetail/:class_id", verifyToken, studentController.studentGetClassDetail);
 router.get("/studentLessonDetail/:lesson_id", verifyToken, studentController.studentGetLessonDetail);
-router.put("/changePassword/:id",studentController.changePasswordUser)
+router.put("/changePassword/:id",verifyToken,studentController.changePasswordUser)
 
 module.exports = router;

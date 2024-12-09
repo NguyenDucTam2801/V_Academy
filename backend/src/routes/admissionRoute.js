@@ -50,5 +50,5 @@ router.delete(
   verifyToken,
   admissionController.deleteCustomerInfo
 );
-router.put("/changePassword/:id",admissionController.changePasswordUser)
+router.put("/changePassword/:id",verifyToken,admissionController.changePasswordUser)
 module.exports = router;

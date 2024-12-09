@@ -30,7 +30,7 @@ router.get(
 );
 // Route to add a new lesson
 router.post("/createLessonClass/:class_id", tutorController.createLessontoClass);
-router.put("/changePassword/:id",tutorController.changePasswordUser)
+router.put("/changePassword/:id",verifyToken,tutorController.changePasswordUser)
 
 // // Route to get the newest lesson
 // router.get("/lesson/latest", tutorController.getNewest);

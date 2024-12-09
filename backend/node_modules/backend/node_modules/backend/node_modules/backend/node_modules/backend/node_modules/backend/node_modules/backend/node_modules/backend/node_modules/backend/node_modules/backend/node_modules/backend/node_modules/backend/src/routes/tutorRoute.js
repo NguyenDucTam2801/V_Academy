@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Tutor Routes
 router.post("/signIn", tutorController.tutorSignIn);
-router.put("/update", verifyToken, tutorController.tutorUpdate);
+router.put("/update/:id", verifyToken, tutorController.tutorUpdate);
 router.get("/info/:id", verifyToken, tutorController.tutorGetInfo);
 router.get(
   "/tutorClass/:id",

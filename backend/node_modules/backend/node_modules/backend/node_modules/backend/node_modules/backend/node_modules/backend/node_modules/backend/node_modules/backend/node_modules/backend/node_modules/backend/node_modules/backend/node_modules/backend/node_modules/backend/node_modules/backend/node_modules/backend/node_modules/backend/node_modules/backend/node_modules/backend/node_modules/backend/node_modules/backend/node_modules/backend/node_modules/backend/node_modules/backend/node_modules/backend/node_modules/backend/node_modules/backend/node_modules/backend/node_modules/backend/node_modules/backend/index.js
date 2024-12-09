@@ -10,17 +10,24 @@ const port = process.env.PORT || 3001;
 
 app.use(morgan("dev"));
 app.use(express.json());
-// Middleware to parse incoming requests with JSON payloads
-app.use(bodyParser.json());
 
 // Use CORS middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow specific origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific HTTP methods
+    allowedHeaders: "Content-Type,Authorization", // Allow specific headers
+    credentials: true, // Allow cookies or other credentials
+  })
+);
+// Middleware to parse incoming requests with JSON payloads
+app.use(bodyParser.json());
 
 //config .env
 dotenv.config();
 
 //test app
-app.get("/", (req, res) => {
+app.get("/", cors(), (req, res) => {
   return res.status(200).send("<p><b>Hello World</b></p>");
 });
 
@@ -36,3 +43,5 @@ app.use("/api/student", require("./src/routes/studentRoutes"));
 app.use("/api/tutor", require("./src/routes/tutorRoute"));
 app.use("/api/admission", require("./src/routes/admissionRoute"));
 app.use("/api/customer", require("./src/routes/customerRoutes"));
+
+app.options("*", cors());

@@ -8,7 +8,7 @@ const router = express.Router();
 // router.get("/getAllStudents", studentController.getAllStudents);
 // router.post("/createStudent", studentController.createStudent);
 router.post("/signIn", studentController.studentSignIn);
-router.put("/update", verifyToken ,studentController.studentUpdate);
+router.put("/update/:id", verifyToken ,studentController.studentUpdate);
 router.get("/info/:id", verifyToken, studentController.studentGetInfo);
 router.get("/studentClass/:id", verifyToken, studentController.studentGetClass);
 router.get("/studentLessonClass/:class_id", verifyToken, studentController.studentGetLessonClass);

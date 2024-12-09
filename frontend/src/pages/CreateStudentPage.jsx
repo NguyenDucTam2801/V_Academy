@@ -40,7 +40,7 @@ export default function CreateStudentPage() {
     }));
 
     // Validate input and set error message
-    if (!regexTesting(name, value)) {
+    if (!regexTesting(name, value,"Student")) {
       setError((prev) => ({
         ...prev,
         [name]: `Invalid ${name.replace("_", " ")}. Please follow the correct format.`,

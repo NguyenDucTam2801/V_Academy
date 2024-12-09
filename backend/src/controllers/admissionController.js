@@ -22,7 +22,8 @@ const {
   getLessonDetailAdmission,
   getLessonClassAdmission,
   getClassDetailAdmission,
-  getSubjectAdminstration
+  getSubjectAdminstration,
+  deleteCustomer
 } = require("../models/admissionModel");
 
 const {
@@ -537,6 +538,31 @@ const getSubject = (req, res) => {
   });
 }
 
+const deleteCustomerInfo = (req, res) => {
+  const customer_id = req.params.customer_id;
+  if (!customer_id) {
+    return res.status(400).send({
+      success: false,
+      message: "customer_id is required",
+    });
+  }
+  // Call the model's deleteCustomerInfo method
+  deleteCustomer(customer_id, (err, result) => {
+    if (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Error deleting customer info",
+        error: err,
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "Customer info deleted successfully",
+      data: result,
+    });
+  });
+}
+
 module.exports = {
   getCourses,
   createClass,
@@ -556,5 +582,6 @@ module.exports = {
   getClassDetail,
   getLessonDetail,
   getLessonClass,
-  getSubject
+  getSubject,
+  deleteCustomerInfo,
 };

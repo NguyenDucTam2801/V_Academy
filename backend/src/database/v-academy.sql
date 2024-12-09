@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 06:24 AM
+-- Generation Time: Dec 09, 2024 at 07:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -43,7 +43,7 @@ CREATE TABLE `admission` (
 --
 
 INSERT INTO `admission` (`admission_id`, `admission_name`, `admission_birth`, `admission_email`, `admission_phone`, `admission_address`, `admission_url`, `admission_region`) VALUES
-(1, 'Chloe Adams', '1980-09-08', 'chloe.adams@example.com', '3334445555', '202 Birch St.', NULL, NULL),
+(1, 'Chloe Adams Tester', '1980-08-29', '', '0971536271', 'No where', NULL, NULL),
 (2, 'David Green', '1982-11-22', 'david.green@example.com', '4445556666', '303 Cedar St.', NULL, 'West Region');
 
 -- --------------------------------------------------------
@@ -90,7 +90,8 @@ INSERT INTO `class` (`class_id`, `class_name`, `class_descript`, `course_id`, `t
 (1, 'Basic English Class 1', 'Morning class for beginners', 'course_eng_001', 1, 1, 1),
 (2, 'Advanced English Class 1', 'Evening class for advanced learners', 'course_eng_002', 2, 1, 2),
 (3, 'Englis_basic_test', 'Basic daily english', 'course_eng_001', 1, 3, 2),
-(11, 'English Advance', 'English for ielts', 'course_eng_002', 13, 32, 1);
+(11, 'English Advance', 'English for ielts', 'course_eng_002', 13, 32, 1),
+(18, 'Basic English Class /Alice - John/', 'English Conversation Daily', 'course_eng_001', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +169,7 @@ CREATE TABLE `customer_contact` (
   `customer_address` varchar(100) DEFAULT NULL,
   `customer_birthday` date DEFAULT NULL,
   `customer_extra` varchar(500) DEFAULT NULL,
-  `customer_status` enum('TO DO','IN PROCESS','FINISHED') NOT NULL DEFAULT 'TO DO'
+  `customer_status` enum('TO DO','IN PROCESS','FINISHED','CANCELED') NOT NULL DEFAULT 'TO DO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -176,9 +177,8 @@ CREATE TABLE `customer_contact` (
 --
 
 INSERT INTO `customer_contact` (`customer_id`, `customer_name`, `customer_email`, `customer_phone`, `customer_address`, `customer_birthday`, `customer_extra`, `customer_status`) VALUES
-(1, 'Tam', 'example@gmail.com', '01234567892', 'asdlfbsvn', '2024-11-07', NULL, 'TO DO'),
-(2, 'Nguyen Duc Tam', 'ex@ex.com', '987654321', 'asfioianvl', '2001-12-19', NULL, 'TO DO'),
-(3, 'Nguyễn Đức Tâm', 'nguyenductam12003@gmail.com', '0971536271', '60 Ngô Đức Kế, phường 12, quận Bình Thạnh, TPHCM', '2024-12-08', 'asdfasdfasf', 'TO DO');
+(2, 'Nguyen Duc Tam', 'ex@ex.com', '987654321', 'asfioianvl', '2001-12-19', NULL, 'FINISHED'),
+(3, 'Nguyễn Đức Tâm', 'nguyenductam12003@gmail.com', '0971536271', '60 Ngô Đức Kế, phường 12, quận Bình Thạnh, TPHCM', '2024-12-08', 'asdfasdfasf', 'IN PROCESS');
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,8 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`subject_id`, `subject_name`, `subject_descript`) VALUES
-('eng_sub', 'English Basic', 'English language course');
+('eng_sub', 'English', 'English language course'),
+('math_sub', 'Mathematic', 'Basic math for student');
 
 -- --------------------------------------------------------
 
@@ -335,7 +336,9 @@ INSERT INTO `tutor` (`tutor_id`, `tutor_name`, `tutor_birth`, `tutor_email`, `tu
 (5, 'John Doe', '1990-01-01', 'john@example.com', '1234567890', 'North', '123 Main Street', NULL, 'Experienced in Math tutoring', 'eng_sub'),
 (6, 'Alice Johnson 2', '1985-07-19', 'alice.johnson2@example.com', '1112223333', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
 (12, 'tester', '1985-07-19', 'tester@example.com', '11122233456', 'North Region', '789 Pine St.', NULL, 'Experienced English tutor', 'eng_sub'),
-(13, 'Shimt test', '0000-00-00', 'testmail@example.com', '0152368741', NULL, 'asdfasfvc', NULL, 'Funny haha', 'eng_sub');
+(13, 'Shimt test', '0000-00-00', 'testmail@example.com', '0152368741', NULL, 'asdfasfvc', NULL, 'Funny haha', 'eng_sub'),
+(33, 'Nguyễn Đức Tâm', '2024-12-01', 'nguyenductam12003@gmail.com', '0971536271', 'Not Specified', '60 Ngô Đức Kế, phường 12, quận Bình Thạnh, TPHCM', 'asdf', 'afasdf', 'eng_sub'),
+(34, 'Nguyễn Đức Trung', '2024-12-01', 'nguyenductam12003@gmail.com', '0971536272', 'Not Specified', '60 Ngô Đức Kế, phường 12, quận Bình Thạnh, TPHCM', 'asdf', 'afasdf', 'eng_sub');
 
 -- --------------------------------------------------------
 
@@ -358,7 +361,9 @@ INSERT INTO `tutor_account` (`tutor_id`, `tutor_userName`, `tutor_password`) VAL
 (2, 'prof_bob', 'passwordABC'),
 (5, 'john_deo_test@example.com', 'passtest'),
 (12, 'tester@example.com', '$2b$10$0B5g26XXAzkCFpRATgbyyOhutMjdondZ2QWrK64u0l2WvqkAlZY2m'),
-(13, 'testmail@example.com', '$2b$10$2uEKUWSjUHVdft2aUBKPH.BPw12RhDG6JY7jXdV4pza57VXVB3x3m');
+(13, 'testmail@example.com', '$2b$10$2uEKUWSjUHVdft2aUBKPH.BPw12RhDG6JY7jXdV4pza57VXVB3x3m'),
+(33, 'nguyenductam12003@gmail.com', '$2b$10$Nn8JO/3xGPzjVCieFEkoLucUMnCmmb9gWsBS4lZAypIOtfv/XgbKG'),
+(34, 'nguyenductam12003@gmail.com', '$2b$10$l5PRDI1FGB.yQw08T1CztuGlRqXT/TPa3g.TiUN1Crn1hssqdoeGC');
 
 --
 -- Indexes for dumped tables
@@ -432,7 +437,8 @@ ALTER TABLE `student`
 -- Indexes for table `student_account`
 --
 ALTER TABLE `student_account`
-  ADD PRIMARY KEY (`student_id`);
+  ADD PRIMARY KEY (`student_id`),
+  ADD UNIQUE KEY `student_userName` (`student_userName`);
 
 --
 -- Indexes for table `subject`
@@ -474,13 +480,13 @@ ALTER TABLE `admission_account`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `class_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `class_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `customer_contact`
 --
 ALTER TABLE `customer_contact`
-  MODIFY `customer_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customer_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `lesson`
@@ -492,25 +498,25 @@ ALTER TABLE `lesson`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `student_account`
 --
 ALTER TABLE `student_account`
-  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `student_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `tutor`
 --
 ALTER TABLE `tutor`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tutor_account`
 --
 ALTER TABLE `tutor_account`
-  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `tutor_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables

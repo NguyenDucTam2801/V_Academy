@@ -455,6 +455,17 @@ const getSubjectAdminstration = (callback) => {
   });
 }
 
+const deleteCustomer =(customer_id, callback) => {
+  const sql = "DELETE FROM customer_contact WHERE `customer_contact`.`customer_id` = ?";
+  db.query(sql, [customer_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    console.log("[Admission Model] Delete customer"+result);
+    return callback(null, result);
+  });
+}
+
 module.exports = {
   getCourse,
   addClass,
@@ -474,5 +485,6 @@ module.exports = {
   getClassDetailAdmission,
   getLessonDetailAdmission,
   getLessonClassAdmission,
-  getSubjectAdminstration
+  getSubjectAdminstration,
+  deleteCustomer
 };

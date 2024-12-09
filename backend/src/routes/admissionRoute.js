@@ -45,5 +45,10 @@ router.get(
   verifyToken,
   admissionController.getLessonClass
 );
+router.delete(
+  "/deleteCustomerInfo/:customer_id",
+  verifyToken,
+  admissionController.deleteCustomerInfo
+);
 
 module.exports = router;

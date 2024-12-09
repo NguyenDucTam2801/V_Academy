@@ -20,6 +20,9 @@ import StudentistPage from "./pages/StudentListPage";
 import TutorManagePage from "./pages/TutorManagePage";
 import ProfilePage from "./pages/ProfilePage";
 import CustomerListPage from "./pages/CustomerListPage";
+import "./fontawasome.js"
+// Nhúng thư viện của bạn vào dự án
+
 
 function App() {
   return (

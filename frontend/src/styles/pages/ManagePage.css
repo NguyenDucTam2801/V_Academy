@@ -112,7 +112,7 @@ th, td {
 }
 
 th {
-  background-color: #5ccca7;
+  background-color: #e2e2e2;
   font-weight: bold;
   font-size: 20px;
 }
@@ -158,4 +158,9 @@ main h1{
   color: red;
   font-size: 1.5rem;
   margin-left: 10px;
+}
+
+.delete{
+  text-align: center;
+  cursor: pointer;
 }

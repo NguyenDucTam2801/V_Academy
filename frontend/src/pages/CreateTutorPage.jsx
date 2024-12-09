@@ -8,7 +8,8 @@ import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import "../styles/pages/UpdateDataFrameStyle.css";
-import {route} from "./routes/route";
+import { route } from "./routes/route";
+import regexTesting from "./regexTest/regexTesting";
 
 export default function CreateTutorPage() {
   const CREATE_TUTOR_URL = "http://localhost:3001/api/admission/createTutor";
@@ -21,6 +22,7 @@ export default function CreateTutorPage() {
   const [success, setSuccess] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState({});
   const [tutorInfo, setTutorInfo] = useState({
     tutor_name: "",
     tutor_birth: "",
@@ -54,9 +56,32 @@ export default function CreateTutorPage() {
     fetchData();
   }, []);
   const handleChange = (e) => {
-    setTutorInfo({ ...tutorInfo, [e.target.name]: e.target.value });
-    console.log("e trget name", e.target.name);
-    console.log("e trget value", e.target.value);
+    const { name, value } = e.target;
+    setTutorInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    if (!regexTesting(name, value,"Tutor")) {
+      setError((prev) => ({
+        ...prev,
+        [name]: `Invalid ${name.replace(
+          "_",
+          " "
+        )}. Please follow the correct format.`,
+      }));
+    } else {
+      setError((prev) => ({
+        ...prev,
+        [name]: "",
+      })); // Clear error if input is valid
+    }
+
+    if (value.length === 0) {
+      setError((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,6 +127,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_name"] && (
+                <p className="error-message">{error["tutor_name"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -111,6 +139,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_birth"] && (
+                <p className="error-message">{error["tutor_birth"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -120,6 +151,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_email"] && (
+                <p className="error-message">{error["tutor_email"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -129,6 +163,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_phone"] && (
+                <p className="error-message">{error["tutor_phone"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -147,6 +184,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_address"] && (
+                <p className="error-message">{error["tutor_address"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -156,6 +196,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_url"] && (
+                <p className="error-message">{error["tutor_url"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -165,6 +208,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_descript"] && (
+                <p className="error-message">{error["tutor_descript"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <select
@@ -192,8 +238,15 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_password"] && (
+                <p className="error-message">{error["tutor_password"]}</p>
+              )}
             </div>
-            <button type="submit" className="submit-form-button">
+            <button
+              type="submit"
+              className="submit-form-button"
+              disabled={Object.values(error).some((errMsg) => errMsg)}
+            >
               Create New
             </button>
           </div>

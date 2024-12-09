@@ -9,6 +9,7 @@ import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { set } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CustomerListPage() {
   const token = Cookies.get("token");
@@ -64,6 +65,26 @@ export default function CustomerListPage() {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+  const deleteCustomer = async (e) => {
+    const response = window.confirm("Are you sure you want to delete this customer?");
+    if (response) {
+      const id = e.target.parentNode.children[0].innerText;
+      try {
+        const res = await axios.delete(
+          `http://localhost:3001/api/admission/deleteCustomerInfo/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(res.data);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
   return (
     <div className="container">
       <NavBar linkList={links} role={role} username={user.admission_name} />
@@ -101,6 +122,7 @@ export default function CustomerListPage() {
                 <th>Birthday</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -126,13 +148,20 @@ export default function CustomerListPage() {
                       <option value="CANCELED">CANCELED</option>
                     </select>
                   </td>
+                  <td className="delete" onClick={deleteCustomer}>
+                  <FontAwesomeIcon icon="trash" />
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </main>
-      <AlertStatus message="Login Success" status="success" />
+      {customerList.length !== 0 ? (
+        <AlertStatus message="Update Customer" status="success" />
+      ):(
+        <AlertStatus message="Update Customer" status="falied" />
+      )}
     </div>
   );
 }

@@ -116,7 +116,7 @@ export default function ClassDetailPage() {
                     <div className="lesson-row">
                       <div className="label">Class Name:</div>
                       <div className="value">
-                      <Link to={"/lesson_detail/" + record.class_id}>
+                      <Link to={"/lesson_detail/" + record.lesson_id}>
                           {record.class_name}
                         </Link>
                       </div>
@@ -151,5 +151,60 @@ export default function ClassDetailPage() {
           </div>
         </main>
     </div>
+
+    // <div className="container">
+    //   <NavBar linkList={links} role={role} username={user.admission_name || user.student_name || user.tutor_name} />
+    //   <main className="content">
+    //     <div className="class_info"></div>
+    //     <div className="content-box">
+    //       <table>
+    //         <thead>
+    //           {/* <tr>
+    //             <th>Class Name</th>
+    //             <th>Class Description</th>
+    //             <th>Course ID</th>
+    //             <th>Tuotr ID</th>
+    //             <th>Student ID</th>
+    //             <th>Admission ID</th>
+    //           </tr> */}
+    //         </thead>
+    //         <tbody>
+    //           {Object.keys(classDetail).length > 0 || Object.keys(lessonList).length > 0 || Object.keys(studentList).length > 0 ? (
+    // Object.keys(classDetail).length > 0 &&
+    // Object.values(classDetail).map((record, index) => (
+    //             <tr key={index}>
+    //               <tr><th>Class Name</th><td>
+    //                 <Link to={"/lesson_detail/" + record.class_id}>
+    //                   {record.class_name}
+    //                 </Link>
+    //               </td></tr>
+                  
+    //               <tr><th>Class Description</th>
+    //               <td>{record.class_descript}</td></tr>
+    //               <tr><th>Course ID</th>
+    //                 <td>{record.course_id}</td>
+    //               </tr>
+    //               <tr><th>Tutor ID</th>
+    //                 <td>{record.tutor_id}</td>
+    //               </tr>
+    //               <tr><th>Student ID</th>
+    //                 <td>{record.student_id}</td>
+    //               </tr>
+    //               <tr><th>Admission ID</th>
+    //                 <td>{record.admission_id}</td>
+    //               </tr>
+    //             </tr>
+    //           )))
+    //           : (
+    //             <tr>
+    //               <td colSpan="5" style={{textAlign:"center"}}>No lesson found</td>
+    //             </tr>
+    //           )}
+              
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //   </main>
+    // </div>
   );
 }

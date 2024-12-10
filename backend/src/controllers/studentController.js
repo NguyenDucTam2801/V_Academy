@@ -245,8 +245,9 @@ const studentGetClassDetail = (req, res) => {
     "[StudentController]Getting student class detail",
     req.params.class_id
   );
-  const classesData = getStudentClassDetail(req.params.class_id);
-  classesData.then((result) => {
+  const classData = getStudentClassDetail(req.params.class_id);
+  classData.then((result) => {
+    console.log("[Student controller]Class detail result" + result);
     if (!result) {
       return res
         .status(404)
@@ -254,7 +255,7 @@ const studentGetClassDetail = (req, res) => {
     }
     res
       .status(200)
-      .json({ message: "[studentControlled]Result found", class: result });
+      .json({ message: "[studentControlled]Result found", class:result  });
   });
 };
 

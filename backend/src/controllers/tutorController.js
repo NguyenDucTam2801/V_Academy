@@ -212,7 +212,7 @@ const getTutorClassDetailController = async (req, res) => {
     if (!classDetail) {
       return res.status(404).json({ message: "Class not found" });
     }
-
+console.log("[Tutor COntroller]Clsas detail"+classDetail)
     return res.status(200).json({
       message: "Class detail fetched successfully",
       class: classDetail,

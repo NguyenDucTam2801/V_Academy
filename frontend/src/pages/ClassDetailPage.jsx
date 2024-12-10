@@ -57,7 +57,11 @@ export default function ClassDetailPage() {
             },
           }
         );
-        setClassDetail(res.data.class);
+        if (role == "Student") {
+          setClassDetail(res.data.class[0]);
+        } else {
+          setClassDetail(res.data.class);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -105,31 +109,31 @@ export default function ClassDetailPage() {
               <tbody>
                 <tr>
                   <th>Class ID</th>
-                  <td>{classDetail[0].class_id}</td>
+                  <td>{classDetail.class_id}</td>
                 </tr>
                 <tr>
                   <th>Class Name</th>
-                  <td>{classDetail[0].class_name}</td>
+                  <td>{classDetail.class_name}</td>
                 </tr>
                 <tr>
                   <th>Class description</th>
-                  <td>{classDetail[0].class_descript}</td>
+                  <td>{classDetail.class_descript}</td>
                 </tr>
                 <tr>
                   <th>Course ID</th>
-                  <td>{classDetail[0].course_id}</td>
+                  <td>{classDetail.course_id}</td>
                 </tr>
                 <tr>
                   <th>Tutor ID</th>
-                  <td>{classDetail[0].tutor_id}</td>
+                  <td>{classDetail.tutor_id}</td>
                 </tr>
                 <tr>
                   <th>Student ID</th>
-                  <td>{classDetail[0].student_id}</td>
+                  <td>{classDetail.student_id}</td>
                 </tr>
                 <tr>
                   <th>Admission ID</th>
-                  <td>{classDetail[0].admission_id}</td>
+                  <td>{classDetail.admission_id}</td>
                 </tr>
               </tbody>
             ) : null}

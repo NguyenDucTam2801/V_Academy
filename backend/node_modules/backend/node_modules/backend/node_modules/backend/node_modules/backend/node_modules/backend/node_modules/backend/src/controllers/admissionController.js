@@ -23,7 +23,9 @@ const {
   getLessonClassAdmission,
   getClassDetailAdmission,
   getSubjectAdminstration,
-  deleteCustomer
+  deleteCustomer,
+  getCurrentPassword,
+  changeNewPassword,
 } = require("../models/admissionModel");
 
 const {
@@ -182,9 +184,7 @@ const admissionGetInfo = (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Admission officer not found" });
     }
-    res
-      .status(200)
-      .json({ message: "Admission officer found", user: result });
+    res.status(200).json({ message: "Admission officer found", user: result });
   });
 };
 //create class
@@ -536,12 +536,12 @@ const getSubject = (req, res) => {
       });
     }
   });
-}
+};
 
 const deleteCustomerInfo = (req, res) => {
   const customer_id = req.params.customer_id;
   if (!customer_id) {
-    return res.status(400).send({
+    return res.status(400).json({
       success: false,
       message: "customer_id is required",
     });
@@ -549,19 +549,82 @@ const deleteCustomerInfo = (req, res) => {
   // Call the model's deleteCustomerInfo method
   deleteCustomer(customer_id, (err, result) => {
     if (err) {
-      return res.status(500).send({
+      return res.status(500).json({
         success: false,
         message: "Error deleting customer info",
         error: err,
       });
     }
-    return res.status(200).send({
+    return res.status(200).json({
       success: true,
       message: "Customer info deleted successfully",
       data: result,
     });
   });
-}
+};
+
+const changePasswordUser = (req, res) => {
+  const id = req.params.id;
+  const { current_password, new_password } = req.body;
+  console.log("Id", id);
+  console.log("current password", current_password);
+  console.log("new password", new_password);
+  if (!id || !current_password || !new_password) {
+    return res.status(400).json({ message: "Invalid Input" });
+  }
+  getCurrentPassword(id, (err, result) => {
+    try {
+      if (err) {
+        res.status(404).json({
+          success: false,
+          message: "USer not found",
+          err: err,
+        });
+      }
+      console.log("result", result)
+      const checkpassword = result[0].admission_password;
+      console.log("Current Password",current_password)
+      console.log("Check password", checkpassword)
+
+      const isPasswordMatch = comparePasswords(current_password, checkpassword);
+      isPasswordMatch.then((result) => {
+        console.log("Is password match ", result);
+        if (!result) {
+          return res.status(401).json({
+            success: false,
+            message: "Current Password is incorrect",
+          });
+        }
+        changeNewPassword(new_password, id, (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              success: false,
+              message: "Fail to Update Password",
+              err: err,
+            });
+          }
+          console.log(
+            "[Admission controller] result update user password",
+            result
+          );
+          return res.status(200).json({
+            success: true,
+            message: "Update Password Successfully",
+            result: result,
+          });
+        });
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    }
+  });
+};
 
 module.exports = {
   getCourses,
@@ -584,4 +647,5 @@ module.exports = {
   getLessonClass,
   getSubject,
   deleteCustomerInfo,
+  changePasswordUser,
 };

@@ -87,7 +87,7 @@ const updateAdmissionInfo = (admission_id, admissionData) => {
 //Create Student
 const StudentCreate = {
   create: (studentData, callback) => {
-    console.log("[AdmissionModel]studentData ",studentData)
+    console.log("[AdmissionModel]studentData ", studentData);
     const sql = `INSERT INTO student (student_name, student_birth, student_email, student_phone, student_address, student_url, student_descript)
                          VALUES ( ?, ?, ?, ?, ?, ?, ?);`;
     db.query(
@@ -103,7 +103,7 @@ const StudentCreate = {
       ],
       (err, result) => {
         if (err) {
-          console.log("[AdmissionModel]err "+err)
+          console.log("[AdmissionModel]err " + err);
           return callback(err);
         }
         db.query(
@@ -453,18 +453,48 @@ const getSubjectAdminstration = (callback) => {
     }
     return callback(null, result);
   });
-}
+};
 
-const deleteCustomer =(customer_id, callback) => {
-  const sql = "DELETE FROM customer_contact WHERE `customer_contact`.`customer_id` = ?";
+const deleteCustomer = (customer_id, callback) => {
+  const sql =
+    "DELETE FROM customer_contact WHERE `customer_contact`.`customer_id` = ?";
   db.query(sql, [customer_id], (err, result) => {
     if (err) {
       return callback(err);
     }
-    console.log("[Admission Model] Delete customer"+result);
+    console.log("[Admission Model] Delete customer" + result);
     return callback(null, result);
   });
-}
+};
+
+const getCurrentPassword = (user_id, callback) => {
+  console.log("[Admission Model]User Id" + user_id);
+  const sql = "SELECT * FROM `admission_account` WHERE `admission_id` = ?";
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    console.log("[Admission Model] Result get current password" + result);
+    return callback(null, result);
+  });
+};
+
+const changeNewPassword = (new_password, user_id, callback) => {
+  const sql =
+    "UPDATE `admission_account` SET `admission_password` = ? WHERE `admission_account`.`admission_id` = ?";
+  const hashedPassword = hashPassword(new_password);
+  hashedPassword.then((result) => {
+    console.log("hashed password", result);
+    db.query(sql, [result, user_id], (err, result) => {
+      if (err) {
+        console.log("error", err)
+        return callback(err);
+      }
+      console.log("[Admission Model] Result change password", result);
+      return callback(null, result);
+    });
+  });
+};
 
 module.exports = {
   getCourse,
@@ -486,5 +516,7 @@ module.exports = {
   getLessonDetailAdmission,
   getLessonClassAdmission,
   getSubjectAdminstration,
-  deleteCustomer
+  deleteCustomer,
+  getCurrentPassword,
+  changeNewPassword,
 };

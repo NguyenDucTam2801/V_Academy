@@ -1,53 +1,3 @@
-/* table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
-    background-color: #f9f9f9;
-  }
-  
-  table th,
-  table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-  }
-  
-  table th {
-    background-color: #d3d3d3;
-    font-weight: bold;
-  }
-  
-  table tr:hover {
-    background-color: #ffffff;
-  }
-  
-  table tr {
-    border-bottom: 1px solid #ccc;
-  }
-  
-  table a {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  
-  table a:hover {
-    text-decoration: underline;
-  }
-
-  table td:nth-child(1),
-  table th:nth-child(1) {
-    /* text-align: center; */
-  /* } */
-  
-
-  table td[colspan="5"] {
-    font-style: italic;
-    color: #b6b6b6;
-    text-align: center;
-    padding: 20px;
-  }
-   */
   .scrollable-frame {
     width: 100%;
     max-width: 800px;
@@ -98,66 +48,66 @@
   display: none; 
 }
   
-   .detail-content {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-  }
-  
-  .lesson-detail-container {
-    width: 90%;
-    max-width: 800px;
-  }
-  
-  .lesson-box {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    overflow: hidden;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .lesson-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 5px 0;
-    border-bottom: 1px solid #eaeaea;
-  }
-  
-  .lesson-row:last-child {
-    border-bottom: none;
-  }
-  
-  .label {
-    font-weight: bold;
-    color: #555;
-    flex: 0 0 40%;
-  }
-  
-  .value {
-    flex: 0 0 55%;
-    text-align: right;
-    color: #333;
-    word-wrap: break-word;
-  }
-  
-  .value a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .value a:hover {
-    text-decoration: underline;
-  }
-  
-  .no-lesson {
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
-    color: #777;
-  }
+.detail-content {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.lesson-detail-container {
+  width: 90%;
+  max-width: 800px;
+}
+
+.lesson-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.lesson-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: bold;
+  color: #555;
+  flex: 0 0 40%;
+}
+
+.value {
+  flex: 0 0 55%;
+  text-align: right;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.value a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.value a:hover {
+  text-decoration: underline;
+}
+
+.no-lesson {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #777;
+}
   

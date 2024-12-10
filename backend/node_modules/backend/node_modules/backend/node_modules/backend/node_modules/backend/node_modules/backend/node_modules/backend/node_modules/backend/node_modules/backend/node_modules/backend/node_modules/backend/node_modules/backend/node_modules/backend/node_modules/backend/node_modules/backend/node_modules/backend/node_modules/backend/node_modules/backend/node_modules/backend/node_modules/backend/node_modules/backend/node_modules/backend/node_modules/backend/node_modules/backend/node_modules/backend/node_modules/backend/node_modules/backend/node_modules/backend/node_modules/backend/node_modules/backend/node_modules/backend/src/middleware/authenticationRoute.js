@@ -122,7 +122,8 @@ async function comparePasswords(plainPassword, hashedPassword) {
     const match = await bcrypt.compare(plainPassword, hashedPassword);
     return match;
   } catch (err) {
-    throw new Error("Error comparing passwords");
+    console.log("Unmatch Current Password")
+   return false;
   }
 }
 

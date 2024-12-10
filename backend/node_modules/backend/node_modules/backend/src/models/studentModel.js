@@ -153,6 +153,35 @@ const getStudentLessonDetail = (lesson_id) => {
   });
 }
 
+const getCurrentPassword = (user_id, callback) => {
+  console.log("[Student Model]User Id" + user_id);
+  const sql = "SELECT * FROM `student_account` WHERE `student_id` = ?";
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    console.log("[Student Model] Result get current password" + result);
+    return callback(null, result);
+  });
+};
+
+const changeNewPassword = (new_password, user_id, callback) => {
+  const sql =
+    "UPDATE studentn_account` SET `student_password` = ? WHERE `student_account`.`student_id` = ?";
+  const hashedPassword = hashPassword(new_password);
+  hashedPassword.then((result) => {
+    console.log("hashed password", result);
+    db.query(sql, [result, user_id], (err, result) => {
+      if (err) {
+        console.log("error", err)
+        return callback(err);
+      }
+      console.log("[Student Model] Result change password", result);
+      return callback(null, result);
+    });
+  });
+};
+
 module.exports = {
   StudentList,
   signInStudent,
@@ -162,5 +191,7 @@ module.exports = {
   getStudentClass,
   getStudentLessonClass,
   getStudentClassDetail,
-  getStudentLessonDetail
+  getStudentLessonDetail,
+  getCurrentPassword,
+  changeNewPassword,
 };

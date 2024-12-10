@@ -241,6 +241,35 @@ const getTutorLessonDetail = (lesson_id) => {
   });
 };
 
+const getCurrentPassword = (user_id, callback) => {
+  console.log("[tutor Model]User Id" + user_id);
+  const sql = "SELECT * FROM `tutor_account` WHERE `tutor_id` = ?";
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    console.log("[tutor Model] Result get current password" + result);
+    return callback(null, result);
+  });
+};
+
+const changeNewPassword = (new_password, user_id, callback) => {
+  const sql =
+    "UPDATE `tutor_account` SET `tutor_password` = ? WHERE `tutor_account`.`tutor_id` = ?";
+  const hashedPassword = hashPassword(new_password);
+  hashedPassword.then((result) => {
+    console.log("hashed password", result);
+    db.query(sql, [result, user_id], (err, result) => {
+      if (err) {
+        console.log("error", err)
+        return callback(err);
+      }
+      console.log("[tutor Model] Result change password", result);
+      return callback(null, result);
+    });
+  });
+};
+
 module.exports = {
   getTutorLessonDetail,
   getTutorClassDetail,
@@ -253,4 +282,6 @@ module.exports = {
   signInTutor,
   getTutorInfo,
   updateTutorInfo,
+  getCurrentPassword,
+  changeNewPassword,
 };

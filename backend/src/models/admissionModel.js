@@ -1,5 +1,5 @@
 const db = require("../config/db");
-const { hashPassword } = require("../middleware/authenticationRoute");
+const authenticationRoute = require("../middleware/authenticationRoute");
 
 // Admission model with methods to handle admission-related queries
 
@@ -482,7 +482,7 @@ const getCurrentPassword = (user_id, callback) => {
 const changeNewPassword = (new_password, user_id, callback) => {
   const sql =
     "UPDATE `admission_account` SET `admission_password` = ? WHERE `admission_account`.`admission_id` = ?";
-  const hashedPassword = hashPassword(new_password);
+  const hashedPassword = authenticationRoute.hashPassword(new_password);
   hashedPassword.then((result) => {
     console.log("hashed password", result);
     db.query(sql, [result, user_id], (err, result) => {

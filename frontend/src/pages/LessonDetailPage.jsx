@@ -71,6 +71,7 @@ export default function LessonDetailPage() {
       />
       <main className="detail-content">
         <div className="scrollable-frame">
+          <h1>Lesson Detail</h1>
           <div className="lesson-detail-container">
             {lessonDetail && Object.keys(lessonDetail).length > 0 ? (
               <table className="lesson-table" border="1">

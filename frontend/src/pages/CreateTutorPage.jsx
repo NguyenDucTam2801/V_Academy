@@ -61,7 +61,7 @@ export default function CreateTutorPage() {
       ...prev,
       [name]: value,
     }));
-    if (!regexTesting(name, value,"Tutor")) {
+    if (!regexTesting(name, value, "Tutor")) {
       setError((prev) => ({
         ...prev,
         [name]: `Invalid ${name.replace(
@@ -85,6 +85,7 @@ export default function CreateTutorPage() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await axios.post(
         "http://localhost:3001/api/admission/createTutor",
@@ -112,6 +113,8 @@ export default function CreateTutorPage() {
     }
   };
   console.log("Subject list " + JSON.stringify(subjectList));
+  console.log("Tutor Info", tutorInfo)
+  console.log("err ",error)
   return (
     <div>
       <NavBar linkList={links} role={role} username={user.admission_name} />
@@ -175,6 +178,9 @@ export default function CreateTutorPage() {
                 onChange={handleChange}
                 required
               />
+              {error["tutor_region"] && (
+                <p className="error-message">{error["tutor_region"]}</p>
+              )}
             </div>
             <div className="form-frame-group">
               <input
@@ -194,7 +200,6 @@ export default function CreateTutorPage() {
                 name="tutor_url"
                 placeholder="URL"
                 onChange={handleChange}
-                required
               />
               {error["tutor_url"] && (
                 <p className="error-message">{error["tutor_url"]}</p>
@@ -215,7 +220,7 @@ export default function CreateTutorPage() {
             <div className="form-frame-group">
               <select
                 name="subject_id"
-                id="subject_id"
+                className="subject_id"
                 onChange={handleChange}
                 required
               >

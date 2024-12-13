@@ -1,4 +1,5 @@
 const db = require("../config/db");
+const authenticationRoute = require("../middleware/authenticationRoute");
 
 // Tutor model with methods to handle tutor-related queries
 
@@ -256,7 +257,7 @@ const getCurrentPassword = (user_id, callback) => {
 const changeNewPassword = (new_password, user_id, callback) => {
   const sql =
     "UPDATE `tutor_account` SET `tutor_password` = ? WHERE `tutor_account`.`tutor_id` = ?";
-  const hashedPassword = hashPassword(new_password);
+  const hashedPassword = authenticationRoute.hashPassword(new_password);
   hashedPassword.then((result) => {
     console.log("hashed password", result);
     db.query(sql, [result, user_id], (err, result) => {

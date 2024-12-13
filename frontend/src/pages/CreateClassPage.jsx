@@ -183,11 +183,12 @@ export default function CreateClassPage() {
             </div>
             <div className="form-frame-group">
               <input
-                type="text"
+                type="hidden"
                 name="admission_id"
                 placeholder="Admission ID"
                 value={admission_id}
                 onChange={handleChange}
+                visi
               />
             </div>
             <button type="submit" className="submit-form-button">

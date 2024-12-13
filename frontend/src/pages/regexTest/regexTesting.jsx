@@ -1,4 +1,4 @@
-function regexTesting(type, input,role) {
+function regexTesting(type, input, role) {
   const patterns = {
     name: /^([A-ZÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ][a-zàáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý]*\s?){2,50}$/u,
     phone: /^\+?[0-9\s\-\(\)]{7,15}$/,
@@ -9,27 +9,35 @@ function regexTesting(type, input,role) {
     url: /^(http|https):\/\/[a-zA-Z0-9\.\-]{3,}\.[a-zA-Z]{2,}$/,
     descript: /^.{0,200}$/,
     password: /^.{6,30}$/,
+    region:
+      /[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/u,
+    subject_id: /^(?!\s*$)[A-Za-z0-9_]+$/,
   };
-  console.log("role",role)
-  const keyMap =role==="Student"? {
-    student_name: "name",
-    student_phone: "phone",
-    student_address: "address",
-    student_birth: "birthday",
-    student_email: "email",
-    student_url: "url",
-    student_descript: "descript",
-    student_password: "password",
-  } : {
-      tutor_name: "name",
-      tutor_phone: "phone",
-      tutor_address: "address",
-      tutor_birth: "birthday",
-      tutor_email: "email",
-      tutor_url: "url",
-      tutor_descript: "descript",
-      tutor_password: "password",
-    } 
+  console.log("role", role);
+  const keyMap =
+    role === "Student"
+      ? {
+          student_name: "name",
+          student_phone: "phone",
+          student_address: "address",
+          student_birth: "birthday",
+          student_email: "email",
+          student_url: "url",
+          student_descript: "descript",
+          student_password: "password",
+        }
+      : {
+          tutor_name: "name",
+          tutor_phone: "phone",
+          tutor_address: "address",
+          tutor_birth: "birthday",
+          tutor_email: "email",
+          tutor_url: "url",
+          tutor_descript: "descript",
+          tutor_password: "password",
+          tutor_region: "region",
+          subject_id: "subject_id",
+        };
   const patternKey = keyMap[type];
   if (patternKey && patterns[patternKey]) {
     return patterns[patternKey].test(input);

@@ -25,7 +25,7 @@ function TutorManagePage() {
             },
           }
         );
-        console.log("response: " +res);
+        console.log("response: " + res);
         setClassList(res.data.class);
       } catch (error) {
         console.log(error);
@@ -69,17 +69,23 @@ function TutorManagePage() {
               </tr>
             </thead>
             <tbody>
-              {Object.values(classList).map((record, index) => (
-                <tr key={index}>
-                  <td>
-                    <Link to={"/class_detail/" + record.class_id}>
-                      {record.class_name}
-                    </Link>
-                  </td>
-                  <td>{record.tutor_id}</td>
-                  <td>{record.course_id}</td>
+              {classList.length > 0 ? (
+                Object.values(classList).map((record, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Link to={"/class_detail/" + record.class_id}>
+                        {record.class_name}
+                      </Link>
+                    </td>
+                    <td>{record.tutor_id}</td>
+                    <td>{record.course_id}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3">No class found</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

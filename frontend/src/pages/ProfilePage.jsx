@@ -153,7 +153,9 @@ export default function ProfilePage() {
         setMessage("Password updated successfully");
         setShowMessage(true);
         setSuccess(true);
-        setPassword({ current: "", new: "", confirm: "" }); // Clear form fields
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000); // Clear form fields
       }
     } catch (error) {
       console.error("Error updating password:", error);
@@ -211,7 +213,7 @@ export default function ProfilePage() {
   console.log("user info", user);
   return (
     <div>
-      <NavBar linkList={links} role={role} username={user.admission_name} />
+      <NavBar linkList={links} role={role} username={user.admission_name|| user.tutor_name || user.student_name} />
       <div className="create-tutor-container">
         <h2>
           Modify {user.student_name || user.tutor_name || user.admission_name}{" "}

@@ -70,17 +70,17 @@ function StudentManagePage() {
               </tr>
             </thead>
             <tbody>
-              {Object.values(classList).map((record, index) => (
+            {classList.length > 0 ? (Object.values(classList).map((record, index) => (
                 <tr key={index}>
-                  <td>
-                    <Link to={"/class_detail/" + record.class_id}>
-                      {record.class_name}
-                    </Link>
-                  </td>
+                  <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
                   <td>{record.tutor_id}</td>
                   <td>{record.course_id}</td>
                 </tr>
-              ))}
+              ))):(
+                <tr>
+                  <td colSpan="3">No class found</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

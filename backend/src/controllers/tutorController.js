@@ -129,7 +129,7 @@ const createLessontoClass = async (req, res) => {
       class_id
     );
     // Respond with success message
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Lesson added successfully",
       data: result,
     });

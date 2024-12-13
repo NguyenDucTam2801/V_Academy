@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import{ NavBar} from "../components/inside/NavBar";
+import { NavBar } from "../components/inside/NavBar";
 import AlertStatus from "../components/alert/AlertStatus";
-import  regexTesting  from "./regexTest/regexTesting";
-import {route} from "./routes/route";
-
+import regexTesting from "./regexTest/regexTesting";
+import { route } from "./routes/route";
 
 export default function CreateStudentPage() {
   const token = Cookies.get("token");
@@ -40,10 +39,13 @@ export default function CreateStudentPage() {
     }));
 
     // Validate input and set error message
-    if (!regexTesting(name, value,"Student")) {
+    if (!regexTesting(name, value, "Student")) {
       setError((prev) => ({
         ...prev,
-        [name]: `Invalid ${name.replace("_", " ")}. Please follow the correct format.`,
+        [name]: `Invalid ${name.replace(
+          "_",
+          " "
+        )}. Please follow the correct format.`,
       }));
     } else {
       setError((prev) => ({
@@ -52,7 +54,7 @@ export default function CreateStudentPage() {
       })); // Clear error if input is valid
     }
 
-    if(value.length === 0) {
+    if (value.length === 0) {
       setError((prev) => ({
         ...prev,
         [name]: "",
@@ -108,22 +110,47 @@ export default function CreateStudentPage() {
               { name: "student_name", type: "text", placeholder: "Full Name" },
               { name: "student_birth", type: "date", placeholder: "Birthday" },
               { name: "student_email", type: "email", placeholder: "Email" },
-              { name: "student_phone", type: "text", placeholder: "Phone Number" },
+              {
+                name: "student_phone",
+                type: "text",
+                placeholder: "Phone Number",
+              },
               { name: "student_address", type: "text", placeholder: "Address" },
               { name: "student_url", type: "text", placeholder: "URL" },
-              { name: "student_descript", type: "text", placeholder: "Description" },
-              { name: "student_password", type: "password", placeholder: "Password" },
+              {
+                name: "student_descript",
+                type: "text",
+                placeholder: "Description",
+              },
+              {
+                name: "student_password",
+                type: "password",
+                placeholder: "Password",
+              },
             ].map((field) => (
               <div key={field.name} className="form-frame-group">
-                <input
-                  type={field.type}
-                  name={field.name}
-                  placeholder={field.placeholder}
-                  value={studentInfo[field.name]}
-                  onChange={handleChange}
-                  required
-                />
-                {error[field.name] && <p className="error-message">{error[field.name]}</p>}
+                {field.name !== "student_url" ? (
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={studentInfo[field.name]}
+                    onChange={handleChange}
+                    required
+                  />
+                ) : (
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={studentInfo[field.name]}
+                    onChange={handleChange}
+              
+                  />
+                )}
+                {error[field.name] && (
+                  <p className="error-message">{error[field.name]}</p>
+                )}
               </div>
             ))}
             <button

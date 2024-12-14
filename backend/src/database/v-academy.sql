@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 09:11 AM
+-- Generation Time: Dec 14, 2024 at 10:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -93,7 +93,8 @@ INSERT INTO `class` (`class_id`, `class_name`, `class_descript`, `course_id`, `t
 (11, 'English Advance -Shimt', 'English for ielts', 'course_eng_002', 2, 32, 1),
 (18, 'Basic English Class /Alice - John/', 'English Conversation Daily', 'course_eng_001', 2, 2, 1),
 (19, 'English_daily - Trung', 'Dialy english conversation', 'course_eng_001', 1, 51, 1),
-(20, 'Advance Class / Trung -Shimt/', 'avanced english for tofel', 'course_eng_001', 35, 32, 1);
+(20, 'Advance Class / Trung -Shimt/', 'avanced english for tofel', 'course_eng_001', 35, 32, 1),
+(21, 'Calculus 1 / Trung - Jane Smith/', 'Calculus 1 for IU student', 'course_math_002', 35, 32, 1);
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,8 @@ INSERT INTO `class_lesson` (`class_id`, `lesson_id`) VALUES
 (3, 27),
 (11, 2),
 (18, 18),
-(19, 28);
+(19, 28),
+(19, 32);
 
 -- --------------------------------------------------------
 
@@ -138,26 +140,9 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`course_id`, `course_name`, `subject_id`, `course_descript`) VALUES
 ('course_eng_001', 'English Basic', 'eng_sub', 'Basic course covering beginner-level English topics'),
-('course_eng_002', 'English Advanced', 'eng_sub', 'Advanced course covering higher-level English topics');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course_tutor`
---
-
-CREATE TABLE `course_tutor` (
-  `tutor_id` int(255) DEFAULT NULL,
-  `course_id` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `course_tutor`
---
-
-INSERT INTO `course_tutor` (`tutor_id`, `course_id`) VALUES
-(1, 'course_eng_001'),
-(2, 'course_eng_002');
+('course_eng_002', 'English Advanced', 'eng_sub', 'Advanced course covering higher-level English topics'),
+('course_math_001', 'Math Basic', 'math_sub', 'Basic Math for high School Student'),
+('course_math_002', 'Math Calculus 1', 'math_sub', 'Calculus for university student');
 
 -- --------------------------------------------------------
 
@@ -205,15 +190,16 @@ CREATE TABLE `lesson` (
 --
 
 INSERT INTO `lesson` (`lesson_id`, `lesson_topic`, `lesson_descript`, `lesson_note`, `lesson_url`, `lesson_startTime`, `lesson_endTime`, `lesson_status`) VALUES
-(1, 'Lesson 1: Basic Greetings', 'Introduction to common greetings in English', 'yesir', 'https://pwr.edu.zoom.us/j/13asdf55-aADF312', '2024-12-14 15:10:44', '2024-12-05 10:23:47', 'CANCELED'),
+(1, 'Lesson 1: Basic Greetings', 'Introduction to common greetings in English', 'yesir', 'https://pwr.edu.zoom.us/j/13asdf55-aADF312', '2024-12-14 15:12:44', '2024-12-05 10:23:47', 'IN PROCESS'),
 (2, 'Lesson 2: Basic Verbs', 'Introduction to essential verbs in English', NULL, 'https://pwr.edu.zoom.us/j/aisufhqn-fasdfkjq-46fd6dgh', '2024-12-14 13:49:59', '2024-12-19 22:28:03', 'FINISHED'),
-(3, 'Lesson 1: Advanced Grammar', 'In-depth look at complex grammatical structures', NULL, 'https://pwr.edu.zoom.us/j/fauhooiqjp-sf32AF6543-agoqwga9', '2024-12-14 13:57:59', '2024-10-16 19:00:00', 'CANCELED'),
+(3, 'Lesson 1: Advanced Grammar', 'In-depth look at complex grammatical structures', NULL, 'https://pwr.edu.zoom.us/j/fauhooiqjp-sf32AF6543-agoqwga9', '2024-12-14 15:12:19', '2024-10-16 19:00:00', 'IN PROCESS'),
 (4, 'Lesson 2: Advanced Vocabulary', 'Study of advanced vocabulary in context', NULL, 'https://pwr.edu.zoom.us/j/faiubiouawd-653asgAFsg-ioanpow6JH', '2024-12-14 13:57:59', '2024-10-17 19:00:00', 'CANCELED'),
 (6, 'teseter', 'none', 'none', NULL, '2024-12-14 13:57:59', '2024-12-01 12:07:28', 'CANCELED'),
 (18, 'Lesson 5: Basic Activity', 'Introduction to daily activity in English', NULL, 'https://pwr.edu.zoom.us/j/13asdf55-aADF3126423', '2024-12-14 13:57:59', '2024-10-16 13:50:22', 'CANCELED'),
 (27, 'english office', 'office conversation', 'no', 'sn fnasdkfnas', '2024-12-18 14:03:00', '2024-12-18 15:03:00', 'IN PROCESS'),
 (28, 'english office', 'office conversation', 'None', 'zoom.url.com', '2024-12-14 13:57:59', '2024-12-09 15:09:00', 'CANCELED'),
-(31, 'test', 'none', 'none', 'none ', '2024-12-14 14:00:04', '2024-12-14 14:00:03', 'CANCELED');
+(31, 'test', 'none', 'none', 'none ', '2024-12-14 14:00:04', '2024-12-14 14:00:03', 'CANCELED'),
+(32, 'tester lesson', 'office conversation', 'asfasdf', 'aasf', '2024-12-25 15:18:00', '2024-12-25 16:18:00', 'IN PROCESS');
 
 --
 -- Triggers `lesson`
@@ -275,7 +261,7 @@ CREATE TABLE `student_account` (
 
 INSERT INTO `student_account` (`student_id`, `student_userName`, `student_password`) VALUES
 (1, 'jane_smith@example.com', '$2a$10$07fCE7yUrPTTFlSJg83Lj.fjPEM2Re1..S98sVkfzScHyeWOWIR8q'),
-(2, 'john_doe@example.com', 'pass4567'),
+(2, 'john_doe@example.com', '$2a$10$PKS.2dX/Kn/YygYXYt8nxO/RZha.yJJGUQ.RsR7rZu0W4ZjW9KLS2'),
 (30, 'shimt@example.com', '$2b$10$Y./a3vXqdUs/MQFpdZ1Nj.MKl79iXrLzl.nnxhE.2oRsVWBQUDnyC'),
 (32, 'tester@example.com', '$2b$10$UrKwLGYwGvKZq5/ygntjiubAK5MhJ.YLs8z/E86xKaHr/HZf4F.sW'),
 (51, 'nguyenductrung@gmail.com', '$2b$10$RoRHoWC2dQbXseSxlxnP0u2bv8QYjyYFbqUGRzNB7pkabluOqcP7q');
@@ -392,13 +378,6 @@ ALTER TABLE `course`
   ADD KEY `fk_course_subject` (`subject_id`);
 
 --
--- Indexes for table `course_tutor`
---
-ALTER TABLE `course_tutor`
-  ADD PRIMARY KEY (`course_id`),
-  ADD KEY `course_tutor_tutor_fk` (`tutor_id`);
-
---
 -- Indexes for table `customer_contact`
 --
 ALTER TABLE `customer_contact`
@@ -467,7 +446,7 @@ ALTER TABLE `admission_account`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `class_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `class_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `customer_contact`
@@ -479,7 +458,7 @@ ALTER TABLE `customer_contact`
 -- AUTO_INCREMENT for table `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `lesson_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `lesson_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -537,13 +516,6 @@ ALTER TABLE `class_lesson`
 --
 ALTER TABLE `course`
   ADD CONSTRAINT `fk_course_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `course_tutor`
---
-ALTER TABLE `course_tutor`
-  ADD CONSTRAINT `course_tutor_course_fk` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `course_tutor_tutor_fk` FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`tutor_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student_account`

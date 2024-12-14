@@ -126,7 +126,8 @@ export default function CustomerListPage() {
               </tr>
             </thead>
             <tbody>
-              {Object.values(customerList).map((record, index) => (
+              {customerList.length !== 0 ? (
+                Object.values(customerList).map((record, index) => (
                 <tr key={index}>
                   <td>{record.customer_id}</td>
                   <td>{record.customer_name}</td>
@@ -152,7 +153,11 @@ export default function CustomerListPage() {
                   <FontAwesomeIcon icon="trash" />
                   </td>
                 </tr>
-              ))}
+              ))):(
+                <tr>
+                  <td colSpan="9">No Customer found</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

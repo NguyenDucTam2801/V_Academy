@@ -271,6 +271,16 @@ const changeNewPassword = (new_password, user_id, callback) => {
   });
 };
 
+const changeLessonStatusModel = (lesson_id, lesson_status, callback) => {
+  const sql = "UPDATE `lesson` SET `lesson_status` = ? WHERE `lesson_id` = ?";
+  db.query(sql, [lesson_status,lesson_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+};
+
 module.exports = {
   getTutorLessonDetail,
   getTutorClassDetail,
@@ -285,4 +295,5 @@ module.exports = {
   updateTutorInfo,
   getCurrentPassword,
   changeNewPassword,
+  changeLessonStatusModel
 };

@@ -68,24 +68,7 @@ export default function CreateClassPage() {
     };
     fetchData();
   }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:3001/api/admission/tutorList`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setTutorList(res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  
 
   const handleChange = (e) => {
     setCreateClassForm({
@@ -127,6 +110,32 @@ export default function CreateClassPage() {
     }
   };
 
+  const handleChangeCourseTutor = async (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    if (value === "") {
+      return;
+    }
+    console.log("value", value);
+    console.log("name", name);
+    const subject_id = courseList.find((c) => c.course_id === value).subject_id;
+    console.log("subject_id", subject_id);
+    try {
+      const fetchTuotrSubject = await axios.get(
+        "http://localhost:3001/api/admission/getTutorWithSubject/" + subject_id,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("response fetch tutor subject", fetchTuotrSubject.data.data);
+      setTutorList(fetchTuotrSubject.data.data);
+      handleChange(e);
+    } catch (err) {
+      console.log("error fetch tutor subject", err);
+    }
+  };
   console.log("Course list " + JSON.stringify(courseList));
   console.log("Student list " + JSON.stringify(studentList));
   console.log("Tutor list " + JSON.stringify(tutorList));
@@ -156,25 +165,29 @@ export default function CreateClassPage() {
               />
             </div>
             <div className="form-frame-group">
-              <select name="course_id" onChange={handleChange}>
+              <select name="course_id" onChange={handleChangeCourseTutor}>
                 <option value="">Select Course</option>
                 {Object.values(courseList).map((course, index) => (
-                  <option key={index} value={course.course_id}>{course.course_name}</option>
+                  <option key={index} value={course.course_id}>
+                    {course.course_name}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="form-frame-group">
               <select name="tutor_id" onChange={handleChange}>
                 <option value="">Select Tutor</option>
-                {Object.values(tutorList).map((tutor,index) => (
-                  <option key={index} value={tutor.tutor_id}>{tutor.tutor_name}</option>
+                {Object.values(tutorList).map((tutor, index) => (
+                  <option key={index} value={tutor.tutor_id}>
+                    {tutor.tutor_name}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="form-frame-group">
               <select name="student_id" onChange={handleChange}>
                 <option value="">Select Student</option>
-                {Object.values(studentList).map((student,index) => (
+                {Object.values(studentList).map((student, index) => (
                   <option key={index} value={student.student_id}>
                     {student.student_name}
                   </option>

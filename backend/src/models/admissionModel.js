@@ -496,6 +496,16 @@ const changeNewPassword = (new_password, user_id, callback) => {
   });
 };
 
+const getTutorWithSubjectModel = (subject_id, callback) => {
+  const sql = "SELECT * FROM `tutor` WHERE `subject_id` LIKE ?";
+  db.query(sql, [subject_id], (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result);
+  });
+}
+
 module.exports = {
   getCourse,
   addClass,
@@ -519,4 +529,5 @@ module.exports = {
   deleteCustomer,
   getCurrentPassword,
   changeNewPassword,
+  getTutorWithSubjectModel
 };

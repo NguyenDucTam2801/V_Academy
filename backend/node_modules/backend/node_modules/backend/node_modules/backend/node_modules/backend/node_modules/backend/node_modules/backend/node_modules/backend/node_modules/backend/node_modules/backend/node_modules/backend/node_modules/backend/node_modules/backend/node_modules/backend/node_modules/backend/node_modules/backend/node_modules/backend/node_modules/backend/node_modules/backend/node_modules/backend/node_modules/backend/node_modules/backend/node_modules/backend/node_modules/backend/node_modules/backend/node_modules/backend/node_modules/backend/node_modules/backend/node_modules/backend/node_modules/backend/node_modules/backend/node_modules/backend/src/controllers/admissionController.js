@@ -26,6 +26,7 @@ const {
   deleteCustomer,
   getCurrentPassword,
   changeNewPassword,
+  getTutorWithSubjectModel
 } = require("../models/admissionModel");
 
 const {
@@ -626,6 +627,19 @@ const changePasswordUser = (req, res) => {
   });
 };
 
+const getTutorWithSubject = (req, res) => {
+  const {subject_id} = req.params;
+  if (!subject_id) {
+    return res.status(400).json({ message: "Subject Id is required" });
+  }
+  getTutorWithSubjectModel(subject_id, (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: "Error fetching tutor", err: err });
+    }
+    return res.status(200).json({ message: "Tutor fetched successfully", data: result });
+  });
+}
+
 module.exports = {
   getCourses,
   createClass,
@@ -648,4 +662,5 @@ module.exports = {
   getSubject,
   deleteCustomerInfo,
   changePasswordUser,
+  getTutorWithSubject
 };

@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
 import { route } from "./routes/route";
+import AlertStatus from "../components/alert/AlertStatus";
 
 export default function LessonDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -43,6 +44,10 @@ export default function LessonDetailPage() {
 
   useEffect(() => {
     const fetchLessonDetailData = async () => {
+      console.log("id", id);
+      console.error(
+        role === "Tutor" && lessonDetail.lesson_status === "IN PROCESS"
+      );
       try {
         const res = await axios.get(
           `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
@@ -61,7 +66,31 @@ export default function LessonDetailPage() {
     fetchLessonDetailData();
   }, []);
   console.log("Lesson Detail", lessonDetail);
-
+  const handleChangeStatus = async (e) => {
+    const status = e.target.value;
+    console.log("status", status);
+    console.log("role", role);
+    if (role !== "Tutor") {
+      return;
+    }
+    try {
+      console.log("id", id);
+      const res = await axios.put(
+        `http://localhost:3001/api/tutor/changeLessonStatus/${id}`,
+        { lesson_status: status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res.data);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("Status", lessonDetail.lesson_status);
   return (
     <div>
       <NavBar
@@ -111,14 +140,50 @@ export default function LessonDetailPage() {
                       {formatDate(lessonDetail.lesson_endTime)}
                     </td>
                   </tr>
+                  <tr>
+                    <th>Status</th>
+                    <td className="value">
+                      {/* <b>{lessonDetail.lesson_status}</b> */}
+                      {/* <select
+                      name="status"
+                      id="status"
+                      value={lessonDetail.lesson_status}
+                      onChange={handleChangeStatus}
+                    >
+                      <option value="">{lessonDetail.lesson_status}</option>
+                      <option value="TO DO">ACTIVE</option>
+                      <option value="IN PROCESS">CALLING</option>
+                    </select> */}
+                      {role === "Tutor" &&
+                      lessonDetail.lesson_status === "IN PROCESS" ? (
+                        <select
+                          name="status"
+                          id="status"
+                          value={lessonDetail.lesson_status}
+                          onChange={handleChangeStatus}
+                        >
+                          <option value="">{lessonDetail.lesson_status}</option>
+                          <option value="FINISHED">FINISHED</option>
+                          <option value="CANCELED">CANCELED</option>
+                        </select>
+                      ) : (
+                        <b>{lessonDetail.lesson_status}</b>
+                      )}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             ) : (
-              <div className="no-lesson">No lesson found</div>
+              <div className="no-lesson">No lesson detail</div>
             )}
           </div>
         </div>
       </main>
+      {lessonDetail.length !== 0 ? (
+        <AlertStatus message="Get Lesson Detail" status="success" />
+      ) : (
+        <AlertStatus message="Fail to get lesson detail" status="falied" />
+      )}
     </div>
   );
 }

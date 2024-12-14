@@ -150,6 +150,7 @@ export default function ClassDetailPage() {
                 <th>URL</th>
                 <th>Start Time</th>
                 <th>End Time</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -166,6 +167,8 @@ export default function ClassDetailPage() {
                     <td>{record.lesson_url}</td>
                     <td>{formatDate(record.lesson_startTime)}</td>
                     <td>{formatDate(record.lesson_endTime)}</td>
+                    <td><b>{record.lesson_status}</b></td>
+                    
                   </tr>
                 ))
               ) : (

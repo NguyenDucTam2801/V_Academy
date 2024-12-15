@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js",
-    "db": "nodemon ./src/config/db.js"
+    "db": "nodemon ./src/config/db.js",
+    "deploy": "node index.js"
   },
   "keywords": [],
   "author": "",

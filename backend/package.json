@@ -4,16 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js",
-    "db": "nodemon ./src/config/db.js",
-    "deploy": "node index.js"
+    "start": "node src/index.js",
+    "db": "node ./src/config/db.js",
+    "deploy": "node src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "backend": "file:",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",

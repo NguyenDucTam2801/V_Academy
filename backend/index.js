@@ -35,14 +35,10 @@ app.post("/", (req, res) => {
   return res.status(200).send("<p><b>Hello World</b></p>");
 });
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`.bgMagenta.white);
+  const serverUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
+  console.log(`Server is running at ${serverUrl}`.bgMagenta.white);
 });
 
-app.use((req, res, next) => {
-  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-  console.log("Full URL:", fullUrl);
-  next();
-});
 
 //routes
 app.use("/api/student", require("./src/routes/studentRoutes"));

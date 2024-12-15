@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "db": "node ./src/config/db.js",
-    "deploy": "node src/index.js"
+    "deploy": "node index.js"
   },
   "keywords": [],
   "author": "",

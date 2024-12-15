@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist",
-    "start": "node src/index.js",
+    "start": "nodemon index.js",
     "db": "node ./src/config/db.js",
     "deploy": "node index.js"
   },

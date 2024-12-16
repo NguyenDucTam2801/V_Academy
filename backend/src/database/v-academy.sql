@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 10:06 AM
+-- Generation Time: Dec 16, 2024 at 11:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -381,7 +381,8 @@ ALTER TABLE `course`
 -- Indexes for table `customer_contact`
 --
 ALTER TABLE `customer_contact`
-  ADD PRIMARY KEY (`customer_id`);
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `customer_email` (`customer_email`,`customer_phone`);
 
 --
 -- Indexes for table `lesson`

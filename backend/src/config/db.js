@@ -1,5 +1,5 @@
 var mysql = require("mysql");
-const dotenv = require("dotenv").config();
+const env = require("dotenv").config();
 
 var db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -9,15 +9,20 @@ var db = mysql.createConnection({
   port: process.env.DB_PORT,
 });
 
+const mysqlUrl = `mysql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+
 db.connect(function (err) {
   if (err) {
-    console.log("DB "+err.code);
-    console.log("DB "+err.fatal);
-    console.log("DB "+err);
+    console.log("DB " + err.code);
+    console.log("DB " + err.fatal);
+    console.log("DB " + err);
     return;
-  } 
+  }
 
   console.log("DB Connected!");
+    console.log("MySQL URL:", mysqlUrl); // Log the full connection URL
+
 });
 
 // $query = "SELECT * FROM student";

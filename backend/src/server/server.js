@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const morgan = require("morgan");
-const db = require("./../config/db");
+const db = require("../config/db");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -30,7 +30,7 @@ app.listen(port, () => {
 
 
 //routes
-app.use("/api/students", require("./../routes/studentRoutes"));
-app.use("/api/students", require("./../routes/admissionRoute"));
-app.use("/api/students", require("./../routes/tutorRoute"));
+app.use("/api/students", require("../routes/studentRoutes"));
+app.use("/api/students", require("../routes/admissionRoute"));
+app.use("/api/students", require("../routes/tutorRoute"));
 

@@ -17,7 +17,7 @@ db.connect(function (err) {
     console.log("DB " + err.code);
     console.log("DB " + err.fatal);
     console.log("DB " + err);
-    const mysqlUrl = `mysql://${process.env.DB_USER}:@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+    console.log("MySQL URL:", mysqlUrl); // Log the full connection URL
 
     return;
   }

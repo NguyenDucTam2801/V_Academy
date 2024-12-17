@@ -4,12 +4,12 @@ const env = require("dotenv").config();
 var db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  password: process.env.DB_PASS || "",
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
 });
 
-const mysqlUrl = `mysql://${process.env.DB_USER}:@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+const mysqlUrl = `mysql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 
 db.connect(function (err) {

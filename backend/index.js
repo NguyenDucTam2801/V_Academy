@@ -4,12 +4,25 @@ const colors = require("colors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const localtunnel = require("localtunnel");
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(morgan("dev"));
 app.use(express.json());
+
+(async () => {
+  const tunnel = await localtunnel({ port: 3000 });
+
+  // the assigned public url for your tunnel
+  // i.e. https://abcdefgjhij.localtunnel.me
+  tunnel.url;
+
+  tunnel.on('close', () => {
+    // tunnels are closed
+  });
+})();
 
 // Use CORS middleware
 app.use(

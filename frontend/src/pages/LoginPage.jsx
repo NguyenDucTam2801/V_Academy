@@ -30,7 +30,7 @@ export const LoginPage = () => {
 
   const LOGIN_URL =
     role === "Student"
-      ? "https://myserver.loca.lt/api/student/signIn"
+      ? "https://v-academy.onrender.com/api/student/signIn"
       : role === "Tutor"
       ? " https://v-academy.onrender.com/api/tutor/signIn"
       : " https://v-academy.onrender.com/api/admission/signIn";

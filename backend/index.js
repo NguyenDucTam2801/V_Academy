@@ -16,7 +16,7 @@ app.use(express.json());
 // Use CORS middleware
 app.use(
   cors({
-    origin: "https://v-academy.onrender.com:3001", // Allow specific origin
+    origin: "https://v-academy.onrender.com", // Allow specific origin
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific HTTP methods
     allowedHeaders: "Content-Type,Authorization", // Allow specific headers
     credentials: true, // Allow cookies or other credentials

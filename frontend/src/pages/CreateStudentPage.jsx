@@ -75,7 +75,7 @@ export default function CreateStudentPage() {
 
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/admission/createStudent`,
+        ` https://v-academy.onrender.com/api/admission/createStudent`,
         studentInfo,
         {
           headers: {
@@ -145,7 +145,6 @@ export default function CreateStudentPage() {
                     placeholder={field.placeholder}
                     value={studentInfo[field.name]}
                     onChange={handleChange}
-              
                   />
                 )}
                 {error[field.name] && (

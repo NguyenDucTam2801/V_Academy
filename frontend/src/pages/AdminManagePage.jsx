@@ -11,7 +11,7 @@ import { NavBar } from "../components/inside/NavBar";
 
 function AdminManagePage() {
   const token = Cookies.get("token");
-  const user =JSON.parse(Cookies.get("user"));
+  const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role").toLowerCase();
   console.log("role" + role);
   console.log("user" + JSON.stringify(user));
@@ -22,7 +22,7 @@ function AdminManagePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/admissionClass/${user.admission_id}`,
+          ` https://v-academy.onrender.com/api/admission/admissionClass/${user.admission_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,11 +39,11 @@ function AdminManagePage() {
   const navigate = useNavigate();
   const createClass = () => {
     navigate("/create_class");
-  }
-  console.log("Class list "+JSON.stringify(classList));
+  };
+  console.log("Class list " + JSON.stringify(classList));
   return (
     <div className="container">
-      <NavBar linkList={links} role={role} username={user.admission_name}/>
+      <NavBar linkList={links} role={role} username={user.admission_name} />
 
       {/* data table */}
       <main className="content">
@@ -65,9 +65,9 @@ function AdminManagePage() {
             })
           } */}
           <div className="header">
-          <h1>Class List</h1>
-          <button onClick={createClass}>Create Class</button>
-        </div>
+            <h1>Class List</h1>
+            <button onClick={createClass}>Create Class</button>
+          </div>
           <table>
             <thead>
               <tr>
@@ -77,13 +77,19 @@ function AdminManagePage() {
               </tr>
             </thead>
             <tbody>
-              {classList.length > 0 ? (Object.values(classList).map((record, index) => (
-                <tr key={index}>
-                  <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
-                  <td>{record.tutor_id}</td>
-                  <td>{record.course_id}</td>
-                </tr>
-              ))):(
+              {classList.length > 0 ? (
+                Object.values(classList).map((record, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Link to={"/class_detail/" + record.class_id}>
+                        {record.class_name}
+                      </Link>
+                    </td>
+                    <td>{record.tutor_id}</td>
+                    <td>{record.course_id}</td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
                   <td colSpan="3">No class found</td>
                 </tr>
@@ -97,4 +103,4 @@ function AdminManagePage() {
   );
 }
 
-export default AdminManagePage
+export default AdminManagePage;

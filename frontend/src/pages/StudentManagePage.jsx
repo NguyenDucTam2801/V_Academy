@@ -1,7 +1,7 @@
 import { useState, React, useEffect } from "react";
 import "../styles/pages/ManagePage.css";
 import logo from "../assets/logo.png";
-import {route} from "./routes/route";
+import { route } from "./routes/route";
 import { Link } from "react-router-dom";
 // import Data from "../Sample/StdSampleData.json";
 import axios from "axios";
@@ -22,7 +22,7 @@ function StudentManagePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/student/studentClass/${user.student_id}`,
+          ` https://v-academy.onrender.com/api/student/studentClass/${user.student_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -70,13 +70,19 @@ function StudentManagePage() {
               </tr>
             </thead>
             <tbody>
-            {classList.length > 0 ? (Object.values(classList).map((record, index) => (
-                <tr key={index}>
-                  <td><Link to={"/class_detail/"+record.class_id}>{record.class_name}</Link></td>
-                  <td>{record.tutor_id}</td>
-                  <td>{record.course_id}</td>
-                </tr>
-              ))):(
+              {classList.length > 0 ? (
+                Object.values(classList).map((record, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Link to={"/class_detail/" + record.class_id}>
+                        {record.class_name}
+                      </Link>
+                    </td>
+                    <td>{record.tutor_id}</td>
+                    <td>{record.course_id}</td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
                   <td colSpan="3">No class found</td>
                 </tr>

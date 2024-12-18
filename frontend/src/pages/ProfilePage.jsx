@@ -91,7 +91,7 @@ export default function ProfilePage() {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/${role.toLowerCase()}/update/${
+        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/update/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         userInfo,
@@ -122,19 +122,19 @@ export default function ProfilePage() {
 
   const changePassword = async (e) => {
     e.preventDefault();
-  
+
     if (password.new !== password.confirm) {
       setSuccess(false);
       setShowMessage(true);
       setMessage("New password and confirmation password do not match.");
       return;
     }
-  
+
     try {
       console.log("Changing password", password);
-  
+
       const res = await axios.put(
-        `http://localhost:3001/api/${role.toLowerCase()}/changePassword/${
+        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/changePassword/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         {
@@ -147,7 +147,7 @@ export default function ProfilePage() {
           },
         }
       );
-  
+
       if (res.status === 200) {
         console.log("Password updated successfully");
         setMessage("Password updated successfully");
@@ -161,19 +161,18 @@ export default function ProfilePage() {
       console.error("Error updating password:", error);
       setSuccess(false);
       setShowMessage(true);
-  
+
       const errorMessage =
         error.response?.data?.message ||
         "Failed to update password. Please try again.";
       setMessage(errorMessage);
     }
   };
-  
 
   const udpateUserInfo = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/${role.toLowerCase()}/info/${
+        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/info/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         {
@@ -213,7 +212,11 @@ export default function ProfilePage() {
   console.log("user info", user);
   return (
     <div>
-      <NavBar linkList={links} role={role} username={user.admission_name|| user.tutor_name || user.student_name} />
+      <NavBar
+        linkList={links}
+        role={role}
+        username={user.admission_name || user.tutor_name || user.student_name}
+      />
       <div className="create-tutor-container">
         <h2>
           Modify {user.student_name || user.tutor_name || user.admission_name}{" "}

@@ -18,7 +18,7 @@ export default function StudentListPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/studentList`,
+          ` https://v-academy.onrender.com/api/admission/studentList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,45 +37,45 @@ export default function StudentListPage() {
     navigate("/create_student");
   };
   console.log("tutor list " + JSON.stringify(studentList));
-  return(
+  return (
     <div className="container">
-    <NavBar linkList={links} role={role} username={user.admission_name} />
+      <NavBar linkList={links} role={role} username={user.admission_name} />
 
-    {/* data table */}
-    <main className="content">
-      <div className="content-box">
-        <div className="header">
-          <h1>Student List</h1>
-          <button onClick={createStudent}>Create Student</button>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Adress</th>
-              <th>URL</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(studentList).map((record, index) => (
-              <tr key={index}>
-                <td>{record.student_id}</td>
-                <td>{record.student_name}</td>
-                <td>{record.student_email}</td>
-                <td>{record.student_phone}</td>
-                <td>{record.student_address}</td>
-                <td>{record.student_url}</td>
-                <td>{record.student_descript}</td>
+      {/* data table */}
+      <main className="content">
+        <div className="content-box">
+          <div className="header">
+            <h1>Student List</h1>
+            <button onClick={createStudent}>Create Student</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Adress</th>
+                <th>URL</th>
+                <th>Description</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
+            </thead>
+            <tbody>
+              {Object.values(studentList).map((record, index) => (
+                <tr key={index}>
+                  <td>{record.student_id}</td>
+                  <td>{record.student_name}</td>
+                  <td>{record.student_email}</td>
+                  <td>{record.student_phone}</td>
+                  <td>{record.student_address}</td>
+                  <td>{record.student_url}</td>
+                  <td>{record.student_descript}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
   );
 }

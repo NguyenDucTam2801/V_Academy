@@ -23,7 +23,7 @@ export default function CustomerListPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/customerContactList`,
+          ` https://v-academy.onrender.com/api/admission/customerContactList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export default function CustomerListPage() {
     const status = e.target.value;
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/admission/changeCustomerContactStatus/${id}`,
+        ` https://v-academy.onrender.com/api/admission/changeCustomerContactStatus/${id}`,
         { status },
         {
           headers: {
@@ -66,12 +66,14 @@ export default function CustomerListPage() {
     return `${year}-${month}-${day}`;
   };
   const deleteCustomer = async (e) => {
-    const response = window.confirm("Are you sure you want to delete this customer?");
+    const response = window.confirm(
+      "Are you sure you want to delete this customer?"
+    );
     if (response) {
       const id = e.target.parentNode.children[0].innerText;
       try {
         const res = await axios.delete(
-          `http://localhost:3001/api/admission/deleteCustomerInfo/${id}`,
+          ` https://v-academy.onrender.com/api/admission/deleteCustomerInfo/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -84,7 +86,7 @@ export default function CustomerListPage() {
         console.log(error);
       }
     }
-  }
+  };
   return (
     <div className="container">
       <NavBar linkList={links} role={role} username={user.admission_name} />
@@ -128,32 +130,33 @@ export default function CustomerListPage() {
             <tbody>
               {customerList.length !== 0 ? (
                 Object.values(customerList).map((record, index) => (
-                <tr key={index}>
-                  <td>{record.customer_id}</td>
-                  <td>{record.customer_name}</td>
-                  <td>{record.customer_email}</td>
-                  <td>{record.customer_phone}</td>
-                  <td>{record.customer_address}</td>
-                  <td>{formatDate(record.customer_birthday)}</td>
-                  <td>{record.customer_extra}</td>
-                  <td>
-                    <select
-                      name="status"
-                      id="status"
-                      value={record.customer_status}
-                      onChange={handleChangeStatus}
-                    >
-                      <option value="TO DO">ACTIVE</option>
-                      <option value="IN PROCESS">CALLING</option>
-                      <option value="FINISHED">FINISHED</option>
-                      <option value="CANCELED">CANCELED</option>
-                    </select>
-                  </td>
-                  <td className="delete" onClick={deleteCustomer}>
-                  <FontAwesomeIcon icon="trash" />
-                  </td>
-                </tr>
-              ))):(
+                  <tr key={index}>
+                    <td>{record.customer_id}</td>
+                    <td>{record.customer_name}</td>
+                    <td>{record.customer_email}</td>
+                    <td>{record.customer_phone}</td>
+                    <td>{record.customer_address}</td>
+                    <td>{formatDate(record.customer_birthday)}</td>
+                    <td>{record.customer_extra}</td>
+                    <td>
+                      <select
+                        name="status"
+                        id="status"
+                        value={record.customer_status}
+                        onChange={handleChangeStatus}
+                      >
+                        <option value="TO DO">ACTIVE</option>
+                        <option value="IN PROCESS">CALLING</option>
+                        <option value="FINISHED">FINISHED</option>
+                        <option value="CANCELED">CANCELED</option>
+                      </select>
+                    </td>
+                    <td className="delete" onClick={deleteCustomer}>
+                      <FontAwesomeIcon icon="trash" />
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
                   <td colSpan="9">No Customer found</td>
                 </tr>
@@ -164,7 +167,7 @@ export default function CustomerListPage() {
       </main>
       {customerList.length !== 0 ? (
         <AlertStatus message="Update Customer" status="success" />
-      ):(
+      ) : (
         <AlertStatus message="Update Customer" status="falied" />
       )}
     </div>

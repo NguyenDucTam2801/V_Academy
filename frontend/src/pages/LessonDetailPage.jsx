@@ -50,7 +50,7 @@ export default function LessonDetailPage() {
       );
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
+          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ export default function LessonDetailPage() {
     try {
       console.log("id", id);
       const res = await axios.put(
-        `http://localhost:3001/api/tutor/changeLessonStatus/${id}`,
+        ` https://v-academy.onrender.com/api/tutor/changeLessonStatus/${id}`,
         { lesson_status: status },
         {
           headers: {

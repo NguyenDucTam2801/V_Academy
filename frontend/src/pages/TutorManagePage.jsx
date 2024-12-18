@@ -18,7 +18,7 @@ function TutorManagePage() {
       console.log("Fetching data");
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/tutor/tutorClass/${user.tutor_id}`,
+          ` https://v-academy.onrender.com/api/tutor/tutorClass/${user.tutor_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

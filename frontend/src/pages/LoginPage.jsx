@@ -32,8 +32,8 @@ export const LoginPage = () => {
     role === "Student"
       ? "https://myserver.loca.lt/api/student/signIn"
       : role === "Tutor"
-      ? "http://localhost:3001/api/tutor/signIn"
-      : "http://localhost:3001/api/admission/signIn";
+      ? " https://v-academy.onrender.com/api/tutor/signIn"
+      : " https://v-academy.onrender.com/api/admission/signIn";
 
   const navigateLink =
     role === "Student" ? "/student" : role === "Tutor" ? "/tutor" : "/admin";
@@ -72,6 +72,8 @@ export const LoginPage = () => {
     e.preventDefault();
 
     try {
+      console.log("Login URL: ", LOGIN_URL);
+      console.log("role: ", role);
       const response = await axios.post(
         LOGIN_URL,
         JSON.stringify({

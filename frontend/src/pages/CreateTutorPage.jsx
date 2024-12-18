@@ -12,7 +12,8 @@ import { route } from "./routes/route";
 import regexTesting from "./regexTest/regexTesting";
 
 export default function CreateTutorPage() {
-  const CREATE_TUTOR_URL = "http://localhost:3001/api/admission/createTutor";
+  const CREATE_TUTOR_URL =
+    " https://v-academy.onrender.com/api/admission/createTutor";
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
@@ -41,7 +42,7 @@ export default function CreateTutorPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3001/api/admission/subject",
+          " https://v-academy.onrender.com/api/admission/subject",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -88,7 +89,7 @@ export default function CreateTutorPage() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/admission/createTutor",
+        " https://v-academy.onrender.com/api/admission/createTutor",
         tutorInfo,
         {
           headers: {
@@ -113,8 +114,8 @@ export default function CreateTutorPage() {
     }
   };
   console.log("Subject list " + JSON.stringify(subjectList));
-  console.log("Tutor Info", tutorInfo)
-  console.log("err ",error)
+  console.log("Tutor Info", tutorInfo);
+  console.log("err ", error);
   return (
     <div>
       <NavBar linkList={links} role={role} username={user.admission_name} />

@@ -50,7 +50,7 @@ export default function ClassDetailPage() {
     const fetchClassDetailData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
+          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ export default function ClassDetailPage() {
     const fetchLessonListData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
+          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -167,8 +167,9 @@ export default function ClassDetailPage() {
                     <td>{record.lesson_url}</td>
                     <td>{formatDate(record.lesson_startTime)}</td>
                     <td>{formatDate(record.lesson_endTime)}</td>
-                    <td><b>{record.lesson_status}</b></td>
-                    
+                    <td>
+                      <b>{record.lesson_status}</b>
+                    </td>
                   </tr>
                 ))
               ) : (

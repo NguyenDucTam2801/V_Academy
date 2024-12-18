@@ -36,7 +36,7 @@ export default function CreateClassPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/course`,
+          ` https://v-academy.onrender.com/api/admission/course`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export default function CreateClassPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/admission/studentList`,
+          ` https://v-academy.onrender.com/api/admission/studentList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -68,7 +68,6 @@ export default function CreateClassPage() {
     };
     fetchData();
   }, []);
-  
 
   const handleChange = (e) => {
     setCreateClassForm({
@@ -83,7 +82,7 @@ export default function CreateClassPage() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/admission/addClass`,
+        ` https://v-academy.onrender.com/api/admission/addClass`,
         createClassForm,
         {
           headers: {
@@ -122,7 +121,8 @@ export default function CreateClassPage() {
     console.log("subject_id", subject_id);
     try {
       const fetchTuotrSubject = await axios.get(
-        "http://localhost:3001/api/admission/getTutorWithSubject/" + subject_id,
+        " https://v-academy.onrender.com/api/admission/getTutorWithSubject/" +
+          subject_id,
         {
           headers: {
             Authorization: `Bearer ${token}`,

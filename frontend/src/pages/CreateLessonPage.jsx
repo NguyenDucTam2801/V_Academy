@@ -32,7 +32,7 @@ export default function CreateLessonPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/tutor/tutorClass/${user.tutor_id}`,
+          ` https://v-academy.onrender.com/api/tutor/tutorClass/${user.tutor_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +54,8 @@ export default function CreateLessonPage() {
     console.log("class_id", class_id);
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/tutor/createLessonClass/` + class_id,
+        ` https://v-academy.onrender.com/api/tutor/createLessonClass/` +
+          class_id,
         JSON.stringify({
           lesson_topic: lessonForm.lesson_topic,
           lesson_descript: lessonForm.lesson_descript,

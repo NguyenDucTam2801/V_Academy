@@ -1,5 +1,5 @@
 // const url = "http://localhost:3001/api";
-const url = "https://v-academy.onrender.com";
+const url = "https://v-academy.onrender.com/api";
 
 
 export const urlApi = {

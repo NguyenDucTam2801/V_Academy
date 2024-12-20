@@ -62,17 +62,14 @@ const updateAdmissionInfo = (admission_id, admissionData) => {
     admissionData
   );
   return new Promise((resolve, reject) => {
-    const sql = `UPDATE admission SET admission_name = ?,admission_birth=?, admission_email = ?, admission_phone = ?, admission_address = ?, admission_url= ?, admission_region=?  WHERE admission_id = ?`;
+    const sql = `UPDATE admission SET admission_name = ?,admission_birth=?, admission_phone = ?, admission_address = ?  WHERE admission_id = ?`;
     db.query(
       sql,
       [
         admissionData.admission_name,
         admissionData.admission_birth,
-        admissionData.admission_email,
         admissionData.admission_phone,
         admissionData.admission_address,
-        admissionData.admission_url || null,
-        admissionData.admisison_region,
         admission_id,
       ],
       (err, result) => {
@@ -117,7 +114,7 @@ const StudentCreate = {
               "[StudentCreate] password doesnt hashed:",
               studentData.student_password
             );
-            var hasedPassword = hashPassword(studentData.student_password);
+            var hasedPassword = authenticationRoute.hashPassword(studentData.student_password);
 
             hasedPassword.then((result) => {
               console.log("[StudentCreate] hasedPassword", result);
@@ -184,7 +181,7 @@ const TutorCreate = {
               "[TutorCreate] password doesnt hashed:",
               tutorData.tutor_password
             );
-            var hasedPassword = hashPassword(tutorData.tutor_password);
+            var hasedPassword = authenticationRoute.hashPassword(tutorData.tutor_password);
 
             hasedPassword.then((result) => {
               console.log("[TutorCreate] hasedPassword", result);
@@ -487,7 +484,7 @@ const changeNewPassword = (new_password, user_id, callback) => {
     console.log("hashed password", result);
     db.query(sql, [result, user_id], (err, result) => {
       if (err) {
-        console.log("error", err)
+        console.log("error", err);
         return callback(err);
       }
       console.log("[Admission Model] Result change password", result);
@@ -504,7 +501,7 @@ const getTutorWithSubjectModel = (subject_id, callback) => {
     }
     return callback(null, result);
   });
-}
+};
 
 module.exports = {
   getCourse,
@@ -529,5 +526,5 @@ module.exports = {
   deleteCustomer,
   getCurrentPassword,
   changeNewPassword,
-  getTutorWithSubjectModel
+  getTutorWithSubjectModel,
 };

@@ -1,7 +1,6 @@
 const db = require("../config/db");
 const authenticationRoute = require("../middleware/authenticationRoute");
 
-
 // Student model with a method to create a new student
 
 const signInStudent = (username) => {
@@ -18,7 +17,6 @@ const signInStudent = (username) => {
     });
   });
 };
-
 
 const StudentList = {
   getAll: (callback) => {
@@ -57,7 +55,7 @@ const getStudentInfo = (student_id) => {
 
 const updateStudentInfo = (student_id, studentData) => {
   return new Promise((resolve, reject) => {
-    const sql = `UPDATE student SET student_name = ?, student_birth = ?, student_email = ?, student_phone = ?, student_address = ?, student_url = ?, student_descript = ? WHERE student_id = ?`;
+    const sql = `UPDATE student SET student_name = ?, student_birth = ?,  student_phone = ?, student_address = ? WHERE student_id = ?`;
     console.log(
       "[StudentModel]Updating student info",
       JSON.stringify(studentData)
@@ -67,11 +65,8 @@ const updateStudentInfo = (student_id, studentData) => {
       [
         studentData.student_name,
         studentData.student_birth,
-        studentData.student_email,
         studentData.student_phone,
         studentData.student_address,
-        studentData.student_url || null,
-        studentData.student_descript,
         student_id,
       ],
       (err, result) => {
@@ -97,7 +92,7 @@ const getStudentClass = (student_id) => {
         return reject(new Error("Student not found"));
       }
       console.log("[StudentModel]Student class", result);
-      return resolve(result );
+      return resolve(result);
     });
   });
 };
@@ -152,7 +147,7 @@ const getStudentLessonDetail = (lesson_id) => {
       return resolve(result[0]);
     });
   });
-}
+};
 
 const getCurrentPassword = (user_id, callback) => {
   console.log("[Student Model]User Id" + user_id);
@@ -168,13 +163,13 @@ const getCurrentPassword = (user_id, callback) => {
 
 const changeNewPassword = (new_password, user_id, callback) => {
   const sql =
-    "UPDATE studentn_account` SET `student_password` = ? WHERE `student_account`.`student_id` = ?";
+    "UPDATE `student_account` SET `student_password` = ? WHERE `student_account`.`student_id` = ?";
   const hashedPassword = authenticationRoute.hashPassword(new_password);
   hashedPassword.then((result) => {
     console.log("hashed password", result);
     db.query(sql, [result, user_id], (err, result) => {
       if (err) {
-        console.log("error", err)
+        console.log("error", err);
         return callback(err);
       }
       console.log("[Student Model] Result change password", result);

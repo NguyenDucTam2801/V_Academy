@@ -12,6 +12,7 @@ import AlertStatus from "../components/alert/AlertStatus";
 import { set } from "react-hook-form";
 import Cookies from "js-cookie";
 import { use } from "react";
+import { urlApi } from "./routes/URLAPI.jsx";
 
 export const LoginPage = () => {
   const userRef = useRef();
@@ -30,10 +31,10 @@ export const LoginPage = () => {
 
   const LOGIN_URL =
     role === "Student"
-      ? "https://v-academy.onrender.com/api/student/signIn"
+      ? urlApi.student+"/signIn"
       : role === "Tutor"
-      ? " https://v-academy.onrender.com/api/tutor/signIn"
-      : " https://v-academy.onrender.com/api/admission/signIn";
+      ? urlApi.tutor+"/signIn"
+      : urlApi.admission+"/signIn";
 
   const navigateLink =
     role === "Student" ? "/student" : role === "Tutor" ? "/tutor" : "/admin";

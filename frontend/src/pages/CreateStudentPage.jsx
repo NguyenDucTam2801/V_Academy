@@ -6,6 +6,8 @@ import { NavBar } from "../components/inside/NavBar";
 import AlertStatus from "../components/alert/AlertStatus";
 import regexTesting from "./regexTest/regexTesting";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function CreateStudentPage() {
   const token = Cookies.get("token");
@@ -39,7 +41,7 @@ export default function CreateStudentPage() {
     }));
 
     // Validate input and set error message
-    if (!regexTesting(name, value, "Student")) {
+    if (!regexTesting(name, value, "student")) {
       setError((prev) => ({
         ...prev,
         [name]: `Invalid ${name.replace(
@@ -75,7 +77,7 @@ export default function CreateStudentPage() {
 
     try {
       const res = await axios.post(
-        ` https://v-academy.onrender.com/api/admission/createStudent`,
+        urlApi.admission+`/createStudent`,
         studentInfo,
         {
           headers: {

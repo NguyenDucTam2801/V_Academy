@@ -7,7 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
-import { NavBar } from "../components/inside/NavBar";
+import { NavBar } from "../components/inside/NavBar"; 
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 function AdminManagePage() {
   const token = Cookies.get("token");
@@ -22,7 +24,7 @@ function AdminManagePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/admissionClass/${user.admission_id}`,
+          urlApi.admission+`/admissionClass/${user.admission_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -10,6 +10,8 @@ import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
 import { set } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function CustomerListPage() {
   const token = Cookies.get("token");
@@ -23,7 +25,7 @@ export default function CustomerListPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/customerContactList`,
+          urlApi.admission+`/customerContactList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +46,7 @@ export default function CustomerListPage() {
     const status = e.target.value;
     try {
       const res = await axios.put(
-        ` https://v-academy.onrender.com/api/admission/changeCustomerContactStatus/${id}`,
+        urlApi.admission+`/changeCustomerContactStatus/${id}`,
         { status },
         {
           headers: {
@@ -71,9 +73,10 @@ export default function CustomerListPage() {
     );
     if (response) {
       const id = e.target.parentNode.children[0].innerText;
+      console.log("id"+id)
       try {
         const res = await axios.delete(
-          ` https://v-academy.onrender.com/api/admission/deleteCustomerInfo/${id}`,
+          urlApi.admission+`/deleteCustomerInfo/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -128,7 +131,7 @@ export default function CustomerListPage() {
               </tr>
             </thead>
             <tbody>
-              {customerList.length !== 0 ? (
+              {Object.values(customerList).length !== 0 ? (
                 Object.values(customerList).map((record, index) => (
                   <tr key={index}>
                     <td>{record.customer_id}</td>
@@ -158,7 +161,7 @@ export default function CustomerListPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="9">No Customer found</td>
+                  <td colSpan="9" style={{ textAlign: "center" }}>No Customer found</td>
                 </tr>
               )}
             </tbody>

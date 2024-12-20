@@ -92,9 +92,11 @@ const studentSignIn = async (req, res) => {
 const studentUpdate = (req, res) => {
   const studentInfo = req.body;
   const student_id = req.params.id;
-
+  console.log("[StudentController]Updating student info", student_id);
+  console.log("[StudentController]Student info", studentInfo);
   // Validate the student information
   const validationResult = validateStudentInfo(studentInfo);
+  console.log("[StudentController]Validation result", validationResult);
 
   if (!validationResult.isValid) {
     // If validation fails, send a 400 Bad Request response
@@ -150,15 +152,6 @@ function validateStudentInfo(studentInfo) {
     errors.push("Invalid student_birth: Must be a valid date.");
   }
 
-  // Validate student_email (basic email pattern check)
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (
-    !studentInfo.student_email ||
-    !emailRegex.test(studentInfo.student_email)
-  ) {
-    errors.push("Invalid student_email: Must be a valid email address.");
-  }
-
   // Validate student_phone (must be a valid phone number)
   const phoneRegex = /^\d{10,15}$/; // Accepts 10-15 digits
   if (
@@ -175,24 +168,7 @@ function validateStudentInfo(studentInfo) {
   ) {
     errors.push("Invalid student_address: Must be a non-empty string.");
   }
-
-  // Validate student_url (if provided, must be a valid URL)
-  if (studentInfo.student_url) {
-    try {
-      new URL(studentInfo.student_url); // Throws an error if invalid
-    } catch {
-      errors.push("Invalid student_url: Must be a valid URL.");
-    }
-  }
-
-  // Validate student_descript
-  if (
-    !studentInfo.student_descript ||
-    typeof studentInfo.student_descript !== "string"
-  ) {
-    errors.push("Invalid student_descript: Must be a non-empty string.");
-  }
-
+  
   // Return validation results
   if (errors.length > 0) {
     return {
@@ -200,6 +176,7 @@ function validateStudentInfo(studentInfo) {
       errors: errors,
     };
   }
+  console.log("[StudentController]Student information is valid.");
 
   return {
     isValid: true,

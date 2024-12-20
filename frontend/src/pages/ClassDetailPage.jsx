@@ -9,6 +9,8 @@ import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
 import "../styles/pages/DetailPageStyle.css";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function ClassDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -50,7 +52,7 @@ export default function ClassDetailPage() {
     const fetchClassDetailData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
+          urlApi.user+`/${role.toLowerCase()}/${role.toLowerCase()}ClassDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -72,9 +74,9 @@ export default function ClassDetailPage() {
     const fetchLessonListData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
+          urlApi.user+`/${role.toLowerCase()}/${role.toLowerCase()}LessonClass/${id}`,
           {
-            headers: {
+            headers: {  
               Authorization: `Bearer ${token}`,
             },
           }

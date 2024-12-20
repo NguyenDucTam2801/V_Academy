@@ -1,4 +1,7 @@
 function regexTesting(type, input, role) {
+  console.log("type", type);
+  console.log("input", input);
+  console.log("role", role);
   const patterns = {
     name: /^([A-ZÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ][a-zàáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý]*\s?){2,50}$/u,
     phone: /^\+?[0-9\s\-\(\)]{7,15}$/,
@@ -15,7 +18,7 @@ function regexTesting(type, input, role) {
   };
   console.log("role", role);
   const keyMap =
-    role === "Student"
+    role === "student"
       ? {
           student_name: "name",
           student_phone: "phone",
@@ -26,20 +29,32 @@ function regexTesting(type, input, role) {
           student_descript: "descript",
           student_password: "password",
         }
-      : {
+      : (role === "tutor"
+      ? {
           tutor_name: "name",
           tutor_phone: "phone",
           tutor_address: "address",
           tutor_birth: "birthday",
           tutor_email: "email",
           tutor_url: "url",
-          tutor_descript: "descript",
           tutor_password: "password",
           tutor_region: "region",
+          tutor_descript:"descript",
           subject_id: "subject_id",
-        };
+        }
+      : {
+          admission_name: "name",
+          admission_phone: "phone",
+          admission_address: "address",
+          admission_birth: "birthday",
+          admission_email: "email",
+          admission_url: "url",
+          admission_password: "password",
+        });
+        console.log("keyMap", keyMap);
   const patternKey = keyMap[type];
   if (patternKey && patterns[patternKey]) {
+    console.log("patternKey", patternKey);
     return patterns[patternKey].test(input);
   }
   console.warn(`Unknown input type: ${type}`);

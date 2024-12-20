@@ -7,6 +7,8 @@ import { NavBar } from "../components/inside/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 function TutorManagePage() {
   const token = Cookies.get("token");
@@ -18,7 +20,7 @@ function TutorManagePage() {
       console.log("Fetching data");
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/tutor/tutorClass/${user.tutor_id}`,
+          urlApi.tutor+`/tutorClass/${user.tutor_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

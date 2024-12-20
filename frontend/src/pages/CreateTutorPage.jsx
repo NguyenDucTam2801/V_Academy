@@ -10,10 +10,12 @@ import { NavBar } from "../components/inside/NavBar";
 import "../styles/pages/UpdateDataFrameStyle.css";
 import { route } from "./routes/route";
 import regexTesting from "./regexTest/regexTesting";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function CreateTutorPage() {
   const CREATE_TUTOR_URL =
-    " https://v-academy.onrender.com/api/admission/createTutor";
+    " localhost:3001reateTutor";
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
   const role = Cookies.get("role");
@@ -42,7 +44,7 @@ export default function CreateTutorPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          " https://v-academy.onrender.com/api/admission/subject",
+          urlApi.admission+"/subject",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -62,7 +64,7 @@ export default function CreateTutorPage() {
       ...prev,
       [name]: value,
     }));
-    if (!regexTesting(name, value, "Tutor")) {
+    if (!regexTesting(name, value, "tutor")) {
       setError((prev) => ({
         ...prev,
         [name]: `Invalid ${name.replace(
@@ -89,7 +91,7 @@ export default function CreateTutorPage() {
 
     try {
       const res = await axios.post(
-        " https://v-academy.onrender.com/api/admission/createTutor",
+        urlApi.admission+"/createTutor",
         tutorInfo,
         {
           headers: {

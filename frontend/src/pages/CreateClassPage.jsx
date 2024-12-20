@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { set } from "react-hook-form";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function CreateClassPage() {
   const token = Cookies.get("token");
@@ -36,7 +38,7 @@ export default function CreateClassPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/course`,
+          urlApi.admission+`/course`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +56,7 @@ export default function CreateClassPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/studentList`,
+          urlApi.admission+`/studentList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -82,7 +84,7 @@ export default function CreateClassPage() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        ` https://v-academy.onrender.com/api/admission/addClass`,
+        urlApi.admission+`/addClass`,
         createClassForm,
         {
           headers: {
@@ -121,7 +123,7 @@ export default function CreateClassPage() {
     console.log("subject_id", subject_id);
     try {
       const fetchTuotrSubject = await axios.get(
-        " https://v-academy.onrender.com/api/admission/getTutorWithSubject/" +
+        urlApi.admission+"/getTutorWithSubject/" +
           subject_id,
         {
           headers: {

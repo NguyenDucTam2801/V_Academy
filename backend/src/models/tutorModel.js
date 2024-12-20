@@ -52,18 +52,14 @@ const validatePassword = async (plainPassword, hashedPassword) => {
 };
 const updateTutorInfo = (tutor_id, tutorData) => {
   return new Promise((resolve, reject) => {
-    const sql = `UPDATE tutor SET tutor_name = ?,tutor_birth=?, tutor_email = ?, tutor_phone = ?, tutor_region=?, tutor_address = ?, tutor_url = ?, tutor_descript = ? WHERE tutor_id = ?`;
+    const sql = `UPDATE tutor SET tutor_name = ?,tutor_birth=?, tutor_phone = ?, tutor_address = ? WHERE tutor_id = ?`;
     db.query(
       sql,
       [
         tutorData.tutor_name,
         tutorData.tutor_birth,
-        tutorData.tutor_email,
         tutorData.tutor_phone,
         tutorData.tutor_address,
-        tutorData.tutor_region,
-        tutorData.tutor_url || null,
-        tutorData.tutor_descript,
         tutor_id,
       ],
       (err, result) => {

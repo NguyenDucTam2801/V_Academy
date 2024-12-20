@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { route } from "./routes/route";
 import { useNavigate } from "react-router-dom";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function CreateLessonPage() {
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ export default function CreateLessonPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/tutor/tutorClass/${user.tutor_id}`,
+          urlApi.tutor+`/tutorClass/${user.tutor_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +56,7 @@ export default function CreateLessonPage() {
     console.log("class_id", class_id);
     try {
       const res = await axios.post(
-        ` https://v-academy.onrender.com/api/tutor/createLessonClass/` +
+        urlApi.tutor+`/createLessonClass/` +
           class_id,
         JSON.stringify({
           lesson_topic: lessonForm.lesson_topic,

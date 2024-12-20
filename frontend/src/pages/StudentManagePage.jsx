@@ -8,6 +8,8 @@ import axios from "axios";
 import AlertStatus from "../components/alert/AlertStatus";
 import Cookies from "js-cookie";
 import { NavBar } from "../components/inside/NavBar";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 function StudentManagePage() {
   const token = Cookies.get("token");
@@ -22,7 +24,7 @@ function StudentManagePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/student/studentClass/${user.student_id}`,
+          urlApi.student+`/studentClass/${user.student_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

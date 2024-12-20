@@ -7,6 +7,8 @@ import { NavBar } from "../components/inside/NavBar";
 import { useParams } from "react-router-dom";
 import { route } from "./routes/route";
 import AlertStatus from "../components/alert/AlertStatus";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function LessonDetailPage() {
   const { id } = useParams(); // Extract 'id' from the URL
@@ -50,7 +52,7 @@ export default function LessonDetailPage() {
       );
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
+          urlApi.user+`/${role.toLowerCase()}/${role.toLowerCase()}LessonDetail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,7 +78,7 @@ export default function LessonDetailPage() {
     try {
       console.log("id", id);
       const res = await axios.put(
-        ` https://v-academy.onrender.com/api/tutor/changeLessonStatus/${id}`,
+        urlApi.tutor+`/changeLessonStatus/${id}`,
         { lesson_status: status },
         {
           headers: {

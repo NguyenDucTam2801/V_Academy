@@ -7,9 +7,10 @@ import background from "../assets/background.jpg";
 import axios from "axios";
 import { useState } from "react";
 import AlertStatus from "../components/alert/AlertStatus";
+import { urlApi } from "./routes/URLAPI.jsx";
 
 export default function ContactPage() {
-  const CONTACT_URL = " https://v-academy.onrender.com/api/customer/contact";
+  const CONTACT_URL = urlApi.customer + "/contact";
   const {
     register,
     handleSubmit,
@@ -31,6 +32,9 @@ export default function ContactPage() {
       setMessage(
         "Your registration has been submitted successfully. We will contact you soon."
       );
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // Clear form fields
     } catch (error) {
       console.log(error);
       setSuccess(false);

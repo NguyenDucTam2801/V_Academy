@@ -7,6 +7,7 @@ import "../styles/pages/ManagePage.css";
 import AlertStatus from "../components/alert/AlertStatus";
 import { route } from "./routes/route";
 import regexTesting from "./regexTest/regexTesting";
+import { urlApi } from "./routes/URLAPI.jsx";
 
 export default function ProfilePage() {
   const token = Cookies.get("token");
@@ -72,7 +73,7 @@ export default function ProfilePage() {
     });
     console.log("e target", e.target.value);
     console.log("e name", e.target.name);
-    if (!regexTesting(name, value, "Tutor")) {
+    if (!regexTesting(name, value, role.toLowerCase())) {
       setError((prev) => ({
         ...prev,
         [name]: `Invalid ${name.replace(
@@ -91,7 +92,7 @@ export default function ProfilePage() {
     e.preventDefault();
     try {
       const res = await axios.put(
-        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/update/${
+        urlApi.user+`/${role.toLowerCase()}/update/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         userInfo,
@@ -134,7 +135,7 @@ export default function ProfilePage() {
       console.log("Changing password", password);
 
       const res = await axios.put(
-        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/changePassword/${
+        urlApi.user+`/${role.toLowerCase()}/changePassword/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         {
@@ -172,7 +173,7 @@ export default function ProfilePage() {
   const udpateUserInfo = async () => {
     try {
       const res = await axios.get(
-        ` https://v-academy.onrender.com/api/${role.toLowerCase()}/info/${
+        urlApi.user+`/${role.toLowerCase()}/info/${
           user.student_id || user.tutor_id || user.admission_id
         }`,
         {

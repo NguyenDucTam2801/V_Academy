@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/pages/ManagePage.css";
 import { use } from "react";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 export default function StudentListPage() {
   const token = Cookies.get("token");
   const user = JSON.parse(Cookies.get("user"));
@@ -18,7 +20,7 @@ export default function StudentListPage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/studentList`,
+          urlApi.admission+`/studentList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

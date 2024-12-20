@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/pages/ManagePage.css";
 import { use } from "react";
 import { route } from "./routes/route";
+import { urlApi } from "./routes/URLAPI.jsx";
+
 
 export default function TutorListPage() {
   const token = Cookies.get("token");
@@ -18,14 +20,11 @@ export default function TutorListPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          ` https://v-academy.onrender.com/api/admission/tutorList`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await axios.get(urlApi.admission+`/tutorList`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setTutorList(res.data.data);
       } catch (error) {
         console.log(error);

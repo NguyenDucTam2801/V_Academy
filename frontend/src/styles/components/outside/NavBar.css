@@ -201,7 +201,7 @@
 .account-box a:hover{
   color: #ffffff;
   background-color: #ff7300;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .account-box a:last-child:hover{
